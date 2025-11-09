@@ -20,6 +20,11 @@
 <link rel="stylesheet" href="css/style.css" />
 <!-- responsive css -->
 <link rel="stylesheet" href="css/responsive.css" />
+
+<!-- Hoja de estilos mapa -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+
 <!-- colors css -->
 <link rel="stylesheet" href="css/colors1.css" />
 <!-- custom css -->
@@ -30,7 +35,24 @@
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
       <![endif]-->
+
+
+<style>
+
+  #mi_mapa{
+      height: 720px;
+      width: 1280px;
+
+  } 
+
+</style>
+
+
 </head>
+
+
+
+
 <body id="default_theme" class="it_service service">
 <!-- loader -->
 <div class="bg_load"> <img class="loader_animation" src="images/loaders/loader_1.png" alt="#" /> </div>
@@ -165,6 +187,14 @@
   </div>
 </div>
 <!-- end inner page banner -->
+
+<!-- Prueba mapa api -->
+
+<div id="mi_mapa"></div>
+
+
+
+
 <div class="section padding_layout_1 gross_layout">
   <div class="container">
     <div class="row">
@@ -455,6 +485,14 @@
   </div>
 </div>
 <!-- end section -->
+
+
+
+
+
+
+
+
 <!-- section -->
 <div class="section padding_layout_1" style="padding: 50px 0;">
   <div class="container">
@@ -688,5 +726,21 @@
 <!-- google map js -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8eaHt9Dh5H57Zh0xVTqxVdBFCvFMqFjQ&callback=initMap"></script>
 <!-- end google map js -->
+
+
+<!-- Script openstreet maps -->
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <script>
+  
+    let maps = L.map('mi_mapa').setView([4.64179, -74.11686], 12)
+
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(maps);
+
+    </script>
+
 </body>
 </html>
