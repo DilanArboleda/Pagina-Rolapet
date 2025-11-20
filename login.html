@@ -1,0 +1,592 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Login</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #97E9FF 0%, #2196F3 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(33, 150, 243, 0.3);
+            max-width: 480px;
+            width: 100%;
+            padding: 48px 40px;
+            animation: fadeIn 0.5s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #666666;
+            margin-bottom: 12px;
+        }
+
+        .header p {
+            font-size: 16px;
+            font-weight: 400;
+            color: #8C8C8C;
+        }
+
+        .user-type-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            background: #F5F5F5;
+            padding: 6px;
+            border-radius: 12px;
+        }
+
+        .user-type-btn {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            background: transparent;
+            color: #8C8C8C;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .user-type-btn .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .user-type-btn.active {
+            background: #2196F3;
+            color: white;
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+        }
+
+        .user-type-btn:hover:not(.active) {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196F3;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666666;
+            margin-bottom: 8px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper .material-symbols-outlined {
+            position: absolute;
+            left: 16px;
+            color: #8C8C8C;
+            font-size: 22px;
+            pointer-events: none;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+            color: #666666;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #2196F3;
+            box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #BDBDBD;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            color: #8C8C8C;
+            cursor: pointer;
+            font-size: 22px;
+            transition: color 0.3s ease;
+            user-select: none;
+        }
+
+        .toggle-password:hover {
+            color: #2196F3;
+        }
+
+        .form-options {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 32px;
+        }
+
+        .remember-me {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .remember-me input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            cursor: pointer;
+            accent-color: #2196F3;
+        }
+
+        .remember-me label {
+            font-size: 14px;
+            font-weight: 400;
+            color: #666666;
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            font-size: 14px;
+            font-weight: 500;
+            color: #2196F3;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #6BBEF9;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .submit-btn:hover {
+            background: #6BBEF9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn .material-symbols-outlined {
+            font-size: 22px;
+        }
+
+        .error-message {
+            background: #FFEBEE;
+            color: #C62828;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .error-message.show {
+            display: flex;
+        }
+
+        .error-message .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .success-message {
+            background: #E8F5E9;
+            color: #2E7D32;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .success-message.show {
+            display: flex;
+        }
+
+        .success-message .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 32px 24px;
+            }
+
+            .header h1 {
+                font-size: 26px;
+            }
+
+            .user-type-btn span:not(.material-symbols-outlined) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Iniciar Sesión</h1>
+            <p>Selecciona tu tipo de usuario para continuar</p>
+        </div>
+
+        <div class="user-type-selector">
+            <button class="user-type-btn active" data-type="user">
+                <span class="material-symbols-outlined">person</span>
+                <span>Usuario</span>
+            </button>
+            <button class="user-type-btn" data-type="provider">
+                <span class="material-symbols-outlined">store</span>
+                <span>Proveedor</span>
+            </button>
+            <button class="user-type-btn" data-type="admin">
+                <span class="material-symbols-outlined">admin_panel_settings</span>
+                <span>Admin</span>
+            </button>
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            <span class="material-symbols-outlined">error</span>
+            <span id="errorText">Error de autenticación</span>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <span class="material-symbols-outlined">check_circle</span>
+            <span id="successText">Inicio de sesión exitoso</span>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label for="email">Correo Electrónico</label>
+                <div class="input-wrapper">
+                    <span class="material-symbols-outlined">mail</span>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="ejemplo@correo.com" 
+                        required
+                    >
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <div class="input-wrapper">
+                    <span class="material-symbols-outlined">lock</span>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="••••••••" 
+                        required
+                    >
+                    <span class="material-symbols-outlined toggle-password" id="togglePassword">
+                        visibility_off
+                    </span>
+                </div>
+            </div>
+
+            <div class="form-options">
+                <div class="remember-me">
+                    <input type="checkbox" id="remember" name="remember">
+                    <label for="remember">Recordarme</label>
+                </div>
+                <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+            </div>
+
+            <button type="submit" class="submit-btn">
+                <span>Iniciar Sesión</span>
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+        </form>
+    </div>
+
+    <script>
+        // Configuración de endpoints del backend
+        const API_CONFIG = {
+            baseURL: 'https://tu-api.com/api', // Cambiar esto a la URL del back
+            endpoints: {
+                user: '/auth/user/login',        // Endpoint para usuarios
+                provider: '/auth/provider/login', // Endpoint para proveedores
+                admin: '/auth/admin/login'        // Endpoint para administradores
+            }
+        };
+
+        // Estado de la aplicación
+        let currentUserType = 'user';
+
+        // Elementos del DOM
+        const userTypeBtns = document.querySelectorAll('.user-type-btn');
+        const loginForm = document.getElementById('loginForm');
+        const togglePassword = document.getElementById('togglePassword');
+        const passwordInput = document.getElementById('password');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        const errorText = document.getElementById('errorText');
+        const successText = document.getElementById('successText');
+
+        // Cambiar tipo de usuario
+        userTypeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                userTypeBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentUserType = btn.dataset.type;
+                hideMessages();
+            });
+        });
+
+        // Toggle visibilidad de contraseña
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            togglePassword.textContent = type === 'password' ? 'visibility_off' : 'visibility';
+        });
+
+        // Función para mostrar mensaje de error
+        function showError(message) {
+            errorText.textContent = message;
+            errorMessage.classList.add('show');
+            successMessage.classList.remove('show');
+        }
+
+        // Función para mostrar mensaje de éxito
+        function showSuccess(message) {
+            successText.textContent = message;
+            successMessage.classList.add('show');
+            errorMessage.classList.remove('show');
+        }
+
+        // Función para ocultar mensajes
+        function hideMessages() {
+            errorMessage.classList.remove('show');
+            successMessage.classList.remove('show');
+        }
+
+        // Manejar envío del formulario
+        loginForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideMessages();
+
+            // Obtener datos del formulario
+            const formData = {
+                email: document.getElementById('email').value,
+                password: document.getElementById('password').value,
+                remember: document.getElementById('remember').checked,
+                userType: currentUserType
+            };
+
+            // Deshabilitar botón durante el envío
+            const submitBtn = loginForm.querySelector('.submit-btn');
+            const originalText = submitBtn.querySelector('span:first-child').textContent;
+            submitBtn.disabled = true;
+            submitBtn.querySelector('span:first-child').textContent = 'Iniciando...';
+
+            try {
+                // Realizar petición al endpoint específico según el tipo de usuario seleccionado
+                // Cada tipo de usuario tiene su propio endpoint de autenticación
+                const endpoint = API_CONFIG.baseURL + API_CONFIG.endpoints[currentUserType];
+                
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        email: formData.email,
+                        password: formData.password,
+                        remember: formData.remember
+                    })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    // Verificar que el tipo de usuario en la respuesta coincide con el seleccionado
+                    // Esto previene que un usuario intente acceder con credenciales de otro tipo
+                    if (data.user && data.user.type && data.user.type !== currentUserType) {
+                        showError(`Estas credenciales no corresponden a un ${getTipoUsuarioTexto(currentUserType)}. Verifica el tipo de usuario seleccionado.`);
+                        return;
+                    }
+
+                    // Login exitoso
+                    showSuccess(`¡Bienvenido! Accediendo al panel de ${getTipoUsuarioTexto(currentUserType)}...`);
+                    
+                    // Guardar token con prefijo del tipo de usuario para mayor seguridad
+                    if (data.token) {
+                        const tokenKey = `authToken_${currentUserType}`;
+                        if (formData.remember) {
+                            localStorage.setItem(tokenKey, data.token);
+                        } else {
+                            sessionStorage.setItem(tokenKey, data.token);
+                        }
+                    }
+
+                    // Guardar información del usuario con su tipo específico
+                    if (data.user) {
+                        const userInfo = {
+                            ...data.user,
+                            userType: currentUserType,
+                            loginTime: new Date().toISOString()
+                        };
+                        sessionStorage.setItem('userInfo', JSON.stringify(userInfo));
+                        sessionStorage.setItem('userType', currentUserType); // Guardar tipo por separado
+                    }
+
+                    // Redirigir después de 1.5 segundos al dashboard específico
+                    setTimeout(() => {
+                        switch(currentUserType) {
+                            case 'user':
+                                window.location.href = '/dashboard/user';
+                                break;
+                            case 'provider':
+                                window.location.href = '/dashboard/provider';
+                                break;
+                            case 'admin':
+                                window.location.href = '/dashboard/admin';
+                                break;
+                        }
+                    }, 1500);
+
+                } else {
+                    // Manejar diferentes códigos de error del backend
+                    let errorMsg = 'Credenciales incorrectas. Por favor, intenta de nuevo.';
+                    
+                    if (response.status === 401) {
+                        errorMsg = 'Correo o contraseña incorrectos.';
+                    } else if (response.status === 403) {
+                        errorMsg = `No tienes permisos de ${getTipoUsuarioTexto(currentUserType)}. Verifica el tipo de usuario.`;
+                    } else if (response.status === 404) {
+                        errorMsg = 'Usuario no encontrado.';
+                    } else if (data.message) {
+                        errorMsg = data.message;
+                    }
+                    
+                    showError(errorMsg);
+                }
+
+            } catch (error) {
+                // Error de conexión
+                console.error('Error:', error);
+                showError('Error de conexión. Por favor, verifica tu conexión a internet.');
+            } finally {
+                // Rehabilitar botón
+                submitBtn.disabled = false;
+                submitBtn.querySelector('span:first-child').textContent = originalText;
+            }
+        });
+
+        // Limpiar mensajes al escribir
+        document.getElementById('email').addEventListener('input', hideMessages);
+        document.getElementById('password').addEventListener('input', hideMessages);
+
+        // Función auxiliar para obtener texto legible del tipo de usuario
+        function getTipoUsuarioTexto(tipo) {
+            const textos = {
+                'user': 'usuario',
+                'provider': 'proveedor',
+                'admin': 'administrador'
+            };
+            return textos[tipo] || tipo;
+        }
+
+        // Verificar si hay sesión activa al cargar la página
+        window.addEventListener('DOMContentLoaded', () => {
+            // Verificar cada tipo de token
+            const userTypes = ['user', 'provider', 'admin'];
+            for (let type of userTypes) {
+                const tokenKey = `authToken_${type}`;
+                const token = localStorage.getItem(tokenKey) || sessionStorage.getItem(tokenKey);
+                const storedUserType = sessionStorage.getItem('userType');
+                
+                if (token && storedUserType === type) {
+                    // Ya hay una sesión activa, redirigir al dashboard correspondiente
+                    switch(type) {
+                        case 'user':
+                            window.location.href = '/dashboard/user';
+                            break;
+                        case 'provider':
+                            window.location.href = '/dashboard/provider';
+                            break;
+                        case 'admin':
+                            window.location.href = '/dashboard/admin';
+                            break;
+                    }
+                    break;
+                }
+            }
+        });
+    </script>
+</body>
+</html>
