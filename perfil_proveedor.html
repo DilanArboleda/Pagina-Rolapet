@@ -8,10 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="viewport" content="initial-scale=1, maximum-scale=1">
 <!-- site metas -->
-<title>It.Next - IT Service Responsive Html Theme</title>
-<meta name="keywords" content="">
-<meta name="description" content="">
-<meta name="author" content="">
+<title>Perfil de Proveedor - RolaPet</title>
 <!-- site icons -->
 <link rel="icon" href="images/fevicon/fevicon.png" type="image/gif" />
 <!-- bootstrap css -->
@@ -24,14 +21,339 @@
 <link rel="stylesheet" href="css/colors1.css" />
 <!-- custom css -->
 <link rel="stylesheet" href="css/custom.css" />
+<!-- Plus Jakarta Sans Font -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
 <!-- wow Animation css -->
 <link rel="stylesheet" href="css/animate.css" />
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
+<style>
+  /* Custom Provider Profile Styles */
+  * {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  
+  .provider-profile-page {
+    background-color: #FAFAFA;
+    padding: 60px 0;
+    min-height: 100vh;
+  }
+  
+  .profile-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  /* Profile Header Card */
+  .profile-header-card {
+    background: #FFFFFF;
+    border-radius: 16px;
+    padding: 40px;
+    margin-bottom: 32px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  }
+  
+  .profile-header-content {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+  }
+  
+  .profile-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: #97E9FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  
+  .profile-avatar .material-symbols-outlined {
+    font-size: 60px;
+    color: #2196F3;
+  }
+  
+  .profile-info {
+    flex: 1;
+  }
+  
+  .profile-info h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: #666666;
+    margin: 0 0 8px 0;
+  }
+  
+  .profile-info .provider-type {
+    font-size: 16px;
+    font-weight: 400;
+    color: #8C8C8C;
+    margin-bottom: 24px;
+  }
+  
+  .profile-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 24px;
+  }
+  
+  .detail-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  
+  .detail-item .material-symbols-outlined {
+    font-size: 20px;
+    color: #2196F3;
+  }
+  
+  .detail-item label {
+    font-size: 12px;
+    font-weight: 500;
+    color: #666666;
+    margin: 0;
+    display: block;
+  }
+  
+  .detail-item span {
+    font-size: 14px;
+    font-weight: 400;
+    color: #8C8C8C;
+  }
+  
+  .detail-content {
+    flex: 1;
+  }
+  
+  .profile-description {
+    font-size: 14px;
+    font-weight: 400;
+    color: #8C8C8C;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  
+  .btn-edit-profile {
+    background: #2196F3;
+    color: #FFFFFF;
+    border: none;
+    padding: 12px 32px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .btn-edit-profile:hover {
+    background: #6BBEF9;
+    color: #FFFFFF;
+  }
+  
+  .btn-edit-profile .material-symbols-outlined {
+    font-size: 18px;
+  }
+  
+  /* Products/Services Section */
+  .section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+  }
+  
+  .section-header h2 {
+    font-size: 24px;
+    font-weight: 700;
+    color: #666666;
+    margin: 0;
+  }
+  
+  .btn-add-item {
+    background: #2196F3;
+    color: #FFFFFF;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+  }
+  
+  .btn-add-item:hover {
+    background: #6BBEF9;
+    color: #FFFFFF;
+  }
+  
+  .btn-add-item .material-symbols-outlined {
+    font-size: 18px;
+  }
+  
+  .items-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+  }
+  
+  .item-card {
+    background: #FFFFFF;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .item-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  }
+  
+  .item-image {
+    width: 100%;
+    height: 200px;
+    background: #97E9FF;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .item-image .material-symbols-outlined {
+    font-size: 80px;
+    color: #2196F3;
+  }
+  
+  .item-content {
+    padding: 20px;
+  }
+  
+  .item-content h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #666666;
+    margin: 0 0 8px 0;
+  }
+  
+  .item-content p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #8C8C8C;
+    margin: 0 0 16px 0;
+    line-height: 1.5;
+  }
+  
+  .item-price {
+    font-size: 20px;
+    font-weight: 700;
+    color: #2196F3;
+    margin-bottom: 16px;
+  }
+  
+  .item-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .btn-item-action {
+    flex: 1;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    transition: background 0.3s ease;
+  }
+  
+  .btn-edit {
+    background: #FFFFFF;
+    color: #2196F3;
+    border: 1px solid #2196F3;
+  }
+  
+  .btn-edit:hover {
+    background: #97E9FF;
+  }
+  
+  .btn-delete {
+    background: #FFFFFF;
+    color: #8C8C8C;
+    border: 1px solid #8C8C8C;
+  }
+  
+  .btn-delete:hover {
+    background: #FFE5E5;
+    color: #FF4444;
+    border-color: #FF4444;
+  }
+  
+  .btn-item-action .material-symbols-outlined {
+    font-size: 16px;
+  }
+  
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: #FFFFFF;
+    border-radius: 12px;
+  }
+  
+  .empty-state .material-symbols-outlined {
+    font-size: 80px;
+    color: #8C8C8C;
+    margin-bottom: 16px;
+  }
+  
+  .empty-state h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #666666;
+    margin-bottom: 8px;
+  }
+  
+  .empty-state p {
+    font-size: 14px;
+    font-weight: 400;
+    color: #8C8C8C;
+  }
+  
+  @media (max-width: 768px) {
+    .profile-header-content {
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    
+    .section-header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    
+    .items-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
 </head>
-<body id="default_theme" class="it_service career">
+<body id="default_theme" class="it_service">
 <!-- loader -->
 <div class="bg_load"> <img class="loader_animation" src="images/loaders/loader_1.png" alt="#" /> </div>
 <!-- end loader -->
@@ -144,402 +466,155 @@
   <!-- header bottom end -->
 </header>
 <!-- end header -->
-<!-- inner page banner -->
-<div id="inner_banner" class="section inner_banner_section">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="full">
-          <div class="title-holder">
-            <div class="title-holder-cell text-left">
-              <h1 class="page-title">Career</h1>
-              <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li>Pages</li>
-                <li class="active">Career</li>
-              </ol>
+
+<!-- Provider Profile Page -->
+<div class="provider-profile-page">
+  <div class="profile-container">
+    
+    <!-- Profile Header Card -->
+    <div class="profile-header-card">
+      <div class="profile-header-content">
+        <div class="profile-avatar">
+          <span class="material-symbols-outlined">store</span>
+        </div>
+        <div class="profile-info">
+          <h1>Nombre del Proveedor</h1>
+          <p class="provider-type">Proveedor de Productos y Servicios para Mascotas</p>
+          
+          <div class="profile-details">
+            <div class="detail-item">
+              <span class="material-symbols-outlined">mail</span>
+              <div class="detail-content">
+                <label>Email</label>
+                <span>proveedor@ejemplo.com</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <span class="material-symbols-outlined">phone</span>
+              <div class="detail-content">
+                <label>Teléfono</label>
+                <span>+34 123 456 789</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <span class="material-symbols-outlined">location_on</span>
+              <div class="detail-content">
+                <label>Ubicación</label>
+                <span>Madrid, España</span>
+              </div>
+            </div>
+            <div class="detail-item">
+              <span class="material-symbols-outlined">calendar_today</span>
+              <div class="detail-content">
+                <label>Miembro desde</label>
+                <span>Enero 2024</span>
+              </div>
             </div>
           </div>
+          
+          <p class="profile-description">
+            Somos una empresa dedicada a proporcionar los mejores productos y servicios para el cuidado de tus mascotas. 
+            Con más de 10 años de experiencia en el sector, ofrecemos calidad y profesionalidad en cada uno de nuestros servicios.
+          </p>
+          
+          <button class="btn-edit-profile">
+            <span class="material-symbols-outlined">edit</span>
+            Editar Perfil
+          </button>
         </div>
       </div>
     </div>
+    
+    <!-- Products/Services Section -->
+    <div class="section-header">
+      <h2>Productos y Servicios</h2>
+      <button class="btn-add-item">
+        <span class="material-symbols-outlined">add</span>
+        Añadir Producto/Servicio
+      </button>
+    </div>
+    
+    <div class="items-grid">
+      <!-- Item Card 1 -->
+      <div class="item-card">
+        <div class="item-image">
+          <span class="material-symbols-outlined">pets</span>
+        </div>
+        <div class="item-content">
+          <h3>Servicio de Peluquería</h3>
+          <p>Servicio completo de peluquería canina con productos premium y atención personalizada.</p>
+          <div class="item-price">€35.00</div>
+          <div class="item-actions">
+            <button class="btn-item-action btn-edit">
+              <span class="material-symbols-outlined">edit</span>
+              Editar
+            </button>
+            <button class="btn-item-action btn-delete">
+              <span class="material-symbols-outlined">delete</span>
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Item Card 2 -->
+      <div class="item-card">
+        <div class="item-image">
+          <span class="material-symbols-outlined">inventory_2</span>
+        </div>
+        <div class="item-content">
+          <h3>Comida Premium</h3>
+          <p>Alimento balanceado de alta calidad para perros y gatos de todas las edades.</p>
+          <div class="item-price">€45.00</div>
+          <div class="item-actions">
+            <button class="btn-item-action btn-edit">
+              <span class="material-symbols-outlined">edit</span>
+              Editar
+            </button>
+            <button class="btn-item-action btn-delete">
+              <span class="material-symbols-outlined">delete</span>
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Item Card 3 -->
+      <div class="item-card">
+        <div class="item-image">
+          <span class="material-symbols-outlined">medical_services</span>
+        </div>
+        <div class="item-content">
+          <h3>Consulta Veterinaria</h3>
+          <p>Consulta veterinaria general con profesionales certificados y equipamiento moderno.</p>
+          <div class="item-price">€50.00</div>
+          <div class="item-actions">
+            <button class="btn-item-action btn-edit">
+              <span class="material-symbols-outlined">edit</span>
+              Editar
+            </button>
+            <button class="btn-item-action btn-delete">
+              <span class="material-symbols-outlined">delete</span>
+              Eliminar
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Empty state example (uncomment to show when no items) -->
+      <!--
+      <div class="empty-state" style="grid-column: 1 / -1;">
+        <span class="material-symbols-outlined">inventory_2</span>
+        <h3>No hay productos o servicios</h3>
+        <p>Comienza añadiendo tu primer producto o servicio.</p>
+      </div>
+      -->
+    </div>
+    
   </div>
 </div>
-<!-- end inner page banner -->
-<!-- section -->
-<div class="section padding_layout_1">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-9">
-        <div class="row">
-          <div class="col-lg-6 col-md-6 col-sm-12 about_cont_blog" style="padding:0 15px;">
-            <div class="full text_align_left">
-              <h3>About Career</h3>
-              <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's 
-                standard dummy text ever since the 1500s, when an unknown printer took a galley..</p>
-              <ul>
-                <li><i class="fa fa-check-circle"></i>Persius appetere pro mea harum ridens</li>
-                <li><i class="fa fa-check-circle"></i>Instructior vis at causae legimus luptatum mel</li>
-                <li><i class="fa fa-check-circle"></i>Maluisset id persius appetere pro mea harum</li>
-              </ul>
-            </div>
-          </div>
-          <div class="col-lg-6 col-md-6 col-sm-12 about_feature_img">
-            <div class="full text_align_center"> <img class="img-responsive" src="images/it_service/post-06.jpg" alt="#"> </div>
-          </div>
-        </div>
-        <div class="row" style="margin-bottom: 30px;">
-          <div class="col-md-12">
-            <div class="full margin_bottom_30">
-              <div class="accordion border_circle">
-                <div class="bs-example">
-                  <div class="panel-group" id="accordion">
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <p class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"><i class="fa fa-bar-chart" aria-hidden="true"></i> Complete Recovery from Local & External Drive<i class="fa fa-angle-down"></i></a> </p>
-                      </div>
-                      <div id="collapseOne" class="panel-collapse collapse">
-                        <div class="panel-body">
-                          <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it 
-                            over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, 
-                            consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <p class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"><i class="fa fa-plane"></i> Recovery Photo, Image, Video and Audio<i class="fa fa-angle-down"></i></a> </p>
-                      </div>
-                      <div id="collapseTwo" class="panel-collapse collapse">
-                        <div class="panel-body">
-                          <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it 
-                            over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, 
-                            consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <p class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree"><i class="fa fa-star"></i> Mobile Phone Recovery<i class="fa fa-angle-down"></i></a> </p>
-                      </div>
-                      <div id="collapseThree" class="panel-collapse collapse">
-                        <div class="panel-body">
-                          <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it 
-                            over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, 
-                            consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. </p>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="panel panel-default">
-                      <div class="panel-heading">
-                        <p class="panel-title"> <a data-toggle="collapse" data-parent="#accordion" href="#collapseFour"><i class="fa fa-bar-chart" aria-hidden="true"></i> Complete Recovery from Local & External Drive<i class="fa fa-angle-down"></i></a> </p>
-                      </div>
-                      <div id="collapseFour" class="panel-collapse collapse in">
-                        <div class="panel-body">
-                          <p>Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it 
-                            over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, 
-                            consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. </p>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="full">
-              <div class="service_blog_inner">
-                <div class="icon text_align_left"><img src="images/it_service/si1.png" alt="#"></div>
-                <h4 class="service-heading">Fast service</h4>
-                <p>Exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="full">
-              <div class="service_blog_inner">
-                <div class="icon text_align_left"><img src="images/it_service/si2.png" alt="#"></div>
-                <h4 class="service-heading">Secure payments</h4>
-                <p>Exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="full">
-              <div class="service_blog_inner">
-                <div class="icon text_align_left"><img src="images/it_service/si3.png" alt="#"></div>
-                <h4 class="service-heading">Expert team</h4>
-                <p>Exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo.</p>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-12">
-            <div class="full" style="margin-top: 15px;">
-              <h3>Need file recovery?</h3>
-              <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et 
-                quasi architecto beatae vitae dicta sunt explicabo.. </p>
-              <p><a class="btn main_bt" href="#">Read More</a></p>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12">
-            <div class="full">
-              <div class="main_heading text_align_left">
-                <h2>Experienced Staff</h2>
-                <p class="large">Our experts have been featured in press numerous times.</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-4 col-sm-6">
-            <div class="full team_blog_colum">
-              <div class="it_team_img"> <img class="img-responsive" src="images/it_service/team-member-1.jpg" alt="#"> </div>
-              <div class="team_feature_head">
-                <h4>Dean Michael</h4>
-              </div>
-              <div class="team_feature_social">
-                <div class="social_icon">
-                  <ul class="list-inline">
-                    <li><a class="fa fa-facebook" href="https://www.facebook.com/" title="Facebook" target="_blank"></a></li>
-                    <li><a class="fa fa-google-plus" href="https://plus.google.com/" title="Google+" target="_blank"></a></li>
-                    <li><a class="fa fa-twitter" href="https://twitter.com" title="Twitter" target="_blank"></a></li>
-                    <li><a class="fa fa-linkedin" href="https://www.linkedin.com" title="LinkedIn" target="_blank"></a></li>
-                    <li><a class="fa fa-instagram" href="https://www.instagram.com" title="Instagram" target="_blank"></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="full team_blog_colum">
-              <div class="it_team_img"> <img class="img-responsive" src="images/it_service/team-member-2.jpg" alt="#"> </div>
-              <div class="team_feature_head">
-                <h4>Ruby Jake</h4>
-              </div>
-              <div class="team_feature_social">
-                <div class="social_icon">
-                  <ul class="list-inline">
-                    <li><a class="fa fa-facebook" href="https://www.facebook.com/" title="Facebook" target="_blank"></a></li>
-                    <li><a class="fa fa-google-plus" href="https://plus.google.com/" title="Google+" target="_blank"></a></li>
-                    <li><a class="fa fa-twitter" href="https://twitter.com" title="Twitter" target="_blank"></a></li>
-                    <li><a class="fa fa-linkedin" href="https://www.linkedin.com" title="LinkedIn" target="_blank"></a></li>
-                    <li><a class="fa fa-instagram" href="https://www.instagram.com" title="Instagram" target="_blank"></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="full team_blog_colum">
-              <div class="it_team_img"> <img class="img-responsive" src="images/it_service/team-member-3.jpg" alt="#"> </div>
-              <div class="team_feature_head">
-                <h4>David Hussay</h4>
-              </div>
-              <div class="team_feature_social">
-                <div class="social_icon">
-                  <ul class="list-inline">
-                    <li><a class="fa fa-facebook" href="https://www.facebook.com/" title="Facebook" target="_blank"></a></li>
-                    <li><a class="fa fa-google-plus" href="https://plus.google.com/" title="Google+" target="_blank"></a></li>
-                    <li><a class="fa fa-twitter" href="https://twitter.com" title="Twitter" target="_blank"></a></li>
-                    <li><a class="fa fa-linkedin" href="https://www.linkedin.com" title="LinkedIn" target="_blank"></a></li>
-                    <li><a class="fa fa-instagram" href="https://www.instagram.com" title="Instagram" target="_blank"></a></li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="side_bar">
-          <div class="side_bar_blog">
-            <h4>SEARCH</h4>
-            <div class="side_bar_search">
-              <div class="input-group stylish-input-group">
-                <input class="form-control" placeholder="Search" type="text">
-                <span class="input-group-addon">
-                <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
-                </span> </div>
-            </div>
-          </div>
-          <div class="side_bar_blog">
-            <h4>GET A QUOTE</h4>
-            <p>An duo lorem altera gloriatur. No imperdiet adver sarium pro. No sit sumo lorem. Mei ea eius elitr consequ unturimperdiet.</p>
-            <a class="btn sqaure_bt" href="it_service.html">View Service</a> </div>
-          <div class="side_bar_blog">
-            <h4>OUR SERVICE</h4>
-            <div class="categary">
-              <ul>
-                <li><a href="it_data_recovery.html"><i class="fa fa-angle-right"></i> Data recovery</a></li>
-                <li><a href="it_computer_repair.html"><i class="fa fa-angle-right"></i> Computer repair</a></li>
-                <li><a href="it_mobile_service.html"><i class="fa fa-angle-right"></i> Mobile service</a></li>
-                <li><a href="it_network_solution.html"><i class="fa fa-angle-right"></i> Network solutions</a></li>
-                <li><a href="it_techn_support.html"><i class="fa fa-angle-right"></i> Technical support</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="side_bar_blog">
-            <h4>RECENT NEWS</h4>
-            <div class="categary">
-              <ul>
-                <li><a href="it_data_recovery.html"><i class="fa fa-angle-right"></i> Land lights let be divided</a></li>
-                <li><a href="it_computer_repair.html"><i class="fa fa-angle-right"></i> Seasons over bearing air</a></li>
-                <li><a href="it_mobile_service.html"><i class="fa fa-angle-right"></i> Greater open after grass</a></li>
-                <li><a href="it_network_solution.html"><i class="fa fa-angle-right"></i> Gathered was divide second</a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="side_bar_blog">
-            <h4>TAG</h4>
-            <div class="tags">
-              <ul>
-                <li><a href="#">Bootstrap</a></li>
-                <li><a href="#">HTML5</a></li>
-                <li><a href="#">Wordpress</a></li>
-                <li><a href="#">Bootstrap</a></li>
-                <li><a href="#">HTML5</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end section -->
-<!-- section -->
-<div class="section padding_layout_1 testmonial_section white_fonts">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="full">
-          <div class="main_heading text_align_left">
-            <h2 style="text-transform: none;">What Clients Say?</h2>
-            <p class="large">Here are testimonials from clients..</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-7">
-        <div class="full">
-          <div id="testimonial_slider" class="carousel slide" data-ride="carousel">
-            <!-- Indicators -->
-            <ul class="carousel-indicators">
-              <li data-target="#testimonial_slider" data-slide-to="0" class="active"></li>
-              <li data-target="#testimonial_slider" data-slide-to="1"></li>
-              <li data-target="#testimonial_slider" data-slide-to="2"></li>
-            </ul>
-            <!-- The slideshow -->
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <div class="testimonial-container">
-                  <div class="testimonial-content"> You guys rock! Thank you for making it painless, pleasant and most of all hassle free! I wish I would have thought of it first. 
-                    I am really satisfied with my first laptop service.</div>
-                  <div class="testimonial-photo"> <img src="images/it_service/client1.jpg" class="img-responsive" alt="#" width="150" height="150"> </div>
-                  <div class="testimonial-meta">
-                    <h4>Maria Anderson</h4>
-                    <span class="testimonial-position">CFO, Tech NY</span> </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="testimonial-container">
-                  <div class="testimonial-content"> You guys rock! Thank you for making it painless, pleasant and most of all hassle free! I wish I would have thought of it first. 
-                    I am really satisfied with my first laptop service.</div>
-                  <div class="testimonial-photo"> <img src="images/it_service/client2.jpg" class="img-responsive" alt="#" width="150" height="150"> </div>
-                  <div class="testimonial-meta">
-                    <h4>Maria Anderson</h4>
-                    <span class="testimonial-position">CFO, Tech NY</span> </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="testimonial-container">
-                  <div class="testimonial-content"> You guys rock! Thank you for making it painless, pleasant and most of all hassle free! I wish I would have thought of it first. 
-                    I am really satisfied with my first laptop service.</div>
-                  <div class="testimonial-photo"> <img src="images/it_service/client3.jpg" class="img-responsive" alt="#" width="150" height="150"> </div>
-                  <div class="testimonial-meta">
-                    <h4>Maria Anderson</h4>
-                    <span class="testimonial-position">CFO, Tech NY</span> </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-5">
-        <div class="full"> </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end section -->
-<!-- section -->
-<div class="section">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="full">
-          <div class="contact_us_section">
-            <div class="call_icon"> <img src="images/it_service/phone_icon.png" alt="#" /> </div>
-            <div class="inner_cont">
-              <h2>REQUEST A FREE QUOTE</h2>
-              <p>Get answers and advice from people you want it from.</p>
-            </div>
-            <div class="button_Section_cont"> <a class="btn dark_gray_bt" href="it_contact.html">Contact us</a> </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end section -->
-<!-- section -->
-<div class="section padding_layout_1" style="padding: 50px 0;">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="full">
-          <ul class="brand_list">
-            <li><img src="images/it_service/brand_icon1.png" alt="#" /></li>
-            <li><img src="images/it_service/brand_icon2.png" alt="#" /></li>
-            <li><img src="images/it_service/brand_icon3.png" alt="#" /></li>
-            <li><img src="images/it_service/brand_icon4.png" alt="#" /></li>
-            <li><img src="images/it_service/brand_icon5.png" alt="#" /></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end section -->
-<!-- Modal -->
-<div class="modal fade" id="search_bar" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-close"></i></button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-lg-8 col-md-8 col-sm-8 offset-lg-2 offset-md-2 offset-sm-2 col-xs-10 col-xs-offset-1">
-            <div class="navbar-search">
-              <form action="#" method="get" id="search-global-form" class="search-global">
-                <input type="text" placeholder="Type to search" autocomplete="off" name="s" id="search" value="" class="search-global__input">
-                <button class="search-global__btn"><i class="fa fa-search"></i></button>
-                <div class="search-global__note">Begin typing your search above and press return to search.</div>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- End Model search bar -->
+<!-- end Provider Profile Page -->
+
 <!-- footer -->
 <footer class="footer_style_2">
   <div class="container-fuild">
