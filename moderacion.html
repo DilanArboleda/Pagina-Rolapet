@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Moderación de Contenido</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #f4f5f7;
+        display: flex;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+        width: 250px;
+        background: #ffffff;
+        color: #555;
+        height: 100vh;
+        position: fixed;
+        left: 0;
+        top: 0;
+        display: flex;
+        flex-direction: column;
+        border-right: 1px solid #ddd;
+        padding-top: 15px;
+    }
+
+    .user-info {
+        text-align: center;
+        padding-bottom: 20px;
+        border-bottom: 1px solid #eee;
+    }
+
+    .user-info img {
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+    }
+
+    .user-info h4 {
+        margin: 10px 0 0;
+        color: #333;
+    }
+
+    .user-info small {
+        color: #777;
+    }
+
+    .sidebar a {
+        padding: 15px 20px;
+        display: block;
+        color: #555;
+        text-decoration: none;
+        font-size: 15px;
+    }
+
+    .sidebar a:hover,
+    .sidebar a.active {
+        background: #1488cc;
+        color: white;
+    }
+
+    .logout-btn {
+        margin-top: auto;
+        background: #1488cc;
+        color: white !important;
+        font-weight: bold;
+        text-align: center;
+    }
+
+    /* HEADER SUPERIOR */
+    .header {
+        position: fixed;
+        top: 0;
+        right: 0;
+        left: 250px;
+        height: 60px;
+        background: white;
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        padding: 0 20px;
+        gap: 25px;
+        z-index: 10;
+    }
+
+    .header a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+    }
+
+    /* MAIN CONTENT */
+    .content {
+        margin-left: 250px;
+        margin-top: 60px;
+        padding: 25px;
+        width: calc(100% - 250px);
+    }
+
+    h1 {
+        color: #0e2f44;
+        margin-bottom: 15px;
+    }
+
+    /* TABS */
+    .tabs {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+    }
+
+    .tabs div {
+        padding: 10px 15px;
+        background: #eaeaea;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .tabs .active {
+        background: #1488cc;
+        color: white;
+    }
+
+    /* FILTROS */
+    .filters {
+        display: flex;
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .filters input,
+    .filters select {
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+    }
+
+    /* TARJETAS */
+    .card {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        display: flex;
+        gap: 15px;
+        align-items: flex-start;
+        margin-bottom: 15px;
+        border: 1px solid #ddd;
+    }
+
+    .card img {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+    }
+
+    .card .text {
+        flex: 1;
+        color: #333;
+    }
+
+    .highlight {
+        background: yellow;
+        font-weight: bold;
+        padding: 2px 4px;
+    }
+
+    .actions button {
+        margin-bottom: 5px;
+        padding: 7px 12px;
+        border: none;
+        cursor: pointer;
+        border-radius: 5px;
+        display: block;
+    }
+
+    .btn-edit {
+        background: #ccc;
+    }
+
+    .btn-reject {
+        background: #e74c3c;
+        color: white;
+    }
+
+    .btn-approve {
+        background: #1488cc;
+        color: white;
+    }
+
+    /* PANEL DERECHO */
+    .right-panel {
+        position: fixed;
+        top: 60px;
+        right: 0;
+        width: 300px;
+        height: calc(100% - 60px);
+        background: #ffffff;
+        padding: 20px;
+        border-left: 1px solid #ddd;
+        overflow-y: auto;
+    }
+
+    .right-panel h3 {
+        margin-top: 0;
+        color: #0e2f44;
+    }
+
+    .right-panel input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-bottom: 10px;
+    }
+
+    .right-panel button {
+        width: 100%;
+        background: #1488cc;
+        color: white;
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        margin-bottom: 15px;
+    }
+
+    .word-list div {
+        background: #f4f4f4;
+        padding: 8px;
+        margin-bottom: 8px;
+        display: flex;
+        justify-content: space-between;
+        border-radius: 5px;
+    }
+
+    .word-list i {
+        cursor: pointer;
+        color: #e74c3c;
+    }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="user-info">
+        <img src="https://i.pravatar.cc/60" />
+        <h4 id="adminName">Admin</h4>
+        <small id="adminEmail">admin@example.com</small>
+    </div>
+
+    <a href="perfil_admin_new.html">Dashboard</a>
+    <a href="gestion_usuarios.html">Gestión de Usuarios</a>
+    <a class="active" href="moderacion.html">Moderación</a>
+    <a href="puntos_interes.html">Puntos de Interés</a>
+    <a href="proveedores.html">Proveedores</a>
+    <a href="configuracion.html">Configuración</a>
+    <a href="login_admin.html" class="logout-btn">Cerrar Sesión</a>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+    <a href="#">Inicio</a>
+    <a href="#">Nosotros</a>
+    <a href="#">Servicios</a>
+    <a href="#">Contacto</a>
+</div>
+
+<!-- CONTENIDO PRINCIPAL -->
+<div class="content">
+    <h1>Moderación de Contenido</h1>
+
+    <div class="tabs">
+        <div class="active">Publicaciones Pendientes</div>
+        <div>Comentarios Pendientes</div>
+    </div>
+
+    <div class="filters">
+        <input id="searchInput" type="text" placeholder="Buscar...">
+        <select><option>Filtrar por Usuario</option></select>
+        <select><option>Filtrar por Fecha</option></select>
+    </div>
+
+    <!-- TARJETA 1 -->
+    <div class="card mod-row" id="mod-1">
+        <img src="https://i.pravatar.cc/61" />
+        <div class="text">
+            <strong>Soha Vergara</strong><br>
+            Este texto contiene una palabra <span class="highlight">inapropiada</span> que debe revisarse.
+        </div>
+
+        <div class="actions">
+            <button class="btn-edit">Editar</button>
+            <button class="btn-reject" onclick="removeCard('mod-1')">Rechazar</button>
+            <button class="btn-approve">Aprobar</button>
+        </div>
+    </div>
+
+    <!-- TARJETA 2 -->
+    <div class="card mod-row" id="mod-2">
+        <img src="https://i.pravatar.cc/62" />
+        <div class="text">
+            <strong>Juan Pérez</strong><br>
+            Esta publicación contiene <span class="highlight">palabra-mala</span> y debe moderarse.
+        </div>
+
+        <div class="actions">
+            <button class="btn-edit">Editar</button>
+            <button class="btn-reject" onclick="removeCard('mod-2')">Rechazar</button>
+            <button class="btn-approve">Aprobar</button>
+        </div>
+    </div>
+</div>
+
+<!-- PANEL DERECHO -->
+<div class="right-panel">
+    <h3>Gestionar Palabras Bloqueadas</h3>
+
+    <input id="newWord" type="text" placeholder="Añadir nueva palabra...">
+    <button onclick="addWord()">Añadir</button>
+
+    <div class="word-list" id="wordList">
+        <div><span>inapropiada</span> <i onclick="deleteWord(this)" class="fa-solid fa-trash"></i></div>
+        <div><span>palabra-mala</span> <i onclick="deleteWord(this)" class="fa-solid fa-trash"></i></div>
+        <div><span>ofensiva</span> <i onclick="deleteWord(this)" class="fa-solid fa-trash"></i></div>
+        <div><span>bloqueada</span> <i onclick="deleteWord(this)" class="fa-solid fa-trash"></i></div>
+    </div>
+</div>
+
+
+<!-- FUNCIONALIDADES -->
+<script>
+    // Cargar datos del admin desde login_admin
+    document.addEventListener("DOMContentLoaded", () => {
+        const name = localStorage.getItem("adminName");
+        const email = localStorage.getItem("adminEmail");
+
+        if (name) document.getElementById("adminName").textContent = name;
+        if (email) document.getElementById("adminEmail").textContent = email;
+    });
+
+    // ELIMINAR TARJETA
+    function removeCard(id){
+        document.getElementById(id).remove();
+    }
+
+    // AGREGAR PALABRA
+    function addWord(){
+        const w = document.getElementById('newWord').value.trim();
+        if(!w) return;
+
+        const div = document.createElement('div');
+        div.innerHTML = `<span>${w}</span> <i onclick="deleteWord(this)" class="fa-solid fa-trash"></i>`;
+        document.getElementById('wordList').appendChild(div);
+
+        document.getElementById('newWord').value="";
+    }
+
+    // ELIMINAR PALABRA
+    function deleteWord(el){
+        el.parentElement.remove();
+    }
+
+    // BUSCADOR DE TARJETAS
+    const search = document.getElementById('searchInput');
+    search.addEventListener('input',()=>{
+        const val = search.value.toLowerCase();
+        document.querySelectorAll('.mod-row').forEach(row=>{
+            row.style.display = row.textContent.toLowerCase().includes(val) ? '' : 'none';
+        });
+    });
+</script>
+
+</body>
+</html>

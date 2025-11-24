@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ROLAPET - Panel de Administración</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f5f7;
+            display: flex;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 250px;
+            background: #ffffff;
+            color: #555;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar .profile {
+            padding: 25px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .profile img {
+            width: 70px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .sidebar nav a {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #dbe9f1;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: #1488cc;
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            padding: 15px;
+            background: #1488cc;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* HEADER SUPERIOR */
+        .top-header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 250px;
+            height: 60px;
+            background: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 20px;
+            gap: 25px;
+            z-index: 10;
+        }
+
+        .top-header a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* MAIN CONTENT */
+        .content {
+            margin-left: 250px;
+            margin-top: 60px;
+            padding: 25px;
+        }
+
+        h1 {
+            color: #0e2f44;
+        }
+    </style>
+</head>
+<body onload="loadAdminData()">
+<script>
+function loadAdminData(){
+    const name = localStorage.getItem('adminName') || 'Administrador';
+    const email = localStorage.getItem('adminEmail') || 'admin@example.com';
+    document.getElementById('adminName').textContent = name;
+    document.getElementById('adminEmail').textContent = email;
+}
+</script>
+
+    <aside class="sidebar">
+        <div class="profile">
+            <img src="https://via.placeholder.com/80" alt="Admin" />
+            <h3 id="adminName">Nombre Admin</h3>
+            <small id="adminEmail">correo@ejemplo.com</small>
+        </div>
+
+        <nav>
+            <a href="#" class="active"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+            <a href="gestion_usuarios.html"><i class="fa-solid fa-users"></i> Gestión de Usuarios</a>
+            <a href="moderacion.html"><i class="fa-solid fa-shield-halved"></i> Moderación</a>
+            <a href="puntos_interes.html"><i class="fa-solid fa-location-dot"></i> Puntos de Interés</a>
+            <a href="proveedores.html"><i class="fa-solid fa-truck"></i> Proveedores</a>
+            <a href="configuracion.html"><i class="fa-solid fa-gear"></i> Configuración</a>
+        </nav>
+
+        <a class="logout-btn" href="login_admin.html">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+        </a>
+    </aside>
+
+    <header class="top-header">
+        <a href="#">Inicio</a>
+        <a href="#">Nosotros</a>
+        <a href="#">Servicios</a>
+        <a href="#">Contacto</a>
+    </header>
+
+    <main class="content">
+        <h1>Bienvenido al Panel de Administración ROLAPET</h1>
+        <p>Selecciona una opción en el menú lateral para administrar la plataforma.</p>
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Gestión de Proveedores</title>
+
+<style>
+/* ===== RESET ===== */
+body, html { margin:0; padding:0; font-family:Arial, sans-serif; }
+
+/* ===== LAYOUT ===== */
+.container {
+    display: flex;
+    height: 100vh;
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    width: 260px;
+    background:#ffffff;
+    padding: 20px;
+    border-right: 1px solid #ddd;
+}
+
+.sidebar h2 {
+    color: #555;
+    font-size: 18px;
+    margin-bottom: 20px;
+}
+
+.sidebar a {
+    display: block;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    text-decoration: none;
+    color: #777;
+    transition: 0.2s;
+}
+
+.sidebar a:hover {
+    background: #007bff;
+    color: #fff;
+}
+
+/* ===== CONTENT ===== */
+.content {
+    flex: 1;
+    padding: 20px;
+    background: #f5f6fa;
+    position: relative;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.header h1 {
+    margin: 0;
+}
+
+.logout-btn {
+    background: #dc3545;
+    padding: 10px 15px;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* ===== BUTTONS ===== */
+.btn-primary {
+    background: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-danger {
+    background: #dc3545;
+    color: white;
+    padding: 7px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.btn-warning {
+    background: #ffc107;
+    color: black;
+    padding: 7px 12px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* ===== FILTERS ===== */
+.filter-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-bar input, 
+.filter-bar select {
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+/* ===== TABLE ===== */
+table {
+    width: 100%;
+    background: white;
+    border-collapse: collapse;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th, td {
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background: #f0f0f0;
+}
+
+/* ===== SIDE PANEL ===== */
+.side-panel {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 350px;
+    height: 100%;
+    background: white;
+    border-left: 1px solid #ccc;
+    padding: 20px;
+    display: none;
+}
+
+.side-panel h2 {
+    margin-top: 0;
+}
+
+.side-panel input,
+.side-panel textarea,
+.side-panel select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.close-panel {
+    background: #6c757d;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 10px;
+}
+</style>
+
+</head>
+<body>
+
+<div class="container">
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>Panel Admin</h2>
+
+        <a href="perfil_admin_new.html">Perfil</a>
+        <a href="gestion_usuarios.html">Gestión de Usuarios</a>
+        <a href="moderacion.html">Moderación</a>
+        <a href="puntos_interes.html">Puntos de Interés</a>
+        <a href="proveedores.html" style="background:#007bff;color:white;">Proveedores</a>
+        <a href="login_admin.html">Cerrar Sesión</a>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="content">
+
+        <div class="header">
+            <h1>Gestión de Proveedores</h1>
+            <button class="btn-primary" onclick="openPanel()">Nuevo Proveedor</button>
+        </div>
+
+        <!-- Filters -->
+        <div class="filter-bar">
+            <input type="text" id="searchInput" placeholder="Buscar proveedor..." onkeyup="filterTable()">
+            <select id="statusFilter" onchange="filterTable()">
+                <option value="">Todos los estados</option>
+                <option value="Activo">Activo</option>
+                <option value="Inactivo">Inactivo</option>
+            </select>
+        </div>
+
+        <!-- Providers Table -->
+        <table id="providerTable">
+            <thead>
+                <tr>
+                    <th>Proveedor</th>
+                    <th>Servicio</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <tr>
+                    <td>Transporte Medellín</td>
+                    <td>Movilidad</td>
+                    <td>Activo</td>
+                    <td>
+                        <button class="btn-warning" onclick="editProvider(this)">Editar</button>
+                        <button class="btn-danger" onclick="deleteProvider(this)">Eliminar</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>Tours S.A.</td>
+                    <td>Guías turísticos</td>
+                    <td>Inactivo</td>
+                    <td>
+                        <button class="btn-warning" onclick="editProvider(this)">Editar</button>
+                        <button class="btn-danger" onclick="deleteProvider(this)">Eliminar</button>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+
+        <!-- Side Panel -->
+        <div class="side-panel" id="panel">
+
+            <button class="close-panel" onclick="closePanel()">Cerrar</button>
+
+            <h2 id="panelTitle">Nuevo Proveedor</h2>
+
+            <form id="providerForm" method="POST" action="/api/proveedores/guardar">
+                
+                <label>Nombre del Proveedor</label>
+                <input type="text" name="nombre" required>
+
+                <label>Servicio</label>
+                <input type="text" name="servicio" required>
+
+                <label>Estado</label>
+                <select name="estado" required>
+                    <option value="Activo">Activo</option>
+                    <option value="Inactivo">Inactivo</option>
+                </select>
+
+                <button class="btn-primary" type="submit">Guardar</button>
+            </form>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script>
+function openPanel() {
+    document.getElementById("panel").style.display = "block";
+    document.getElementById("panelTitle").textContent = "Nuevo Proveedor";
+    document.getElementById("providerForm").reset();
+}
+
+function closePanel() {
+    document.getElementById("panel").style.display = "none";
+}
+
+function editProvider(btn) {
+    const row = btn.closest("tr");
+    const cells = row.getElementsByTagName("td");
+
+    document.getElementById("panel").style.display = "block";
+    document.getElementById("panelTitle").textContent = "Editar Proveedor";
+
+    const form = document.getElementById("providerForm");
+    form.nombre.value = cells[0].textContent;
+    form.servicio.value = cells[1].textContent;
+    form.estado.value = cells[2].textContent;
+}
+
+function deleteProvider(btn) {
+    if (confirm("¿Eliminar este proveedor?")) {
+        btn.closest("tr").remove();
+    }
+}
+
+function filterTable() {
+    const search = document.getElementById("searchInput").value.toLowerCase();
+    const status = document.getElementById("statusFilter").value;
+    const rows = document.querySelectorAll("#providerTable tbody tr");
+
+    rows.forEach(row => {
+        const name = row.children[0].textContent.toLowerCase();
+        const state = row.children[2].textContent;
+
+        const matchSearch = name.includes(search);
+        const matchStatus = !status || state === status;
+
+        row.style.display = matchSearch && matchStatus ? "" : "none";
+    });
+}
+</script>
+
+</body>
+</html>

@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Configuración y Contenidos</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+    body{
+        margin:0;
+        font-family:Arial, sans-serif;
+        background:#f4f5f7;
+        display:flex;
+    }
+
+    /* SIDEBAR */
+    .sidebar{
+        width:250px;
+        background:#ffffff;
+        color:#555;
+        height:100vh;
+        position:fixed;
+        left:0;
+        top:0;
+        display:flex;
+        flex-direction:column;
+        border-right:1px solid #ddd;
+    }
+
+    .sidebar .profile{
+        padding:25px;
+        text-align:center;
+        border-bottom:1px solid #eee;
+    }
+
+    .profile img{
+        width:70px;
+        border-radius:50%;
+        margin-bottom:10px;
+    }
+
+    .sidebar nav a{
+        padding:15px 20px;
+        display:flex;
+        align-items:center;
+        gap:12px;
+        color:#555;
+        text-decoration:none;
+        transition:0.2s;
+    }
+
+    .sidebar nav a:hover,
+    .sidebar nav a.active{
+        background:#1488cc;
+        color:#fff;
+    }
+
+    .logout-btn{
+        margin-top:auto;
+        padding:15px;
+        background:#1488cc;
+        text-align:center;
+        cursor:pointer;
+        font-weight:bold;
+        color:#fff;
+        text-decoration:none;
+    }
+
+    /* TOP HEADER */
+    .top-header{
+        position:fixed;
+        top:0;
+        right:0;
+        left:250px;
+        height:60px;
+        background:white;
+        border-bottom:1px solid #ddd;
+        display:flex;
+        align-items:center;
+        justify-content:flex-end;
+        padding:0 20px;
+        gap:25px;
+        z-index:10;
+    }
+
+    .top-header a{
+        text-decoration:none;
+        color:#333;
+        font-weight:bold;
+    }
+
+    /* MAIN CONTENT */
+    .content{
+        margin-left:250px;
+        margin-top:60px;
+        padding:25px;
+    }
+
+    h1{
+        color:#0e2f44;
+    }
+
+    .description{
+        margin-top:-10px;
+        margin-bottom:20px;
+        color:#555;
+    }
+
+    /* TABS */
+    .tabs{
+        display:flex;
+        gap:15px;
+        border-bottom:2px solid #ddd;
+        margin-bottom:20px;
+    }
+
+    .tabs div{
+        padding:10px 15px;
+        cursor:pointer;
+        font-weight:bold;
+        color:#666;
+        border-bottom:3px solid transparent;
+    }
+
+    .tabs .active{
+        color:#1488cc;
+        border-bottom:3px solid #1488cc;
+    }
+
+    /* TOP ACTIONS */
+    .top-actions{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        margin-bottom:20px;
+    }
+
+    .btn-primary{
+        background:#1488cc;
+        color:white;
+        padding:10px 15px;
+        border-radius:6px;
+        text-decoration:none;
+        cursor:pointer;
+        font-weight:bold;
+        border:none;
+    }
+
+    /* TABLA */
+    table{
+        width:100%;
+        border-collapse:collapse;
+        background:white;
+        border-radius:7px;
+        overflow:hidden;
+    }
+
+    th, td{
+        padding:12px;
+        border-bottom:1px solid #eee;
+        text-align:left;
+    }
+
+    th{
+        background:#f0f3f6;
+        color:#333;
+    }
+
+    .actions i{
+        cursor:pointer;
+        margin-right:10px;
+        color:#1488cc;
+    }
+
+    /* PANEL LATERAL */
+    .edit-panel{
+        position:fixed;
+        top:60px;
+        right:0;
+        width:350px;
+        height:calc(100% - 60px);
+        background:white;
+        border-left:1px solid #ddd;
+        padding:20px;
+        overflow-y:auto;
+        display:none;
+    }
+
+    .edit-panel.open{
+        display:block;
+    }
+
+    .edit-panel h2{
+        margin-top:0;
+        color:#0e2f44;
+    }
+
+    label{
+        font-weight:bold;
+        margin-top:10px;
+        display:block;
+    }
+
+    input, select{
+        width:100%;
+        padding:10px;
+        border:1px solid #ccc;
+        border-radius:5px;
+        margin-top:5px;
+    }
+
+    .btn-save{
+        background:#1488cc;
+        color:white;
+        padding:10px;
+        border-radius:6px;
+        width:100%;
+        display:block;
+        margin-top:15px;
+        font-weight:bold;
+        border:none;
+    }
+
+    .btn-cancel{
+        background:#ccc;
+        color:white;
+        padding:10px;
+        border-radius:6px;
+        width:100%;
+        margin-top:10px;
+        text-align:center;
+        cursor:pointer;
+        text-decoration:none;
+        border:none;
+    }
+
+    /* SECCIÓN BACKUP */
+    .backup-section{
+        margin-top:40px;
+        padding:20px;
+        background:white;
+        border-radius:8px;
+    }
+
+    .backup-columns{
+        display:flex;
+        gap:25px;
+    }
+
+    .backup-col{
+        flex:1;
+        background:#f9fafb;
+        border:1px solid #eee;
+        padding:20px;
+        border-radius:8px;
+    }
+
+    .backup-col h3{
+        margin:0 0 10px 0;
+        color:#0e2f44;
+    }
+
+    .backup-col i{
+        font-size:30px;
+        margin-bottom:10px;
+        color:#1488cc;
+    }
+
+    .warning{
+        color:#bb0000;
+        font-size:14px;
+        margin-top:5px;
+        margin-bottom:10px;
+    }
+
+    .btn-secondary{
+        background:#555;
+        color:white;
+        padding:10px;
+        text-align:center;
+        border-radius:5px;
+        border:none;
+        cursor:pointer;
+        width:100%;
+    }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+    <div class="profile">
+        <img src="https://i.pravatar.cc/70">
+        <h4>Admin</h4>
+        <small>admin@example.com</small>
+    </div>
+
+    <nav>
+        <a href="perfil_admin_new.html">Dashboard</a>
+        <a href="gestion_usuarios.html">Gestión de Usuarios</a>
+        <a href="moderacion.html">Moderación</a>
+        <a href="puntos_interes.html">Puntos de Interés</a>
+        <a href="proveedores.html">Proveedores</a>
+        <a class="active" href="configuracion.html">Configuración</a>
+    </nav>
+
+    <a class="logout-btn" href="login_admin.html">Cerrar Sesión</a>
+</div>
+
+<!-- HEADER -->
+<div class="top-header">
+    <a href="#">Inicio</a>
+    <a href="#">Nosotros</a>
+    <a href="#">Contacto</a>
+</div>
+
+<!-- MAIN CONTENT -->
+<div class="content">
+    <h1>Configuración y Contenidos</h1>
+    <p class="description">Gestiona categorías, noticias y copias de seguridad de la aplicación.</p>
+
+    <!-- TABS -->
+    <div class="tabs">
+        <div class="active">Gestión de Categorías</div>
+        <div>Listado de Noticias</div>
+        <div>Copia de Seguridad</div>
+    </div>
+
+    <!-- ACTIONS -->
+    <div class="top-actions">
+        <input id="searchInput" type="text" placeholder="Buscar categoría...">
+        <button class="btn-primary" onclick="openPanel()">+ Crear Nueva Categoría</button>
+    </div>
+
+    <!-- TABLA -->
+    <table id="categoryTable">
+        <tr>
+            <th>NOMBRE DE CATEGORÍA</th>
+            <th>PUNTOS ASIGNADOS</th>
+            <th>ACCIONES</th>
+        </tr>
+
+        <tr>
+            <td>Museos</td>
+            <td>50</td>
+            <td class="actions">
+                <i class="fa-solid fa-pen" onclick="editCategory(this)"></i>
+                <i class="fa-solid fa-trash" onclick="deleteCategory(this)"></i>
+            </td>
+        </tr>
+
+        <tr>
+            <td>Parques</td>
+            <td>30</td>
+            <td class="actions">
+                <i class="fa-solid fa-pen" onclick="editCategory(this)"></i>
+                <i class="fa-solid fa-trash" onclick="deleteCategory(this)"></i>
+            </td>
+        </tr>
+    </table>
+
+    <!-- BACKUP SECTION -->
+    <div class="backup-section">
+        <h2>Copia de Seguridad y Restauración</h2>
+
+        <div class="backup-columns">
+            <!-- EXPORTAR -->
+            <div class="backup-col">
+                <i class="fa-solid fa-download"></i>
+                <h3>Exportar Copia</h3>
+                <p>Genera una copia de seguridad completa de los datos del sistema.</p>
+                <button class="btn-primary" onclick="generateBackup()">Generar y Descargar Copia</button>
+            </div>
+
+            <!-- RESTAURAR -->
+            <div class="backup-col">
+                <i class="fa-solid fa-upload"></i>
+                <h3>Restaurar Copia</h3>
+                <p class="warning">⚠ Esta acción reemplazará los datos actuales.</p>
+                <input type="file" id="backupFile">
+                <button class="btn-secondary" onclick="restoreBackup()">Restaurar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PANEL LATERAL -->
+<div class="edit-panel" id="editPanel">
+    <h2>Nueva Categoría</h2>
+
+    <label>Nombre de Categoría</label>
+    <input type="text" id="catName">
+
+    <label>Puntos Asignados</label>
+    <input type="number" id="catPoints">
+
+    <button class="btn-save" onclick="saveCategory()">Guardar</button>
+    <button class="btn-cancel" onclick="closePanel()">Cancelar</button>
+</div>
+
+<script>
+// ABRIR PANEL
+function openPanel() {
+    document.getElementById("editPanel").classList.add("open");
+}
+
+// CERRAR PANEL
+function closePanel() {
+    document.getElementById("editPanel").classList.remove("open");
+    document.getElementById("catName").value = "";
+    document.getElementById("catPoints").value = "";
+}
+
+// EDITAR CATEGORÍA
+let rowEditing = null;
+function editCategory(el) {
+    rowEditing = el.parentElement.parentElement;
+    const name = rowEditing.children[0].innerText;
+    const points = rowEditing.children[1].innerText;
+
+    document.getElementById("catName").value = name;
+    document.getElementById("catPoints").value = points;
+
+    document.querySelector("#editPanel h2").innerText = "Editar Categoría";
+    openPanel();
+}
+
+// GUARDAR CATEGORÍA
+function saveCategory() {
+    const name = document.getElementById("catName").value.trim();
+    const points = document.getElementById("catPoints").value.trim();
+
+    if (!name || !points) return alert("Completa todos los campos.");
+
+    if (rowEditing) {
+        rowEditing.children[0].innerText = name;
+        rowEditing.children[1].innerText = points;
+        rowEditing = null;
+    } else {
+        const table = document.getElementById("categoryTable");
+        const row = table.insertRow(-1);
+        row.innerHTML = `
+            <td>${name}</td>
+            <td>${points}</td>
+            <td class="actions">
+                <i class="fa-solid fa-pen" onclick="editCategory(this)"></i>
+                <i class="fa-solid fa-trash" onclick="deleteCategory(this)"></i>
+            </td>
+        `;
+    }
+
+    closePanel();
+}
+
+// ELIMINAR CATEGORÍA
+function deleteCategory(el) {
+    el.parentElement.parentElement.remove();
+}
+
+// BUSCADOR
+document.getElementById("searchInput").addEventListener("input", function () {
+    const val = this.value.toLowerCase();
+    document.querySelectorAll("#categoryTable tr:not(:first-child)").forEach(row => {
+        row.style.display = row.innerText.toLowerCase().includes(val) ? "" : "none";
+    });
+});
+
+// GENERAR BACKUP
+function generateBackup() {
+    alert("Copia de seguridad generada (simulado).");
+}
+
+// RESTAURAR BACKUP
+function restoreBackup() {
+    const file = document.getElementById("backupFile").files[0];
+    if (!file) return alert("Selecciona un archivo para restaurar.");
+    alert("Restauración completada (simulado).");
+}
+</script>
+
+</body>
+</html>

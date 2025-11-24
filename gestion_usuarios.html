@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gestión de Usuarios - ROLAPET</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f4f5f7;
+            display: flex;
+        }
+
+        /* SIDEBAR */
+        .sidebar {
+            width: 250px;
+            background: #ffffff;
+            color: #555;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #ddd;
+        }
+
+        .sidebar .profile {
+            padding: 25px;
+            text-align: center;
+            border-bottom: 1px solid #eee;
+        }
+
+        .profile img {
+            width: 70px;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .sidebar nav a {
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #555;
+            text-decoration: none;
+            transition: 0.2s;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: #1488cc;
+            color: #fff;
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            padding: 15px;
+            background: #1488cc;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* HEADER SUPERIOR */
+        .top-header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 250px;
+            height: 60px;
+            background: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 0 20px;
+            gap: 25px;
+            z-index: 10;
+        }
+
+        .top-header a {
+            text-decoration: none;
+            color: #333;
+            font-weight: bold;
+        }
+
+        /* MAIN CONTENT */
+        .content {
+            margin-left: 250px;
+            margin-top: 60px;
+            padding: 25px;
+        }
+
+        h1 {
+            color: #0e2f44;
+        }
+
+        /* BARRA SUPERIOR + FILTROS */
+        .top-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background: #1488cc;
+            color: #fff;
+            padding: 10px 15px;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .filters {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input, select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        /* TABLA */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #fff;
+            border-radius: 7px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 12px;
+            border-bottom: 1px solid #eee;
+            text-align: left;
+        }
+
+        th {
+            background: #f0f3f6;
+            color: #333;
+        }
+
+        .tag-active {
+            background: #28a745;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+
+        .tag-inactive {
+            background: #999;
+            color: #fff;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+        }
+
+        .actions i {
+            cursor: pointer;
+            margin-right: 10px;
+            color: #1488cc;
+        }
+
+        /* PANEL LATERAL */
+        .edit-panel {
+            position: fixed;
+            top: 60px;
+            right: 0;
+            width: 350px;
+            height: calc(100% - 60px);
+            background: #fff;
+            border-left: 1px solid #ddd;
+            padding: 20px;
+            overflow-y: auto;
+            display: none;
+        }
+
+        .edit-panel.open {
+            display: block;
+        }
+
+        .edit-panel h2 {
+            margin-top: 0;
+            color: #0e2f44;
+        }
+
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            display: block;
+        }
+
+        .toggle {
+            margin-top: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-save {
+            background: #1488cc;
+            color: #fff;
+            padding: 10px;
+            border-radius: 5px;
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .btn-cancel {
+            background: #ccc;
+            color: #333;
+            padding: 10px;
+            border-radius: 5px;
+            display: block;
+            width: 100%;
+            text-align: center;
+            margin-top: 10px;
+            text-decoration: none;
+        }
+    </style>
+
+    <script>
+        function loadAdminData(){
+            const name = localStorage.getItem('adminName') || 'Administrador';
+            const email = localStorage.getItem('adminEmail') || 'admin@example.com';
+            document.getElementById('adminName').textContent = name;
+            document.getElementById('adminEmail').textContent = email;
+        }
+
+        function openPanel(){
+            document.getElementById('editPanel').classList.add('open');
+        }
+
+        function closePanel(){
+            document.getElementById('editPanel').classList.remove('open');
+        }
+    </script>
+</head>
+
+<body onload="loadAdminData()">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+        <div class="profile">
+            <img src="https://via.placeholder.com/80" alt="Admin" />
+            <h3 id="adminName">Admin</h3>
+            <small id="adminEmail">admin@example.com</small>
+        </div>
+
+        <nav>
+            <a href="perfil_admin_new.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+            <a class="active" href="gestion_usuarios.html"><i class="fa-solid fa-users"></i> Gestión de Usuarios</a>
+            <a href="moderacion.html"><i class="fa-solid fa-shield-halved"></i> Moderación</a>
+            <a href="puntos_interes.html"><i class="fa-solid fa-location-dot"></i> Puntos de Interés</a>
+            <a href="proveedores.html"><i class="fa-solid fa-truck"></i> Proveedores</a>
+            <a href="configuracion.html"><i class="fa-solid fa-gear"></i> Configuración</a>
+        </nav>
+
+        <a class="logout-btn" href="login_admin.html">
+            <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+        </a>
+    </aside>
+
+    <!-- HEADER SUPERIOR -->
+    <header class="top-header">
+        <a href="#">Inicio</a>
+        <a href="#">Nosotros</a>
+        <a href="#">Servicios</a>
+        <a href="#">Contacto</a>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="content">
+        <div class="top-actions">
+            <div>
+                <h1>Gestión de Usuarios</h1>
+                <p>Añade, edita y gestiona los permisos de los usuarios de la plataforma.</p>
+            </div>
+            <a href="#" class="btn-primary">+ Nuevo Usuario</a>
+        </div>
+
+        <!-- FILTROS -->
+        <div class="filters">
+            <input type="text" placeholder="Buscar por nombre o correo..." />
+            <select>
+                <option>Rol</option>
+                <option>Administrador</option>
+                <option>Editor</option>
+                <option>Usuario</option>
+            </select>
+            <select>
+                <option>Estado</option>
+                <option>Activo</option>
+                <option>Inactivo</option>
+            </select>
+        </div>
+
+        <!-- TABLA -->
+        <table>
+            <tr>
+                <th>NOMBRE DE USUARIO</th>
+                <th>CORREO ELECTRÓNICO</th>
+                <th>ROL</th>
+                <th>FECHA DE ALTA</th>
+                <th>ESTADO</th>
+                <th>ACCIONES</th>
+            </tr>
+
+            <tr>
+                <td>Ana García</td>
+                <td>ana@example.com</td>
+                <td>Usuario</td>
+                <td>10/02/2025</td>
+                <td><span class="tag-active">Activo</span></td>
+                <td class="actions">
+                    <i class="fa-solid fa-pen" onclick="openPanel()"></i>
+                    <i class="fa-solid fa-trash"></i>
+                </td>
+            </tr>
+        </table>
+    </main>
+
+    <!-- PANEL LATERAL DE EDICIÓN -->
+    <aside class="edit-panel" id="editPanel">
+        <h2>Editar Usuario</h2>
+
+        <label>Nombre</label>
+        <input type="text" value="Ana" />
+
+        <label>Apellido</label>
+        <input type="text" value="García" />
+
+        <label>Correo Electrónico</label>
+        <input type="email" value="ana@example.com" readonly />
+
+        <label>Rol</label>
+        <select>
+            <option>Usuario</option>
+            <option>Administrador</option>
+            <option>Editor</option>
+        </select>
+
+        <label><input type="checkbox" checked /> Validación de edad (+18)</label>
+        <label><input type="checkbox" checked /> Consentimiento de términos</label>
+
+        <div class="toggle">
+            <label>Activar cuenta</label>
+            <input type="checkbox" checked />
+        </div>
+
+        <a href="#" class="btn-save">Guardar Cambios</a>
+        <a onclick="closePanel()" class="btn-cancel">Cancelar</a>
+    </aside>
+
+<script>
+// --- BUSCADOR / FILTRO ---
+document.getElementById('searchInput').addEventListener('input', function() {
+    const filter = this.value.toLowerCase();
+    document.querySelectorAll('.user-row').forEach(row => {
+        const text = row.textContent.toLowerCase();
+        row.style.display = text.includes(filter) ? '' : 'none';
+    });
+});
+
+// --- MODAL NUEVO USUARIO ---
+function openNewUserModal(){
+    document.getElementById('newUserModal').style.display = 'flex';
+}
+function closeNewUserModal(){
+    document.getElementById('newUserModal').style.display = 'none';
+}
+
+// --- ELIMINAR USUARIO (frontend) ---
+function deleteUser(id){
+    const row = document.getElementById('user-'+id);
+    if(confirm('¿Seguro que deseas eliminar este usuario?')){
+        row.remove();
+    }
+}
+
+// --- MANEJO DEL FORMULARIO PARA BACKEND ---
+document.getElementById('newUserForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    // Aquí solo rediriges o mandas datos al backend cuando exista
+    alert('Formulario preparado para enviar al backend');
+    closeNewUserModal();
+});
+</script>
+</body>
+</html>
