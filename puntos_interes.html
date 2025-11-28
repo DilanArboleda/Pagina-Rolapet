@@ -1,359 +1,800 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Gestión de Puntos de Interés</title>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>RolaPet - Gestión de Puntos de Interés</title>
 
-<style>
-    body {
-        margin: 0;
-        font-family: Arial, sans-serif;
-        background: #f4f5f7;
-        display: flex;
+  <link rel="icon" href="images/fevicon/alfiler.png" type="image/gif" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="css/colors1.css" />
+  <link rel="stylesheet" href="css/custom.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet"/>
+
+  <style>
+    body,
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #f4f5f7;
+      min-height: 100vh;
     }
 
-    /* SIDEBAR */
+    .container-dashboard {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR (igual que el resto de paneles) */
     .sidebar {
-        width: 250px;
-        background: #ffffff;
-        color: #555;
-        height: 100vh;
-        position: fixed;
-        left: 0;
-        top: 0;
-        display: flex;
-        flex-direction: column;
-        border-right: 1px solid #ddd;
-        padding-top: 15px;
+      background: #fff;
+      color: #555;
+      height: 100vh;
+      width: 250px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #ddd;
+      z-index: 20;
+      transition: transform 0.2s;
     }
 
-    .user-info {
-        text-align: center;
-        padding-bottom: 20px;
-        border-bottom: 1px solid #eee;
+    .sidebar .profile {
+      padding: 25px 10px 15px 10px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
     }
 
-    .user-info img {
-        width: 65px;
-        height: 65px;
-        border-radius: 50%;
+    .profile img {
+      width: 70px;
+      border-radius: 50%;
+      margin-bottom: 10px;
     }
 
-    .user-info h4 {
-        margin: 10px 0 0;
-        color: #333;
+    .sidebar nav {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
     }
 
-    .user-info small {
-        color: #777;
+    .sidebar nav a {
+      padding: 13px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #333;
+      text-decoration: none;
+      transition: 0.2s;
+      border-radius: 8px;
+      margin: 2px 10px;
+      font-size: 16px;
     }
 
-    .sidebar a {
-        padding: 15px 20px;
-        display: block;
-        color: #555;
-        text-decoration: none;
-        font-size: 15px;
-    }
-
-    .sidebar a:hover,
-    .sidebar a.active {
-        background: #1488cc;
-        color: white !important;
+    .sidebar nav a:hover,
+    .sidebar nav a.active {
+      background: #2094f3;
+      color: white;
     }
 
     .logout-btn {
-        margin-top: auto;
-        background: #1488cc;
-        color: white !important;
-        font-weight: bold;
-        text-align: center;
+      margin-top: auto;
+      padding: 14px;
+      background: #2094f3;
+      color: white;
+      text-align: center;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 8px;
+      margin: 10px;
+      font-size: 15px;
     }
 
-    /* HEADER SUPERIOR */
-    .header {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 250px;
-        height: 60px;
-        background: white;
-        border-bottom: 1px solid #ddd;
-        display: flex;
-        align-items: center;
-        justify-content: flex-end;
-        padding: 0 20px;
-        gap: 25px;
-        z-index: 10;
+    /* HAMBURGUESA */
+    .hamburger {
+      display: none;
+      position: absolute;
+      left: 15px;
+      top: 22px;
+      width: 33px;
+      height: 33px;
+      cursor: pointer;
+      z-index: 51;
+      background: #ffffff;
+      border-radius: 8px;
+      align-items: center;
+      justify-content: center;
     }
 
-    .header a {
-        text-decoration: none;
-        color: #333;
-        font-weight: bold;
+    .hamburger i {
+      color: #000000;
+      font-size: 22px;
+    }
+
+    /* HEADER superior (igual al principal) */
+    .top-header {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 250px;
+      height: 120px;
+      background: white;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      z-index: 10;
+    }
+
+    .top-header .logo img {
+      height: 80px;
     }
 
     /* CONTENIDO PRINCIPAL */
-    .content {
-        margin-left: 250px;
-        margin-top: 60px;
-        padding: 25px;
-        width: calc(100% - 550px);
+    .main-content{
+      margin-left:250px;
+      margin-top:150px;
+      width:calc(100vw - 250px);
+      padding:25px;
+      min-height:80vh;
+      box-sizing:border-box;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
     }
 
-    h1 {
-        color: #0e2f44;
-        margin-bottom: 15px;
+    .panel-puntos{
+      width:100%;
+      max-width:1100px;
+      margin:0 auto;
+      background:white;
+      border-radius:25px;
+      box-shadow:0 4px 32px rgba(33,150,243,0.07);
+      padding:22px 24px 26px 24px;
+      color:#0e2f44;
+      display:flex;
+      flex-direction:column;
+      gap:18px;
     }
 
-    /* FILTROS */
-    .filters {
-        display: flex;
-        gap: 10px;
-        margin-bottom: 15px;
-    }
-    .filters input, .filters select {
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
+    .panel-puntos h1{
+      color:#0e2f44;
+      margin:0 0 6px 0;
+      font-size:1.8rem;
+      font-weight:800;
     }
 
-    /* BOTON */
-    .create-btn {
-        float: right;
-        padding: 10px 15px;
-        background: #1488cc;
-        color: white;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-weight: bold;
-        margin-bottom: 15px;
+    .panel-puntos p.subtitulo{
+      margin:0 0 12px 0;
+      color:#555;
+      font-weight:500;
+      font-size:0.97rem;
     }
 
-    /* MAPA */
-    #map {
-        width: 100%;
-        height: 350px;
-        border-radius: 8px;
-        margin-bottom: 20px;
+    .create-btn{
+      display:inline-block;
+      padding:10px 20px;
+      background:#2094f3;
+      color:#fff;
+      border:none;
+      border-radius:18px;
+      cursor:pointer;
+      font-weight:700;
+      font-size:15px;
+      font-family:'Plus Jakarta Sans',sans-serif;
+      margin-bottom:5px;
     }
 
-    /* TABLA */
-    table {
-        width: 100%;
-        background: white;
-        border-collapse: collapse;
-        border-radius: 8px;
-        overflow: hidden;
+    .create-btn:hover{
+      background:#1078d1;
     }
 
-    th {
-        background: #e5e5e5;
-        padding: 12px;
-        text-align: left;
+    .filters{
+      display:flex;
+      gap:10px;
+      margin-bottom:10px;
+      flex-wrap:wrap;
     }
 
-    td {
-        padding: 12px;
-        border-bottom: 1px solid #ddd;
+    .filters input,
+    .filters select{
+      padding:10px 15px;
+      border-radius:10px;
+      border:1px solid #ccc;
+      font-size:15px;
+      font-family:'Plus Jakarta Sans',sans-serif;
+      min-width:180px;
+      outline:none;
+      color:#555;
     }
 
-    .actions button {
-        padding: 7px 10px;
-        border-radius: 5px;
-        border: none;
-        cursor: pointer;
-        margin-right: 5px;
+    #map{
+      width:100%;
+      height:50vh;
+      border-radius:18px;
+      margin-bottom:18px;
+      border:1px solid #e0e0e0;
     }
 
-    .edit-btn { background: #1488cc; color: white; }
-    .delete-btn { background: #e74c3c; color: white; }
-
-    /* PANEL DERECHO */
-    .right-panel {
-        position: fixed;
-        top: 60px;
-        right: 0;
-        width: 300px;
-        height: calc(100% - 60px);
-        background: #ffffff;
-        padding: 20px;
-        border-left: 1px solid #ddd;
-        overflow-y: auto;
+    .table-wrapper{
+      background:#fff;
+      border-radius:18px;
+      padding:8px 10px 14px 10px;
+      box-shadow:0 2px 14px rgba(33,150,243,0.06);
+      border:1px solid #e2e2e2;
     }
 
-    .right-panel h3 {
-        margin-top: 0;
-        color: #0e2f44;
+    table{
+      width:100%;
+      border-collapse:collapse;
+      font-size:15px;
+    }
+
+    th{
+      background:#f0f3f6;
+      padding:12px 14px;
+      text-align:left;
+      font-weight:700;
+      font-size:15px;
+      color:#333;
+    }
+
+    td{
+      padding:12px 14px;
+      border-bottom:1px solid #ddd;
+      font-size:14px;
+      color:#333;
+    }
+
+    tr:last-child td{
+      border-bottom:none;
+    }
+
+    .actions button{
+      padding:7px 14px;
+      border-radius:18px;
+      border:none;
+      cursor:pointer;
+      margin-right:5px;
+      font-size:14px;
+      font-weight:700;
+      font-family:'Plus Jakarta Sans',sans-serif;
+    }
+
+    .edit-btn{background:#2094f3;color:#fff;}
+    .edit-btn:hover{background:#1078d1;}
+    .delete-btn{background:#e74c3c;color:#fff;}
+    .delete-btn:hover{background:#c0392b;}
+
+    .icon-punto {
+      font-size: 22px;
+      color: #008cff;
+    }
+
+    /* PANEL DERECHO tipo “modal lateral” (mismo estilo que config/usuarios) */
+    .right-panel{
+      position:fixed;
+      top:120px;
+      right:0;
+      width:320px;
+      height:calc(100% - 120px);
+      background:#ffffff;
+      padding:20px 24px;
+      border-left:1px solid #ddd;
+      overflow-y:auto;
+      display:none;
+      z-index:30;
+      box-shadow:-4px 0 8px rgba(33,150,243,0.07);
+      font-family:'Plus Jakarta Sans',sans-serif;
+      font-size:16px;
+    }
+
+    .right-panel h3{
+      margin-top:0;
+      color:#0e2f44;
+      font-weight:800;
+      font-size:1.4rem;
+      margin-bottom:15px;
     }
 
     .right-panel input,
     .right-panel select,
-    .right-panel textarea {
-        width: 100%;
-        padding: 10px;
-        border-radius: 5px;
-        border: 1px solid #ccc;
-        margin-bottom: 12px;
+    .right-panel textarea{
+      width:100%;
+      padding:10px 15px;
+      border-radius:10px;
+      border:1px solid #ccc;
+      margin-bottom:12px;
+      font-size:15px;
+      font-family:'Plus Jakarta Sans',sans-serif;
+      outline:none;
+      color:#555;
     }
 
-    textarea {
-        height: 70px;
+    textarea{height:70px;}
+
+    .dropzone{
+      width:100%;
+      padding:20px;
+      border-radius:18px;
+      border:2px dashed #bbb;
+      text-align:center;
+      color:#777;
+      margin-bottom:15px;
+      cursor:pointer;
+      font-size:14px;
+      background:#fafbfc;
     }
 
-    /* DROPZONE */
-    .dropzone {
-        width: 100%;
-        padding: 20px;
-        border-radius: 8px;
-        border: 2px dashed #bbb;
-        text-align: center;
-        color: #777;
-        margin-bottom: 15px;
-        cursor: pointer;
+    .btn-guardar{
+      width:100%;
+      padding:10px;
+      background:#2094f3;
+      color:#fff;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+      font-weight:700;
+      font-size:16px;
     }
 
-    .preview-imgs {
-        display: flex;
-        gap: 10px;
+    .btn-guardar:hover{
+      background:#1078d1;
     }
-    .preview-imgs img {
-        width: 80px;
-        height: 80px;
-        border-radius: 6px;
-        object-fit: cover;
+
+    /* RESPONSIVE igual patrón que el resto */
+    @media (max-width:900px){
+      .top-header{
+        left:0;
+      }
+      .main-content{
+        margin-left:0;
+        width:100vw;
+        margin-top:95px;
+      }
     }
-</style>
+
+    @media (max-width:650px){
+      .container-dashboard{
+        flex-direction:column;
+      }
+
+      .sidebar{
+        position:absolute;
+        left:0;
+        top:0;
+        width:230px;
+        transform:translateX(-100%);
+        transition:transform 0.2s;
+        height:100vh;
+        z-index:50;
+      }
+
+      .sidebar.open{
+        transform:translateX(0);
+      }
+
+      .hamburger{
+        display:flex;
+      }
+
+      .top-header{
+        height:62px;
+        padding:0 8px;
+        left:0;
+      }
+
+      .top-header .logo img{
+        height:42px;
+      }
+
+      .main-content{
+        margin-top:72px;
+        width:100vw;
+        min-height:0;
+        padding:15px;
+      }
+
+      .panel-puntos{
+        border-radius:10px;
+        box-shadow:none;
+        padding:14px 10px 16px 10px;
+      }
+
+      .panel-puntos h1{
+        font-size:1.25rem;
+        text-align:center;
+      }
+
+      .panel-puntos p.subtitulo{
+        text-align:center;
+      }
+
+      #map{
+        height:45vh;
+      }
+
+      .right-panel{
+        top:62px;
+        width:100vw;
+        height:calc(100vh - 62px);
+        max-width:100vw;
+        border-left:none;
+        border-top:1px solid #ddd;
+        box-shadow:none;
+        padding:18px 5vw 10vh 5vw;
+      }
+
+      table, thead, tbody, th, td, tr{
+        display:block;
+        width:100%;
+      }
+
+      thead tr{ display:none; }
+
+      tbody tr{
+        background:#f9fbfc;
+        margin:16px 0 18px 0;
+        border-radius:10px;
+        box-shadow:0 2px 4px rgba(33,150,243,0.04);
+        padding:14px 8px;
+      }
+
+      td{
+        border:none;
+        display:flex;
+        flex-direction:column;
+        align-items:flex-start;
+        font-size:15px;
+        margin:0 0 8px 0;
+        padding:0;
+      }
+
+      td:before{
+        content:attr(data-label);
+        display:block;
+        font-weight:bold;
+        color:#2094f3;
+        margin-bottom:2px;
+        font-size:15px;
+      }
+    }
+
+    @media (max-width:450px){
+      .main-content{
+        margin-top:58px;
+      }
+      #map{
+        height:40vh;
+      }
+    }
+  </style>
 </head>
 
-<body>
+<body id="default_theme" class="it_service">
+<div class="container-dashboard">
 
-<!-- SIDEBAR -->
-<div class="sidebar">
-    <div class="user-info">
-        <img src="https://i.pravatar.cc/60"/>
-        <h4 id="adminName">Admin</h4>
-        <small id="adminEmail">admin@example.com</small>
+  <!-- HAMBURGUESA -->
+  <div class="hamburger" onclick="toggleSidebar()">
+    <i class="fa fa-bars"></i>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="profile">
+      <img src="images/it_service/administracion.png" alt="Admin"/>
+      <h3 id="adminName">Administrador</h3>
+      <small id="adminEmail">admin@example.com</small>
     </div>
 
-    <a href="perfil_admin_new.html">Dashboard</a>
-    <a href="gestion_usuarios.html">Gestión de Usuarios</a>
-    <a href="moderacion.html">Moderación</a>
-    <a class="active" href="puntos_interes.html">Puntos de Interés</a>
-    <a href="proveedores.html">Proveedores</a>
-    <a href="configuracion.html">Configuración</a>
-    <a href="login_admin.html" class="logout-btn">Cerrar Sesión</a>
-</div>
+    <nav>
+      <a href="perfil_admin_new.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+      <a href="gestion_usuarios.html"><i class="fa-solid fa-users"></i> Gestión de Usuarios</a>
+      <a href="moderacion.html"><i class="fa-solid fa-shield-halved"></i> Moderación</a>
+      <a class="active" href="puntos_interes.html"><i class="fa-solid fa-location-dot"></i> Puntos de Interés</a>
+      <a href="proveedores.html"><i class="fa-solid fa-truck"></i> Proveedores</a>
+      <a href="configuracion.html"><i class="fa-solid fa-gear"></i> Configuración</a>
+    </nav>
 
-<!-- HEADER -->
-<div class="header">
-    <a href="#">Inicio</a>
-    <a href="#">Nosotros</a>
-    <a href="#">Servicios</a>
-    <a href="#">Contacto</a>
-</div>
+    <a href="index.html" class="logout-btn">
+      <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+    </a>
+  </aside>
 
-<!-- CONTENIDO PRINCIPAL -->
-<div class="content">
-    <h1>Gestión de Puntos de Interés</h1>
-
-    <button class="create-btn">Crear Nuevo Punto...</button>
-
-    <div class="filters">
-        <input id="searchInput" type="text" placeholder="Buscar...">
-        <select><option>Categoría</option></select>
-        <select><option>Estado</option></select>
+  <!-- HEADER -->
+  <header class="top-header">
+    <div class="logo">
+      <a href="index.html"><img src="images/logos/LogoRolaPet.png" alt="logo"/></a>
     </div>
+  </header>
 
-    <div id="map"></div>
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+    <section class="panel-puntos">
+      <h1>Gestión de Puntos de Interés</h1>
+      <p class="subtitulo">Añade, edita y administra los puntos importantes en el mapa para los usuarios.</p>
 
-    <table>
-        <tr>
+      <button class="create-btn" type="button" onclick="crearNuevoPunto()">+ Crear Nuevo Punto</button>
+
+      <div class="filters">
+        <input id="searchInput" type="text" placeholder="Buscar por nombre o dirección...">
+        <select id="filtroCategoria">
+          <option value="">Categoría</option>
+          <option value="Museo">Museo</option>
+          <option value="Parque">Parque</option>
+          <option value="Restaurante">Restaurante</option>
+          <option value="Monumento">Monumento</option>
+        </select>
+        <select id="filtroEstado">
+          <option value="">Estado</option>
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
+      </div>
+
+      <div id="map"></div>
+
+      <div class="table-wrapper">
+        <table id="puntosTable">
+          <thead>
+          <tr>
             <th>Nombre</th>
             <th>Categoría</th>
             <th>Estado</th>
             <th>Acciones</th>
-        </tr>
-
-        <tr>
-            <td>Museo de Arte Moderno</td>
-            <td>Museo</td>
-            <td>Activo</td>
-            <td>
-                <button class="edit-btn">Editar</button>
-                <button class="delete-btn">Eliminar</button>
+          </tr>
+          </thead>
+          <tbody>
+          <tr data-id="1"
+              data-nombre="Museo de Arte Moderno"
+              data-descripcion="Museo ubicado en el centro histórico..."
+              data-categoria="Museo"
+              data-estado="Activo"
+              data-direccion="Centro Histórico, Bogotá">
+            <td data-label="Nombre">Museo de Arte Moderno</td>
+            <td data-label="Categoría">Museo</td>
+            <td data-label="Estado">Activo</td>
+            <td data-label="Acciones" class="actions">
+              <button class="edit-btn" type="button" onclick="editarPunto(this)">Editar</button>
+              <button class="delete-btn" type="button" onclick="eliminarPunto(this)">Eliminar</button>
             </td>
-        </tr>
-    </table>
-</div>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
 
-<!-- PANEL DERECHO -->
-<div class="right-panel">
-    <h3>Editar Punto de Interés</h3>
+  <!-- PANEL DERECHO -->
+  <aside class="right-panel" id="rightPanel">
+    <h3 id="rightPanelTitle">Editar Punto de Interés</h3>
 
-    <input type="text" placeholder="Nombre" value="Museo de Arte Moderno"/>
-    <textarea placeholder="Descripción">Museo ubicado en el centro histórico...</textarea>
+    <input type="text" id="nombreInput" placeholder="Nombre del punto" />
+    <textarea id="descripcionInput" placeholder="Descripción"></textarea>
 
-    <select>
-        <option>Museo</option>
-        <option>Parque</option>
-        <option>Restaurante</option>
-        <option>Monumento</option>
+    <select id="categoriaSelect">
+      <option>Museo</option>
+      <option>Parque</option>
+      <option>Restaurante</option>
+      <option>Monumento</option>
     </select>
 
-    <select>
-        <option>Activo</option>
-        <option>Inactivo</option>
+    <select id="estadoSelect">
+      <option>Activo</option>
+      <option>Inactivo</option>
     </select>
 
-    <input type="text" placeholder="Latitud" value="40.7614">
-    <input type="text" placeholder="Longitud" value="-73.9776">
+    <input type="text" id="direccionInput" placeholder="Dirección">
 
-    <div class="dropzone" id="dropzone">Arrastra tus fotos aquí...</div>
+    <div class="dropzone" id="dropzone">Arrastra tus fotos aquí o haz clic para seleccionarlas (JPG / PNG, máx. 5MB).</div>
 
-    <div class="preview-imgs">
-        <img src="https://i.pravatar.cc/100?img=12">
-        <img src="https://i.pravatar.cc/100?img=13">
-    </div>
+    <button id="guardarBtn" class="btn-guardar">
+      Guardar Cambios
+    </button>
+  </aside>
 
 </div>
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
 <script>
-    // Cargar datos del admin desde login_admin
-    document.addEventListener("DOMContentLoaded", () => {
-        const name = localStorage.getItem("adminName");
-        const email = localStorage.getItem("adminEmail");
+  // Hamburguesa
+  function toggleSidebar(){
+    const sidebar=document.getElementById('sidebar');
+    sidebar.classList.toggle('open');
+  }
 
-        if (name) document.getElementById("adminName").textContent = name;
-        if (email) document.getElementById("adminEmail").textContent = email;
+  // Autocompletar admin
+  document.addEventListener("DOMContentLoaded",()=>{
+    const name=localStorage.getItem("adminName");
+    const email=localStorage.getItem("adminEmail");
+    if(name) document.getElementById("adminName").textContent=name;
+    if(email) document.getElementById("adminEmail").textContent=email;
+  });
+
+  // MAPA Leaflet
+  let map = L.map("map").setView([4.64179, -74.11686], 12);
+
+  L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+    attribution: "&copy; OpenStreetMap contributors",
+  }).addTo(map);
+
+  map.locate({ setView: true, maxZoom: 16 });
+
+  map.on("locationfound", function (e) {
+    L.marker(e.latlng).addTo(map).bindPopup("Tu ubicación actual");
+    L.circle(e.latlng, { radius: e.accuracy }).addTo(map);
+  });
+
+  map.on("locationerror", function () {
+    alert("No se pudo obtener tu ubicación. Activa el GPS.");
+  });
+
+  const puntoIcon = L.divIcon({
+    html: '<i class="fa-solid fa-location-dot icon-punto"></i>',
+    className: "",
+    iconSize: [30, 30],
+    iconAnchor: [15, 30],
+  });
+
+  const puntos = [
+    { nombre: "Museo de Arte Moderno", lat: 4.64, lng: -74.12 }
+  ];
+
+  puntos.forEach((p) => {
+    L.marker([p.lat, p.lng], { icon: puntoIcon })
+      .addTo(map)
+      .bindPopup('<b>'+p.nombre+'</b>');
+  });
+
+  // EDITAR / CREAR / ELIMINAR
+  let filaEditando = null;
+
+  function abrirPanel(titulo){
+    document.getElementById('rightPanelTitle').textContent = titulo;
+    document.getElementById('rightPanel').style.display = 'block';
+  }
+
+  function cerrarPanel(){
+    document.getElementById('rightPanel').style.display = 'none';
+    filaEditando = null;
+    document.getElementById('nombreInput').value = "";
+    document.getElementById('descripcionInput').value = "";
+    document.getElementById('categoriaSelect').value = "Museo";
+    document.getElementById('estadoSelect').value = "Activo";
+    document.getElementById('direccionInput').value = "";
+  }
+
+  function editarPunto(btn) {
+    const row = btn.closest('tr');
+    filaEditando = row;
+
+    const nombre = row.getAttribute('data-nombre');
+    const descripcion = row.getAttribute('data-descripcion');
+    const categoria = row.getAttribute('data-categoria');
+    const estado = row.getAttribute('data-estado');
+    const direccion = row.getAttribute('data-direccion');
+
+    document.getElementById('nombreInput').value = nombre;
+    document.getElementById('descripcionInput').value = descripcion;
+    document.getElementById('categoriaSelect').value = categoria;
+    document.getElementById('estadoSelect').value = estado;
+    document.getElementById('direccionInput').value = direccion;
+
+    abrirPanel("Editar Punto de Interés");
+  }
+
+  function crearNuevoPunto(){
+    filaEditando = null;
+    cerrarPanel();
+    abrirPanel("Crear Nuevo Punto");
+  }
+
+  function eliminarPunto(btn) {
+    if (confirm('¿Estás seguro de eliminar este punto?')) {
+      const row = btn.closest('tr');
+      row.remove();
+    }
+  }
+
+  document.getElementById('guardarBtn').addEventListener('click', () => {
+    const nombre = document.getElementById('nombreInput').value.trim();
+    const descripcion = document.getElementById('descripcionInput').value.trim();
+    const categoria = document.getElementById('categoriaSelect').value;
+    const estado = document.getElementById('estadoSelect').value;
+    const direccion = document.getElementById('direccionInput').value.trim();
+
+    if(!nombre || !categoria || !estado){
+      alert("Completa al menos nombre, categoría y estado.");
+      return;
+    }
+
+    const tbody = document.querySelector('#puntosTable tbody');
+
+    if(filaEditando){
+      filaEditando.setAttribute('data-nombre', nombre);
+      filaEditando.setAttribute('data-descripcion', descripcion);
+      filaEditando.setAttribute('data-categoria', categoria);
+      filaEditando.setAttribute('data-estado', estado);
+      filaEditando.setAttribute('data-direccion', direccion);
+
+      filaEditando.children[0].textContent = nombre;
+      filaEditando.children[1].textContent = categoria;
+      filaEditando.children[2].textContent = estado;
+    }else{
+      const newRow = document.createElement('tr');
+      newRow.setAttribute('data-nombre', nombre);
+      newRow.setAttribute('data-descripcion', descripcion);
+      newRow.setAttribute('data-categoria', categoria);
+      newRow.setAttribute('data-estado', estado);
+      newRow.setAttribute('data-direccion', direccion);
+
+      newRow.innerHTML = `
+        <td data-label="Nombre">${nombre}</td>
+        <td data-label="Categoría">${categoria}</td>
+        <td data-label="Estado">${estado}</td>
+        <td data-label="Acciones" class="actions">
+          <button class="edit-btn" type="button" onclick="editarPunto(this)">Editar</button>
+          <button class="delete-btn" type="button" onclick="eliminarPunto(this)">Eliminar</button>
+        </td>
+      `;
+      tbody.appendChild(newRow);
+    }
+
+    cerrarPanel();
+    alert('Cambios guardados (simulado)');
+  });
+
+  // Dropzone
+  const dz=document.getElementById("dropzone");
+  dz.addEventListener("dragover",(e)=>{e.preventDefault();dz.style.background="#e8f4ff";});
+  dz.addEventListener("dragleave",()=>dz.style.background="#fafbfc");
+  dz.addEventListener("drop",(e)=>{
+    e.preventDefault();
+    dz.style.background="#fafbfc";
+    alert("Archivos listos para enviar al backend (simulado).");
+  });
+  dz.addEventListener("click", ()=>{
+    alert("Aquí iría el selector de archivos (simulado).");
+  });
+
+    // Filtros básicos (front)
+  function aplicarFiltros(){
+    const texto = document.getElementById('searchInput').value.toLowerCase();
+    const cat = document.getElementById('filtroCategoria').value;
+    const est = document.getElementById('filtroEstado').value;
+
+    document.querySelectorAll('#puntosTable tbody tr').forEach(row=>{
+      const nombre = (row.getAttribute('data-nombre') || '').toLowerCase();
+      const categoria = row.getAttribute('data-categoria') || '';
+      const estado = row.getAttribute('data-estado') || '';
+
+      const coincideTexto = !texto || nombre.includes(texto);
+      const coincideCat = !cat || categoria === cat;
+      const coincideEst = !est || estado === est;
+
+      row.style.display = (coincideTexto && coincideCat && coincideEst) ? "" : "none";
     });
+  }
 
-    // MAPA (Leaflet)
-    var map = L.map('map').setView([40.7614, -73.9776], 14);
-
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19
-    }).addTo(map);
-
-    L.marker([40.7614, -73.9776]).addTo(map)
-        .bindPopup("Museo de Arte Moderno");
-
-    // Dropzone mínima
-    const dz = document.getElementById("dropzone");
-    dz.addEventListener("dragover", (e)=>{ e.preventDefault(); dz.style.background="#e8f4ff"; });
-    dz.addEventListener("dragleave", ()=> dz.style.background="");
-    dz.addEventListener("drop", (e)=>{
-        e.preventDefault();
-        dz.style.background="";
-        alert("Archivos listos para enviar al backend.");
-    });
+  document.getElementById('searchInput').addEventListener('input', aplicarFiltros);
+  document.getElementById('filtroCategoria').addEventListener('change', aplicarFiltros);
+  document.getElementById('filtroEstado').addEventListener('change', aplicarFiltros);
 </script>
 
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/menumaker.js"></script>
+<script src="js/wow.js"></script>
+<script src="js/custom.js"></script>
 </body>
 </html>
