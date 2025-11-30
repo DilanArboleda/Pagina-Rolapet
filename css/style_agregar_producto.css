@@ -1,0 +1,406 @@
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #FAFAFA;
+            color: #666666;
+            line-height: 1.6;
+            padding-bottom: 40px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        /* Header Section */
+        .page-header {
+            margin-bottom: 40px;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: #2196F3;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .back-link:hover {
+            color: #6BBEF9;
+            transform: translateX(-4px);
+        }
+
+        .back-link .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #666666;
+            margin-bottom: 10px;
+        }
+
+        .page-subtitle {
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: #8C8C8C;
+        }
+
+        /* Form Card */
+        .form-card {
+            background: white;
+            border-radius: 16px;
+            padding: 40px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        }
+
+        .form-section {
+            margin-bottom: 40px;
+        }
+
+        .form-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #666666;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title .material-symbols-outlined {
+            color: #2196F3;
+            font-size: 28px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #666666;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+        }
+
+        .form-label .required {
+            color: #FF5252;
+            margin-left: 4px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #E0E0E0;
+            border-radius: 8px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 1rem;
+            color: #666666;
+            transition: all 0.3s ease;
+            background-color: white;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #2196F3;
+            box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath fill='%238C8C8C' d='M7 10l5 5 5-5z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 40px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-hint {
+            font-size: 0.85rem;
+            color: #8C8C8C;
+            margin-top: 6px;
+            font-weight: 400;
+        }
+
+        /* Image Upload */
+        .image-upload-area {
+            border: 2px dashed #E0E0E0;
+            border-radius: 12px;
+            padding: 40px;
+            text-align: center;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .image-upload-area:hover {
+            border-color: #2196F3;
+            background-color: #F5FAFF;
+        }
+
+        .image-upload-area.dragover {
+            border-color: #2196F3;
+            background-color: #E3F2FD;
+        }
+
+        .image-upload-area .material-symbols-outlined {
+            font-size: 60px;
+            color: #8C8C8C;
+            margin-bottom: 16px;
+        }
+
+        .upload-text {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #666666;
+            margin-bottom: 8px;
+        }
+
+        .upload-hint {
+            font-size: 0.85rem;
+            color: #8C8C8C;
+        }
+
+        #imageInput {
+            display: none;
+        }
+
+        .image-preview {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .image-preview.active {
+            display: block;
+        }
+
+        .preview-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .preview-image {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .remove-image {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background-color: #FF5252;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .remove-image:hover {
+            background-color: #E53935;
+            transform: scale(1.1);
+        }
+
+        /* Price Input */
+        .price-input-wrapper {
+            position: relative;
+        }
+
+        .currency-symbol {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1rem;
+            font-weight: 500;
+            color: #8C8C8C;
+        }
+
+        .price-input {
+            padding-left: 36px;
+        }
+
+        /* Buttons */
+        .form-actions {
+            display: flex;
+            gap: 16px;
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #F5F5F5;
+        }
+
+        .btn-primary {
+            background-color: #2196F3;
+            color: #FFFFFF;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 16px 32px;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .btn-primary:hover {
+            background-color: #6BBEF9;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+        }
+
+        .btn-primary .material-symbols-outlined {
+            font-size: 22px;
+        }
+
+        .btn-secondary {
+            background-color: transparent;
+            color: #8C8C8C;
+            font-weight: 700;
+            font-size: 1rem;
+            padding: 16px 32px;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            flex: 1;
+        }
+
+        .btn-secondary:hover {
+            border-color: #8C8C8C;
+            color: #666666;
+        }
+
+        /* Toggle Switch for Type */
+        .type-selector {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .type-option {
+            flex: 1;
+            padding: 20px;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .type-option:hover {
+            border-color: #2196F3;
+        }
+
+        .type-option input[type="radio"] {
+            display: none;
+        }
+
+        .type-option input[type="radio"]:checked + .type-content {
+            color: #2196F3;
+        }
+
+        .type-option input[type="radio"]:checked ~ .type-option {
+            border-color: #2196F3;
+            background-color: #F5FAFF;
+        }
+
+        .type-option.selected {
+            border-color: #2196F3;
+            background-color: #F5FAFF;
+        }
+
+        .type-content .material-symbols-outlined {
+            font-size: 40px;
+            color: #8C8C8C;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .type-option.selected .type-content .material-symbols-outlined {
+            color: #2196F3;
+        }
+
+        .type-label {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #666666;
+        }
+
+        .type-option.selected .type-label {
+            color: #2196F3;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .form-card {
+                padding: 24px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .type-selector {
+                flex-direction: column;
+            }
+        }
