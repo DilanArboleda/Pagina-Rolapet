@@ -1,257 +1,194 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<!-- basic -->
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<!-- mobile metas -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="viewport" content="initial-scale=1, maximum-scale=1">
-<!-- site metas -->
-<title>RolaPet</title>
-<meta name="keywords" content="">
-<meta name="description" content="">
-<meta name="author" content="">
-<!-- site icons -->
-<link rel="icon" href="images/fevicon/fevicon.png" type="image/gif" />
-<!-- bootstrap css -->
-<link rel="stylesheet" href="css/bootstrap.min.css" />
-<!-- Site css -->
-<link rel="stylesheet" href="css/style.css" />
-<!-- responsive css -->
-<link rel="stylesheet" href="css/responsive.css" />
+  <!-- basic -->
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <!-- mobile metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1" />
+  <!-- site metas -->
+  <title>RolaPet - Mapa</title>
+  <meta name="keywords" content="" />
+  <meta name="description" content="" />
+  <meta name="author" content="" />
+  <!-- site icons -->
+  <link rel="icon" href="images/fevicon/alfiler.png" type="image/gif" />
+  <!-- bootstrap css -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <!-- Site css -->
+  <link rel="stylesheet" href="css/style.css" />
+  <!-- responsive css -->
+  <link rel="stylesheet" href="css/responsive.css" />
+  <!-- Leaflet css for map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <!-- colors css -->
+  <link rel="stylesheet" href="css/colors1.css" />
+  <!-- custom css -->
+  <link rel="stylesheet" href="css/custom.css" />
+  <!-- wow Animation css -->
+  <link rel="stylesheet" href="css/animate.css" />
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+  <link href="https://fonts.googleapis.com" rel="preconnect" />
+  <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&amp;display=swap"
+    rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
 
-<!-- Hoja de estilos mapa -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+  </style>
+  <script id="tailwind-config">
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            primary: '#2094f3',
+            'background-light': '#F4F7F9',
+            'background-dark': '#101a22',
+            'text-title': '#666666',
+            'text-body': '#8C8C8C',
+            'border-color': '#E0E0E0',
+          },
+          fontFamily: {
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          borderRadius: { DEFAULT: '0.25rem', lg: '0.5rem', xl: '0.75rem', full: '9999px' },
+        },
+      },
+    }
+  </script>
+  <style>
+    #mi_mapa {
+      width: 100%;
+      height: 90vh;
+      /* altura grande para pantallas anchas */
+    }
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    /* En dispositivos móviles (menos de 640px), reducir altura para que no ocupe demasiado */
+    @media (max-width: 639px) {
+      #mi_mapa {
+        height: 70vh;
+      }
+    }
 
-
-<!-- colors css -->
-<link rel="stylesheet" href="css/colors1.css" />
-<!-- custom css -->
-<link rel="stylesheet" href="css/custom.css" />
-<!-- wow Animation css -->
-<link rel="stylesheet" href="css/animate.css" />
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
-
-
-<style>
-
-  #mi_mapa {
-    height: 80vh;
-    width: 100%;
-  }
-   .icon-proveedor {
-    font-size: 26px;
-    color: #1C9ED9;  
-
-
-}
-
-
-</style>
-
-
+    .icon-proveedor {
+      font-size: 22px;
+      color: #008cff;
+    }
+  </style>
 </head>
 
-
-<body id="default_theme" class="it_service service">
-<!-- loader -->
-<div class="bg_load"> <img class="loader_animation" src="images/loaders/loader_1.png" alt="#" /> </div>
-<!-- end loader -->
-<!-- header -->
-<header id="default_header" class="header_style_1">
- 
-
-  <!-- header bottom -->
-  <div class="header_bottom">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-          <!-- logo start -->
-          <div class="logo"> <a href="index.html"><img src="images/logos/it_logo.png" alt="logo" /></a> </div>
-          <!-- logo end -->
-        </div>
-        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-          <!-- menu start -->
-          <div class="menu_side">
-            <div id="navbar_menu">
-              <ul class="first-ul">
-                <li> <a href="index.html">Inicio</a>
-                  <ul>
-                    <li><a href="it_home.html">Login</a></li>
-                    <li><a href="it_home_dark.html">Registro</a></li>
-                  </ul>
-                </li>
-                <li><a href="it_about.html">Perfil</a></li>
-                <li> <a class="active" href="it_service.html">Mapa</a>
-                  <ul>
-                    <li><a href="it_service_list.html">Services list</a></li>
-                    <li><a href="it_service_detail.html">Services Detail</a></li>
-                  </ul>
-                </li>
-                <li> <a href="it_blog.html">Blog</a>
-                  <ul>
-                    <li><a href="it_blog.html">Blog List</a></li>
-                    <li><a href="it_blog_grid.html">Blog Grid</a></li>
-                    <li><a href="it_blog_detail.html">Blog Detail</a></li>
-                  </ul>
-                </li>
-                <li> <a href="#">Pages</a>
-                  <ul>
-                    <li><a href="it_career.html">Career</a></li>
-                    <li><a href="it_price.html">Pricing</a></li>
-                    <li><a href="it_faq.html">Faq</a></li>
-                    <li><a href="it_privacy_policy.html">Privacy Policy</a></li>
-                    <li><a href="it_error.html">Error 404</a></li>
-                  </ul>
-                </li>
-                <li> <a href="it_shop.html">Tienda</a>
-                  <ul>
-                    <li><a href="it_shop.html">Shop List</a></li>
-                    <li><a href="it_shop_detail.html">Shop Detail</a></li>
-                    <li><a href="it_cart.html">Shopping Cart</a></li>
-                    <li><a href="it_checkout.html">Checkout</a></li>
-                  </ul>
-                </li>
-                <li> <a href="it_contact.html">Contact</a>
-                  <ul>
-                    <li><a href="it_contact.html">Contact Page 1</a></li>
-                    <li><a href="it_contact_2.html">Contact Page 2</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-            <div class="search_icon">
-              <ul>
-                <li><a href="#" data-toggle="modal" data-target="#search_bar"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-              </ul>
-            </div>
+<body id="default_theme" class="it_service font-display">
+  <!-- loader -->
+  <div class="bg_load"> <img class="loader_animation" src="images/loaders/scoote.png" alt="#" /> </div>
+  <!-- end loader -->
+  <!-- header -->
+  <header id="default_header" class="header_style_1">
+    <!-- header bottom -->
+    <div class="header_bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <!-- logo start -->
+            <div class="logo"> <a href="index.html"><img src="images/logos/LogoRolaPet.png" alt="logo" /></a> </div>
+            <!-- logo end -->
           </div>
-          <!-- menu end -->
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- header bottom end -->
-</header>
-<!-- end header -->
-<!-- inner page banner -->
-<div id="inner_banner" class="section inner_banner_section">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="full">
-          <div class="title-holder">
-            <div class="title-holder-cell text-left">
-              <h1 class="page-title">Mapa</h1>
-              <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Services</li>
-              </ol>
+          <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <!-- menu start -->
+            <div class="menu_side">
+              <div id="navbar_menu">
+                <ul class="first-ul">
+                  <li><a href="index.html">Inicio</a></li>
+                  <li><a href="servicios.html">Catálogo</a></li>
+                  <li><a href="noticias_blog.html">Blog</a></li>
+                  <li><a class="active" href="mapa.html">Mapa</a></li>
+                  <li><a href="perfil_usuario.html">Perfil</a></li>
+                </ul>
+              </div>
             </div>
+            <!-- menu end -->
           </div>
         </div>
       </div>
     </div>
+  </header>
+  <!-- end header -->
+  <!-- Contenedor del mapa -->
+  <div id="mapa_container">
+    <div id="mi_mapa"></div>
   </div>
-</div>
-<!-- end inner page banner -->
 
-<!-- Prueba mapa api -->
+  <!-- js scripts -->
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/menumaker.js"></script>
+  <script src="js/wow.js"></script>
+  <script src="js/custom.js"></script>
 
-<div id="mi_mapa"></div>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
+  <script>
+    let maps = L.map("mi_mapa").setView([4.64179, -74.11686], 12);
 
-<!-- End Prueba mapa api -->
-
-
-
-
-<!-- footer -->
-
-
-
-<!-- end footer -->
-
-
-<!-- js section -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<!-- menu js -->
-<script src="js/menumaker.js"></script>
-<!-- wow animation -->
-<script src="js/wow.js"></script>
-<!-- custom js -->
-<script src="js/custom.js"></script>
-
-
-<!-- Script openstreet maps -->
-
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
-<script>
-    // Crear el mapa
-    let maps = L.map('mi_mapa').setView([4.64179, -74.11686], 12);
-
-    // Cargar los tiles de OpenStreetMap
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; OpenStreetMap contributors'
+    L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      attribution: "&copy; OpenStreetMap contributors",
     }).addTo(maps);
-
-
-    /* -------------------------
-       1) Ubicación del usuario
-       ------------------------- */
 
     maps.locate({ setView: true, maxZoom: 16 });
 
-    maps.on("locationfound", function(e) {
-        L.marker(e.latlng)
-            .addTo(maps)
-            .bindPopup("Tu ubicación actual");
+    maps.on("locationfound", function (e) {
+      L.marker(e.latlng).addTo(maps).bindPopup("Tu ubicación actual");
 
-        L.circle(e.latlng, { radius: e.accuracy }).addTo(maps);
+      L.circle(e.latlng, { radius: e.accuracy }).addTo(maps);
     });
 
-    maps.on("locationerror", function() {
-        alert("No se pudo obtener tu ubicación. Activa el GPS.");
+    maps.on("locationerror", function () {
+      alert("No se pudo obtener tu ubicación. Activa el GPS.");
     });
-
-
-    /* ------------------------
-       2) Marcadores proveedores
-       ------------------------ */
 
     const proveedorIcon = L.divIcon({
-    html: '<i class="fa-solid fa-warehouse icon-proveedor"></i>',
-    className: '',       
-    iconSize: [30, 30],  
-    iconAnchor: [15, 30] 
+      html: '<i class="fa-solid fa-warehouse icon-proveedor"></i>',
+      className: "",
+      iconSize: [30, 30],
+      iconAnchor: [15, 30],
     });
 
-
- //Parte de ubicación, geolocalizacion
-    
     const proveedores = [
-        { nombre: "Proveedor Llantas", lat: 4.640, lng: -74.120 },
-        { nombre: "Proveedor Carros",  lat: 4.645, lng: -74.110 },
-        { nombre: "Proveedor Motos",   lat: 4.650, lng: -74.130 },
+      { nombre: "Proveedor Llantas", lat: 4.64, lng: -74.12 },
+      { nombre: "Proveedor Carros", lat: 4.645, lng: -74.11 },
+      { nombre: "Proveedor Motos", lat: 4.65, lng: -74.13 },
     ];
 
-// Añadir cada proveedor al mapa con el icono personalizado
-proveedores.forEach(p => {
-    L.marker([p.lat, p.lng], { icon: proveedorIcon })
-     .addTo(maps)
-     .bindPopup(`<b>${p.nombre}</b>`);
+    proveedores.forEach((p) => {
+      L.marker([p.lat, p.lng], { icon: proveedorIcon })
+        .addTo(maps)
+        .bindPopup(`<b>${p.nombre}</b>`);
     });
+  </script>
+  <style>
+    @media (max-width: 767px) {
+      .header_bottom .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
 
-</script>
-
-
+      .header_bottom .logo img {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        display: block;
+      }
+    }
+  </style>
 </body>
+
 </html>

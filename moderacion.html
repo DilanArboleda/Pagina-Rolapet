@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RolaPet - Moderación de Contenido</title>
+  <link rel="icon" href="images/fevicon/alfiler.png" type="image/gif" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="css/colors1.css" />
+  <link rel="stylesheet" href="css/custom.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap"
+    rel="stylesheet">
+
+   <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #f4f5f7;
+      min-height: 100vh;
+    }
+
+    .container-dashboard {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR (igual al primero) */
+    .sidebar {
+      background: #fff;
+      color: #555;
+      height: 100vh;
+      width: 250px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #ddd;
+      z-index: 20;
+      transition: transform 0.2s;
+    }
+
+    .sidebar .profile {
+      padding: 25px 10px 15px 10px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .profile img {
+      width: 70px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .sidebar nav {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sidebar nav a {
+      padding: 13px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #333;
+      text-decoration: none;
+      transition: 0.2s;
+      border-radius: 8px;
+      margin: 2px 10px;
+      font-size: 16px;
+    }
+
+    .sidebar nav a:hover,
+    .sidebar nav a.active {
+      background: #2094f3;
+      color: white;
+    }
+
+    .logout-btn {
+      margin-top: auto;
+      padding: 14px;
+      background: #2094f3;
+      color: white;
+      text-align: center;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 8px;
+      margin: 10px;
+      font-size: 15px;
+    }
+
+    /* HAMBURGUESA */
+    .hamburger {
+      display: none;
+      position: absolute;
+      left: 15px;
+      top: 22px;
+      width: 33px;
+      height: 33px;
+      cursor: pointer;
+      z-index: 51;
+      background: #ffffff;
+      border-radius: 8px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hamburger i {
+      color: #000000;
+      font-size: 22px;
+    }
+
+    /* HEADER superior (igual al primero) */
+    .top-header {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 250px;
+      height: 120px;
+      background: white;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      z-index: 10;
+    }
+
+    .top-header .logo img {
+      height: 80px;
+    }
+
+    /* MAIN CONTENT: DEJA ESPACIO PARA SIDEBAR Y PANEL DERECHO */
+    .main-content {
+      margin-left: 250px;
+      margin-top: 150px;
+      width: calc(100vw - 250px - 300px);
+      /* 300px = ancho right-panel */
+      padding: 25px;
+      min-height: 80vh;
+    }
+
+    h1 {
+      color: #0e2f44;
+      margin-bottom: 20px;
+      font-size: 2rem;
+      font-weight: 800;
+    }
+
+    /* TABS COMO BOTONES GRANDES */
+    .tabs {
+      display: flex;
+      gap: 15px;
+      margin-bottom: 20px;
+    }
+
+    .tabs button {
+      border: none;
+      cursor: pointer;
+      padding: 12px 28px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #eaeaea;
+      color: #333;
+      transition: 0.2s;
+    }
+
+    .tabs button.active {
+      background: #2094f3;
+      color: #fff;
+    }
+
+    /* FILTROS */
+    .filters {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 25px;
+    }
+
+    .filters input,
+    .filters select {
+      padding: 10px 15px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      font-size: 15px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-width: 180px;
+      outline: none;
+    }
+
+    /* TARJETAS DE MODERACIÓN (CONTENEDOR REDONDEADO) */
+    .card {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 25px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 25px;
+      border: 1px solid #e2e2e2;
+      box-shadow: 0 4px 32px rgba(33, 150, 243, 0.07);
+      text-align: center;
+    }
+
+    .card img {
+      width: 75px;
+      height: 75px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+
+    .card .text {
+      color: #232323;
+      font-size: 15px;
+      font-weight: 500;
+      max-width: 650px;
+    }
+
+    .card .text strong {
+      font-size: 17px;
+      font-weight: 700;
+    }
+
+    .highlight {
+      background: yellow;
+      font-weight: 700;
+      padding: 2px 4px;
+      border-radius: 5px;
+    }
+
+    .actions {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .actions button {
+      padding: 8px 25px;
+      border-radius: 20px;
+      border: none;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 15px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      transition: 0.2s;
+      min-width: 130px;
+    }
+
+    .btn-edit {
+      background: #e0e0e0;
+      color: #333;
+    }
+
+    .btn-reject {
+      background: #e74c3c;
+      color: #fff;
+    }
+
+    .btn-approve {
+      background: #2094f3;
+      color: #fff;
+    }
+
+    /* ESTADOS (PARA GESTIÓN USUARIOS SI LOS USAS) */
+    .status-btn {
+      padding: 6px 18px;
+      border-radius: 20px;
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      cursor: default;
+    }
+
+    .status-active {
+      background: #3cbc81;
+      color: #fff;
+    }
+
+    .status-inactive {
+      background: #e74c3c;
+      color: #fff;
+    }
+
+    /* PANEL DERECHO (PALABRAS BLOQUEADAS) */
+    .right-panel {
+      position: fixed;
+      top: 120px;
+      right: 0;
+      width: 300px;
+      height: calc(100% - 120px);
+      background: #ffffff;
+      padding: 20px;
+      border-left: 1px solid #ddd;
+      overflow-y: auto;
+    }
+
+    .right-panel h3 {
+      margin-top: 0;
+      color: #0e2f44;
+      font-weight: 800;
+      font-size: 1.4rem;
+      margin-bottom: 15px;
+    }
+
+    .right-panel input {
+      width: 100%;
+      padding: 10px 15px;
+      border-radius: 10px;
+      border: 1px solid #ccc;
+      margin-bottom: 10px;
+      font-size: 15px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    .right-panel button {
+      width: 100%;
+      background: #2094f3;
+      color: white;
+      padding: 10px 0;
+      border-radius: 20px;
+      border: none;
+      margin-bottom: 15px;
+      font-size: 16px;
+      font-weight: 700;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      cursor: pointer;
+    }
+
+    .word-list div {
+      background: #f4f4f4;
+      padding: 8px 12px;
+      margin-bottom: 8px;
+      display: flex;
+      justify-content: space-between;
+      border-radius: 18px;
+      font-size: 14px;
+      font-weight: 500;
+      color: #232323;
+    }
+
+    .word-list i {
+      cursor: pointer;
+      color: #e74c3c;
+      font-size: 15px;
+    }
+
+    /* RESPONSIVE -------------------------------------------------- */
+    @media (max-width:900px) {
+      .top-header {
+        left: 0;
+      }
+
+      .main-content {
+        margin-left: 0;
+        width: 100vw;
+        margin-top: 95px;
+      }
+    }
+
+    @media (max-width:650px) {
+      .container-dashboard {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 230px;
+        transform: translateX(-100%);
+        transition: transform 0.2s;
+        height: 100vh;
+        z-index: 50;
+      }
+
+      .sidebar.open {
+        transform: translateX(0);
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .top-header {
+        height: 62px;
+        padding: 0 8px;
+        left: 0;
+      }
+
+      .top-header .logo img {
+        height: 42px;
+      }
+
+      .main-content {
+        margin-top: 72px;
+        width: 100vw;
+        min-height: 0;
+        padding: 15px;
+      }
+
+      .right-panel {
+        position: fixed;
+        top: 62px;
+        width: 100vw;
+        height: auto;
+        max-height: 300px;
+        bottom: 0;
+        border-left: none;
+        border-top: 1px solid #ddd;
+      }
+    }
+
+    @media (max-width:450px) {
+      .main-content {
+        margin-top: 58px;
+      }
+    }
+  </style>
+</head>
+
+<body id="default_theme" class="it_service">
+  <div class="container-dashboard">
+
+    <!-- HAMBURGUESA -->
+    <div class="hamburger" onclick="toggleSidebar()">
+      <i class="fa fa-bars"></i>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="profile">
+  <img src="images/it_service/administracion.png" alt="Admin" />
+  <h3 id="adminName">Administrador</h3>
+  <small id="adminEmail">admin@example.com</small>
+</div>
+
+      <nav>
+        <a href="perfil_admin_new.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+        <a href="gestion_usuarios.html"><i class="fa-solid fa-users"></i> Gestión de Usuarios</a>
+        <a href="moderacion.html" class="active"><i class="fa-solid fa-shield-halved"></i> Moderación</a>
+        <a href="puntos_interes.html"><i class="fa-solid fa-location-dot"></i> Puntos de Interés</a>
+        <a href="proveedores.html"><i class="fa-solid fa-truck"></i> Proveedores</a>
+        <a href="configuracion.html"><i class="fa-solid fa-gear"></i> Configuración</a>
+      </nav>
+      <a class="logout-btn" href="index.html">
+        <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+      </a>
+    </aside>
+
+    <!-- HEADER SUPERIOR -->
+    <header class="top-header">
+      <div class="logo">
+        <a href="index.html"><img src="images/logos/LogoRolaPet.png" alt="logo" /></a>
+      </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main class="main-content">
+      <h1>Moderación de Contenido</h1>
+
+      <div class="tabs">
+        <button class="active" type="button">Publicaciones Pendientes</button>
+        <button type="button">Comentarios Pendientes</button>
+      </div>
+
+      <div class="filters">
+        <input id="searchInput" type="text" placeholder="Buscar..." />
+        <select>
+          <option>Filtrar por Usuario</option>
+        </select>
+        <select>
+          <option>Filtrar por Fecha</option>
+        </select>
+      </div>
+
+      <!-- TARJETA 1 -->
+      <div class="card mod-row" id="mod-1">
+        <img src="https://i.pravatar.cc/61" alt="Usuario" />
+        <div class="text">
+          <strong>Soha Vergara</strong><br>
+          Este texto contiene una palabra <span class="highlight">inapropiada</span> que debe revisarse.
+        </div>
+        <div class="actions">
+          <button class="btn-edit">Editar</button>
+          <button class="btn-reject" onclick="removeCard('mod-1')">Rechazar</button>
+          <button class="btn-approve">Aprobar</button>
+        </div>
+      </div>
+
+      <!-- TARJETA 2 -->
+      <div class="card mod-row" id="mod-2">
+        <img src="https://i.pravatar.cc/62" alt="Usuario" />
+        <div class="text">
+          <strong>Juan Pérez</strong><br>
+          Esta publicación contiene <span class="highlight">palabra-mala</span> y debe moderarse.
+        </div>
+        <div class="actions">
+          <button class="btn-edit">Editar</button>
+          <button class="btn-reject" onclick="removeCard('mod-2')">Rechazar</button>
+          <button class="btn-approve">Aprobar</button>
+        </div>
+      </div>
+    </main>
+
+    <!-- PANEL DERECHO -->
+    <aside class="right-panel">
+      <h3>Gestionar Palabras Bloqueadas</h3>
+
+      <input id="newWord" type="text" placeholder="Añadir nueva palabra...">
+      <button type="button" onclick="addWord()">Añadir</button>
+
+      <div class="word-list" id="wordList">
+        <div><span>inapropiada</span> <i onclick="deleteWord(this)" class="fa-solid fa-trash"></i></div>
+        <div><span>palabra-mala</span> <i onclick="deleteWord(this)" class="fa-solid fa-trash"></i></div>
+        <div><span>ofensiva</span> <i onclick="deleteWord(this)" class="fa-solid fa-trash"></i></div>
+        <div><span>bloqueada</span> <i onclick="deleteWord(this)" class="fa-solid fa-trash"></i></div>
+      </div>
+    </aside>
+
+  </div>
+
+  <script>
+    // Hamburguesa responsiva
+    function toggleSidebar() {
+      const sidebar = document.getElementById('sidebar');
+      sidebar.classList.toggle('open');
+    }
+
+    // Autocompletar nombre/email
+    document.getElementById('adminName').textContent = localStorage.getItem('adminName') || 'Administrador';
+    document.getElementById('adminEmail').textContent = localStorage.getItem('adminEmail') || 'admin@example.com';
+
+    // ELIMINAR TARJETA
+    function removeCard(id) {
+      const el = document.getElementById(id);
+      if (el) el.remove();
+    }
+
+    // AGREGAR PALABRA
+    function addWord() {
+      const w = document.getElementById('newWord').value.trim();
+      if (!w) return;
+      const div = document.createElement('div');
+      div.innerHTML = `<span>${w}</span> <i onclick="deleteWord(this)" class="fa-solid fa-trash"></i>`;
+      document.getElementById('wordList').appendChild(div);
+      document.getElementById('newWord').value = "";
+    }
+
+    // ELIMINAR PALABRA
+    function deleteWord(el) {
+      el.parentElement.remove();
+    }
+
+    // BUSCADOR DE TARJETAS
+    const search = document.getElementById('searchInput');
+    search.addEventListener('input', () => {
+      const val = search.value.toLowerCase();
+      document.querySelectorAll('.mod-row').forEach(row => {
+        row.style.display = row.textContent.toLowerCase().includes(val) ? '' : 'none';
+      });
+    });
+  </script>
+
+  <script src="js/jquery.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/menumaker.js"></script>
+  <script src="js/wow.js"></script>
+  <script src="js/custom.js"></script>
+</body>
+
+</html>

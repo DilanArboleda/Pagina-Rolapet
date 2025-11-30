@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RolaPet - Gestión de Usuarios</title>
+
+  <link rel="icon" href="images/fevicon/alfiler.png" type="image/gif" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+  <link rel="stylesheet" href="css/colors1.css" />
+  <link rel="stylesheet" href="css/custom.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    body,
+    body, html {
+      margin: 0;
+      padding: 0;
+      font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+      background: #f4f5f7;
+      min-height: 100vh;
+    }
+
+    .container-dashboard {
+      display: flex;
+      min-height: 100vh;
+    }
+
+    /* SIDEBAR (idéntico al primero) */
+    .sidebar {
+      background: #fff;
+      color: #555;
+      height: 100vh;
+      width: 250px;
+      position: fixed;
+      left: 0;
+      top: 0;
+      display: flex;
+      flex-direction: column;
+      border-right: 1px solid #ddd;
+      z-index: 20;
+      transition: transform 0.2s;
+    }
+
+    .sidebar .profile {
+      padding: 25px 10px 15px 10px;
+      text-align: center;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .profile img {
+      width: 70px;
+      border-radius: 50%;
+      margin-bottom: 10px;
+    }
+
+    .sidebar nav {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+
+    .sidebar nav a {
+      padding: 13px 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      color: #333;
+      text-decoration: none;
+      transition: 0.2s;
+      border-radius: 8px;
+      margin: 2px 10px;
+      font-size: 16px;
+    }
+
+    .sidebar nav a:hover,
+    .sidebar nav a.active {
+      background: #2094f3;
+      color: white;
+    }
+
+    .logout-btn {
+      margin-top: auto;
+      padding: 14px;
+      background: #2094f3;
+      color: white;
+      text-align: center;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 8px;
+      margin: 10px;
+      font-size: 15px;
+    }
+
+    /* Hamburguesa menú (idéntico) */
+    .hamburger {
+      display: none;
+      position: absolute;
+      left: 15px;
+      top: 22px;
+      width: 33px;
+      height: 33px;
+      cursor: pointer;
+      z-index: 51;
+      background: #ffffff;
+      border-radius: 8px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .hamburger i {
+      color: #000000;
+      font-size: 22px;
+    }
+
+    /* HEADER SUPERIOR (idéntico al primero) */
+    .top-header {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 250px;
+      height: 120px;
+      background: white;
+      border-bottom: 1px solid #ddd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 20px;
+      z-index: 10;
+    }
+
+    .top-header .logo img {
+      height: 80px;
+    }
+
+    /* MAIN: solo se ajusta el contenido central */
+    .main-content {
+      margin-left: 250px;
+      margin-top: 150px;
+      width: calc(100vw - 250px);
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 80vh;
+      padding: 25px;
+      box-sizing: border-box;
+    }
+
+    .users-panel {
+      width: 100%;
+      max-width: 1100px;
+      background: white;
+      border-radius: 25px;
+      box-shadow: 0 4px 32px rgba(33, 150, 243, 0.07);
+      padding: 25px 30px;
+      font-size: 16px;
+      color: #0e2f44;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .users-panel h1 {
+      font-weight: 800;
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+      color: #0e2f44;
+    }
+
+    .users-panel p {
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    .btn-primary {
+      background: #2094f3;
+      color: #fff;
+      padding: 10px 0;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 16px;
+      cursor: pointer;
+      border: none;
+      margin-bottom: 14px;
+      width: 100%;
+    }
+
+    .btn-primary:hover {
+      background: #1078d1;
+    }
+
+    .filters {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+
+    input, select {
+      padding: 10px 14px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+      font-size: 16px;
+      color: #555;
+      outline: none;
+      transition: border-color 0.2s;
+      min-width: 160px;
+    }
+
+    input::placeholder { color: #999; }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(33, 150, 243, 0.1);
+      font-size: 16px;
+    }
+
+    th, td {
+      padding: 14px 18px;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+      vertical-align: top;
+      word-break: break-word;
+    }
+
+    th {
+      background: #f0f3f6;
+      color: #333;
+      font-weight: 700;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .tag-active {
+      background: #28a745;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 15px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .tag-inactive {
+      background: #dc3545;
+      color: #fff;
+      padding: 6px 14px;
+      border-radius: 15px;
+      font-size: 13px;
+      font-weight: 600;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .actions i {
+      cursor: pointer;
+      margin-right: 15px;
+      color: #2094f3;
+      font-size: 18px;
+      transition: color 0.2s;
+    }
+
+    .actions i:hover {
+      color: #1078d1;
+    }
+
+    /* PANEL LATERAL EDITAR */
+    .edit-panel {
+      position: fixed;
+      top: 120px;
+      right: 0;
+      width: 350px;
+      height: calc(100% - 120px);
+      background: #fff;
+      border-left: 1px solid #ddd;
+      padding: 20px 25px;
+      overflow-y: auto;
+      display: none;
+      box-shadow: -4px 0 8px rgba(33, 150, 243, 0.07);
+      font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+      font-size: 16px;
+      z-index: 30;
+    }
+
+    .edit-panel.open { display: block; }
+
+    .edit-panel h2 {
+      margin-top: 0;
+      color: #0e2f44;
+      font-weight: 800;
+      font-size: 1.5rem;
+    }
+
+    label {
+      font-weight: 700;
+      margin-top: 15px;
+      display: block;
+      color: #0e2f44;
+    }
+
+    input[type="text"], input[type="email"], .edit-panel select {
+      width: 100%;
+      margin-top: 6px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+      font-size: 16px;
+      color: #555;
+    }
+
+    input[type="email"][readonly] {
+      background: #f0f3f6;
+      cursor: not-allowed;
+    }
+
+    .checkbox-group {
+      margin-top: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 0;
+    }
+
+    .checkbox-label {
+      font-weight: 600;
+      font-size: 16px;
+      color: #0e2f44;
+      margin-bottom: 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #2094f3;
+      margin: 0;
+    }
+
+    .btn-save, .btn-cancel {
+      background: #2094f3;
+      border: none;
+      color: #fff;
+      padding: 12px;
+      border-radius: 8px;
+      display: block;
+      width: 100%;
+      text-align: center;
+      font-weight: 700;
+      font-size: 17px;
+      margin-top: 20px;
+      cursor: pointer;
+      transition: background .15s;
+    }
+
+    .btn-cancel {
+      background: #ccc;
+      color: #2094f3;
+      margin-top: 12px;
+    }
+
+    .btn-save:hover { background: #1078d1; }
+    .btn-cancel:hover { background: #bdbdbd; color: #0e2f44; }
+
+    /* RESPONSIVE (igual lógica que el primero) */
+    @media (max-width:900px){
+      .top-header{ left:0; }
+      .main-content{
+        margin-left:0;
+        width:100vw;
+        margin-top:95px;
+      }
+    }
+
+    @media (max-width:650px){
+      .container-dashboard{ flex-direction:column; }
+
+      .sidebar{
+        position:absolute;
+        left:0;
+        top:0;
+        width:230px;
+        transform:translateX(-100%);
+        transition:transform 0.2s;
+        height:100vh;
+        z-index:50;
+      }
+
+      .sidebar.open{ transform:translateX(0); }
+
+      .hamburger{
+        display:flex;
+      }
+
+      .top-header{
+        height:62px;
+        padding:0 8px;
+        left:0;
+      }
+
+      .top-header .logo img{ height:42px; }
+
+      .main-content{
+        margin-top:72px;
+        width:100vw;
+        padding:0 10px;
+      }
+
+      .users-panel{
+        margin-top:7px;
+        width:100%;
+        max-width:100%;
+        padding:14px 10px 12px 10px;
+        border-radius:10px;
+        box-shadow:none;
+      }
+
+      .users-panel h1{
+        font-size:1.2rem;
+        text-align:center;
+      }
+
+      .users-panel p{
+        text-align:center;
+      }
+
+      .filters{
+        flex-direction:column;
+        gap:8px;
+      }
+
+      input, select{
+        width:100%!important;
+        font-size:15px;
+      }
+
+      table, thead, tbody, th, td, tr{
+        display:block;
+        width:100%;
+      }
+
+      thead tr{ display:none; }
+
+      tbody tr{
+        background:#f9fbfc;
+        margin:16px 0 18px 0;
+        border-radius:10px;
+        box-shadow:0 2px 4px rgba(33,150,243,0.04);
+        padding:14px 8px;
+      }
+
+      td{
+        border:none;
+        display:flex;
+        flex-direction:column;
+        align-items:flex-start;
+        font-size:15px;
+        margin:0 0 8px 0;
+        padding:0;
+        word-break:break-word;
+      }
+
+      td:before{
+        content:attr(data-label);
+        display:block;
+        font-weight:bold;
+        color:#2094f3;
+        margin-bottom:2px;
+        font-size:15px;
+      }
+
+      .actions{
+        display:flex;
+        justify-content:flex-start;
+        gap:18px;
+      }
+
+      .edit-panel{
+        top:62px;
+        left:0;
+        width:100vw!important;
+        height:calc(100vh - 62px)!important;
+        max-width:100vw!important;
+        border-left:none;
+        box-shadow:none;
+        padding:18px 5vw 10vh 5vw;
+        z-index:180;
+        border-radius:0 0 18px 18px;
+      }
+    }
+
+    @media (max-width:450px){
+      .main-content{ margin-top:58px; }
+    }
+  </style>
+</head>
+
+<body id="default_theme" class="it_service">
+<div class="container-dashboard">
+
+  <!-- HAMBURGUESA -->
+  <div class="hamburger" onclick="toggleSidebar()">
+    <i class="fa fa-bars"></i>
+  </div>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="profile">
+      <img src="images/it_service/administracion.png" alt="Admin" />
+      <h3 id="adminName">Administrador</h3>
+      <small id="adminEmail">admin@example.com</small>
+    </div>
+
+    <nav>
+      <a href="perfil_admin_new.html"><i class="fa-solid fa-gauge"></i> Dashboard</a>
+      <a href="gestion_usuarios.html" class="active"><i class="fa-solid fa-users"></i> Gestión de Usuarios</a>
+      <a href="moderacion.html"><i class="fa-solid fa-shield-halved"></i> Moderación</a>
+      <a href="puntos_interes.html"><i class="fa-solid fa-location-dot"></i> Puntos de Interés</a>
+      <a href="proveedores.html"><i class="fa-solid fa-truck"></i> Proveedores</a>
+      <a href="configuracion.html"><i class="fa-solid fa-gear"></i> Configuración</a>
+    </nav>
+
+    <a class="logout-btn" href="index.html">
+      <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+    </a>
+  </aside>
+
+  <!-- HEADER -->
+  <header class="top-header">
+    <div class="logo">
+      <a href="index.html"><img src="images/logos/LogoRolaPet.png" alt="logo" /></a>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <div class="main-content">
+    <section class="users-panel">
+      <h1>Gestión de Usuarios</h1>
+      <p>Añade, edita y gestiona los permisos de los usuarios de la plataforma.</p>
+
+      <button class="btn-primary" onclick="openNewUserModal()">+ Nuevo Usuario</button>
+
+      <div class="filters">
+        <input id="searchInput" type="text" placeholder="Buscar por nombre o correo..." />
+        <select>
+          <option>Rol</option>
+          <option>Administrador</option>
+          <option>Editor</option>
+          <option>Usuario</option>
+        </select>
+        <select>
+          <option>Estado</option>
+          <option>Activo</option>
+          <option>Inactivo</option>
+        </select>
+      </div>
+
+      <table>
+        <thead>
+        <tr>
+          <th>NOMBRE DE USUARIO</th>
+          <th>CORREO ELECTRÓNICO</th>
+          <th>ROL</th>
+          <th>FECHA DE ALTA</th>
+          <th>ESTADO</th>
+          <th>ACCIONES</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr class="user-row" id="user-1">
+          <td data-label="Nombre de usuario">Ana García</td>
+          <td data-label="Correo electrónico">ana@example.com</td>
+          <td data-label="Rol">Usuario</td>
+          <td data-label="Fecha de alta">10/02/2025</td>
+          <td data-label="Estado"><span class="tag-active">Activo</span></td>
+          <td data-label="Acciones" class="actions">
+            <i class="fa-solid fa-pen" title="Editar" onclick="openPanel()"></i>
+            <i class="fa-solid fa-trash" title="Eliminar" onclick="deleteUser(1)"></i>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <!-- PANEL EDITAR -->
+  <aside class="edit-panel" id="editPanel">
+    <h2>Editar Usuario</h2>
+
+    <label>Nombre</label>
+    <input type="text" value="Ana" />
+    <label>Apellido</label>
+    <input type="text" value="García" />
+    <label>Correo Electrónico</label>
+    <input type="email" value="ana@example.com" readonly />
+    <label>Rol</label>
+    <select>
+      <option>Usuario</option>
+      <option>Administrador</option>
+      <option>Editor</option>
+    </select>
+
+    <div class="checkbox-group">
+      <label class="checkbox-label">
+        <input type="checkbox" checked />
+        Validación de edad (+18)
+      </label>
+    </div>
+    <div class="checkbox-group">
+      <label class="checkbox-label">
+        <input type="checkbox" checked />
+        Consentimiento de términos
+      </label>
+    </div>
+    <div class="checkbox-group">
+      <label class="checkbox-label">
+        <input type="checkbox" checked />
+        Activar cuenta
+      </label>
+    </div>
+
+    <button class="btn-save">Guardar Cambios</button>
+    <button onclick="closePanel()" class="btn-cancel">Cancelar</button>
+  </aside>
+
+</div>
+
+<script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('open');
+  }
+
+  // Autocompletar nombre/email igual que en el panel principal
+  document.getElementById('adminName').textContent =
+    localStorage.getItem('adminName') || 'Administrador';
+  document.getElementById('adminEmail').textContent =
+    localStorage.getItem('adminEmail') || 'admin@example.com';
+
+  // Filtro de búsqueda
+  document.getElementById('searchInput').addEventListener('input', function () {
+    const filter = this.value.toLowerCase();
+    document.querySelectorAll('.user-row').forEach(row => {
+      const text = row.textContent.toLowerCase();
+      row.style.display = text.includes(filter) ? '' : 'none';
+    });
+  });
+
+  function openPanel() {
+    document.getElementById('editPanel').classList.add('open');
+  }
+
+  function closePanel() {
+    document.getElementById('editPanel').classList.remove('open');
+  }
+
+  function deleteUser(id) {
+    const row = document.getElementById('user-' + id);
+    if (confirm('¿Seguro que deseas eliminar este usuario?')) {
+      row.remove();
+    }
+  }
+
+  function openNewUserModal() {
+    alert('Funcionalidad para nuevo usuario no implementada.');
+  }
+</script>
+
+<script src="js/jquery.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/menumaker.js"></script>
+<script src="js/wow.js"></script>
+<script src="js/custom.js"></script>
+</body>
+</html>
