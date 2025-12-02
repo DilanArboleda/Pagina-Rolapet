@@ -12,19 +12,108 @@
     
     <!-- Material Symbols Outlined Icons -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
-
+     
+    <link rel="icon" href="images/fevicon/alfiler.png" type="image/gif" />
     <!-- External CSS -->
     <link rel="stylesheet" href="css/style_perfil_proveedor.css">
     
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <!-- Site css -->
+    <link rel="stylesheet" href="css/style.css" />
+    <!-- responsive css -->
+    <link rel="stylesheet" href="css/responsive.css" />
+    <!-- colors css -->
+    <link rel="stylesheet" href="css/colors1.css" />
+    <!-- custom css -->
+    <link rel="stylesheet" href="css/custom.css" />
+    <!-- wow Animation css -->
+    <link rel="stylesheet" href="css/animate.css" />
     
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+    </style>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              primary: '#2094f3',
+              'background-light': '#F4F7F9',
+              'background-dark': '#101a22',
+              'text-title': '#666666',
+              'text-body': '#8C8C8C',
+              'border-color': '#E0E0E0',
+            },
+            fontFamily: {
+              display: ['Plus Jakarta Sans', 'sans-serif'],
+            },
+            borderRadius: { DEFAULT: '0.25rem', lg: '0.5rem', xl: '0.75rem', full: '9999px' },
+          },
+        },
+      }
+    </script>
 </head>
 <body>
     <div class="container">
-        <!-- Page Header -->
-        <header class="page-header">
-            <h1 class="page-title">Mi Perfil de Proveedor</h1>
-            <p class="page-subtitle">Gestiona tu información y productos/servicios</p>
-        </header>
+
+      
+      <!-- header -->
+      <header id="default_header" class="header_style_1">
+        <!-- header bottom -->
+        <div class="header_bottom">
+          <div class="container">
+            <div class="row">
+              <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+                <!-- logo start -->
+                <div class="logo"> <a href="index.html"><img src="images/logos/LogoRolaPet.png" alt="logo" /></a> </div>
+                <!-- logo end -->
+              </div>
+              <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+                <!-- menu start -->
+                <div class="menu_side">
+                  <div id="navbar_menu">
+                    <ul class="first-ul">
+                      <li><a href="index.html">Inicio</a>
+
+                      </li>
+                      <li><a href="servicios.html">Catálogo</a></li>
+
+                      <li> <a href="noticias_blog.html">Blog</a>
+
+                      </li>
+                      <li> <a href="mapa.html">Mapa</a>
+
+                      </li>
+                      <li> <a class="active" href="perfil_usuario.html">Perfil</a>
+
+                      </li>
+
+                      </li>
+                    </ul>
+                  </div>
+
+                </div>
+                <!-- menu end -->
+              </div>
+            </div>
+          </div>
+        </div>
+    </header>
+
+    <div class="main-content-wrapper">
+        <h1 class="page-title">Mi Perfil de Proveedor</h1>
+        <p class="page-subtitle">Gestiona tu información y productos/servicios</p>
 
         <!-- Profile Information Card -->
         <div class="profile-card">
@@ -35,7 +124,7 @@
                     </div>
                     <div class="profile-main-info">
                         <h2>Nombre del Proveedor</h2>
-                        <p>Proveedor de Servicios Veterinarios</p>
+                        <p>Proveedor de Servicios de Mantenimiento</p>
                         <p><span class="material-symbols-outlined" style="font-size: 16px; vertical-align: middle;">location_on</span> Ciudad, País</p>
                     </div>
                 </div>
@@ -65,7 +154,7 @@
                 <div class="detail-item" style="grid-column: 1 / -1;">
                     <label class="detail-label">Descripción del Negocio</label>
                     <div class="detail-value bio" data-field="description">
-                        Somos un proveedor especializado en servicios y productos para el cuidado de mascotas. Contamos con más de 10 años de experiencia en el sector veterinario, ofreciendo soluciones de calidad para el bienestar de tus compañeros peludos.
+                        Somos un proveedor especializado en servicios y productos para el mantenimiento de Scooters y bicicletas eléctricas. Contamos con más de 10 años de experiencia en el sector, ofreciendo soluciones de calidad para el bienestar de tus vehículos eléctricos.
                     </div>
                 </div>
             </div>
@@ -86,11 +175,11 @@
                 <!-- Product Card 1 -->
                 <div class="product-card">
                     <div class="product-image">
-                        <span class="material-symbols-outlined">medical_services</span>
+                        <span class="material-symbols-outlined">shopping_cart</span>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-name">Consulta Veterinaria General</h3>
-                        <p class="product-description">Examen completo de salud para tu mascota, incluyendo revisión física y recomendaciones.</p>
+                        <h3 class="product-name">Venta de accesorios</h3>
+                        <p class="product-description">Venta de cascos, guantes, repuesto y demás</p>
                         <div class="product-price">$45.00</div>
                         <div class="product-actions">
                             <button class="btn-secondary" onclick="deleteProduct(this)">
@@ -104,11 +193,11 @@
                 <!-- Product Card 2 -->
                 <div class="product-card">
                     <div class="product-image">
-                        <span class="material-symbols-outlined">vaccines</span>
+                        <span class="material-symbols-outlined">build_circle</span>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-name">Vacunación Completa</h3>
-                        <p class="product-description">Plan de vacunación integral según la edad y necesidades de tu mascota.</p>
+                        <h3 class="product-name">Plan de Mantenimiento Completo</h3>
+                        <p class="product-description">Plan de mantenimiento integral según las necesidades de tu scooter o bicicleta eléctrica.</p>
                         <div class="product-price">$65.00</div>
                         <div class="product-actions">
                             <button class="btn-secondary" onclick="deleteProduct(this)">
@@ -125,8 +214,8 @@
                         <span class="material-symbols-outlined">shower</span>
                     </div>
                     <div class="product-info">
-                        <h3 class="product-name">Servicio de Baño y Peluquería</h3>
-                        <p class="product-description">Baño completo, corte de pelo, limpieza de oídos y corte de uñas para tu mascota.</p>
+                        <h3 class="product-name">Servicio de Lavado de Scooters</h3>
+                        <p class="product-description">Lavado completo de scooters y bicicletas eléctricas.</p>
                         <div class="product-price">$35.00</div>
                         <div class="product-actions">
                             <button class="btn-secondary" onclick="deleteProduct(this)">
@@ -154,7 +243,7 @@
     </div>
 
 <!-- External JS -->
-<script src="js/perfil_proveedor.js"></script>
+<script src="js/proveedor/perfil_proveedor.js"></script>
 
 </body>
 </html>
