@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RolaPet - Configuración</title>
+    <link rel="icon" href="images/fevicon/alfiler.png" type="image/gif" />
+    
+    <!-- Bootstrap y CSS del tema -->
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/colors1.css" />
+    <link rel="stylesheet" href="css/custom.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    
+    <!-- Plus Jakarta Sans Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+            background: #f4f5f7;
+            min-height: 100vh;
+        }
+
+        .container-dashboard {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR - Igual que Admin */
+        .sidebar {
+            background: #fff;
+            color: #555;
+            height: 100vh;
+            width: 250px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            display: flex;
+            flex-direction: column;
+            border-right: 1px solid #ddd;
+            z-index: 20;
+            transition: transform 0.2s;
+        }
+
+        .sidebar .profile {
+            padding: 25px 10px 15px 10px;
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .profile .profile-avatar {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            background: linear-gradient(135deg, #2094f3, #1976d2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2rem;
+        }
+
+        .sidebar nav {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .sidebar nav a {
+            padding: 13px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #333;
+            text-decoration: none;
+            transition: 0.2s;
+            border-radius: 8px;
+            margin: 2px 10px;
+            font-size: 16px;
+        }
+
+        .sidebar nav a:hover,
+        .sidebar nav a.active {
+            background: #2094f3;
+            color: white;
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            padding: 14px;
+            background: #2094f3;
+            color: white;
+            text-align: center;
+            cursor: pointer;
+            font-weight: bold;
+            text-decoration: none;
+            border-radius: 8px;
+            margin: 10px;
+            font-size: 15px;
+        }
+
+        /* Hamburguesa menú */
+        .hamburger {
+            display: none;
+            position: absolute;
+            left: 15px;
+            top: 22px;
+            width: 33px;
+            height: 33px;
+            cursor: pointer;
+            z-index: 51;
+            background: #ffffff;
+            border-radius: 8px;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .hamburger i {
+            color: #000000;
+            font-size: 22px;
+        }
+
+        /* HEADER SUPERIOR */
+        .top-header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 250px;
+            height: 120px;
+            background: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            z-index: 10;
+        }
+
+        .top-header .logo img {
+            height: 80px;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            margin-left: 250px;
+            margin-top: 150px;
+            width: calc(100vw - 250px);
+            padding: 40px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 80vh;
+        }
+
+        .perfil-container {
+            width: 100%;
+            max-width: 800px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 32px rgba(33, 148, 243, 0.07);
+            overflow: hidden;
+        }
+
+        .profile-header {
+            padding: 40px;
+            border-bottom: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .profile-info-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .profile-avatar {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #2094f3, #1976d2);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 2.5rem;
+        }
+
+        .profile-main-info h1 {
+            margin: 0 0 5px 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+
+        .profile-main-info p {
+            margin: 0 0 5px 0;
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .btn-edit-mode {
+            background: #2094f3;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .btn-edit-mode:hover:not(:disabled) {
+            background: #1976d2;
+            transform: translateY(-2px);
+        }
+
+        .btn-save {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-save:hover {
+            background: #218838;
+            transform: translateY(-2px);
+        }
+
+        .btn-cancel {
+            background: #6c757d;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s;
+        }
+
+        .btn-cancel:hover {
+            background: #5a6268;
+            transform: translateY(-2px);
+        }
+
+        .profile-details-grid {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .detail-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+
+        .detail-value, .detail-input {
+            font-size: 1.1rem;
+            color: #1a1a1a;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #e8ecf4;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: all 0.3s;
+        }
+
+        .detail-value {
+            background: #f8f9fa;
+        }
+
+        .detail-input {
+            background: white;
+            border-color: #2094f3;
+            box-shadow: 0 0 0 3px rgba(33, 148, 243, 0.1);
+        }
+
+        .detail-input:focus {
+            outline: none;
+            border-color: #2094f3;
+            box-shadow: 0 0 0 3px rgba(33, 148, 243, 0.15);
+        }
+
+        .detail-input.bio {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        .edit-actions {
+            display: none;
+            grid-column: 1 / -1;
+            padding-top: 20px;
+            border-top: 1px solid #e8ecf4;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .edit-actions.show {
+            display: flex;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px 20px;
+            border-radius: 12px;
+            border: 1px solid #c3e6cb;
+            margin-bottom: 25px;
+            display: none;
+            grid-column: 1 / -1;
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .top-header { left: 0; }
+            .main-content {
+                margin-left: 0;
+                width: 100vw;
+                margin-top: 95px;
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 650px) {
+            .container-dashboard { flex-direction: column; }
+            .sidebar {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 230px;
+                transform: translateX(-100%);
+                transition: transform 0.2s;
+                height: 100vh;
+                z-index: 50;
+            }
+            .sidebar.open { transform: translateX(0); }
+            .hamburger { display: flex; }
+            .top-header {
+                height: 62px;
+                padding: 0 8px;
+                left: 0;
+            }
+            .top-header .logo img { height: 42px; }
+            .main-content { margin-top: 72px; }
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .profile-details-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            .edit-actions {
+                flex-direction: column;
+            }
+            .btn-edit-mode, .btn-save, .btn-cancel {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body id="default_theme" class="it_service">
+    <div class="container-dashboard">
+        <!-- Hamburguesa menú móvil -->
+        <div class="hamburger" onclick="toggleSidebar()">
+            <i class="fa fa-bars"></i>
+        </div>
+
+        <!-- Sidebar Proveedor -->
+        <aside class="sidebar" id="sidebar">
+            <div class="profile">
+                <div class="profile-avatar">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+                <h3 id="sidebarProveedorName">Proveedor Principal</h3>
+                <small id="sidebarProveedorEmail">proveedor@rolapet.com</small>
+            </div>
+            <nav>
+                <a href="perfil_proveedor.html"><i class="fa-solid fa-user"></i> Mi Perfil</a>
+                <a href="mis_productos_proveedor.html"><i class="fa-solid fa-box"></i> Mis Productos</a>
+                <a href="pedidos_proveedor.html"><i class="fa-solid fa-shopping-bag"></i> Pedidos</a>
+                <a href="configuracion_proveedor.html"class="active" ><i class="fa-solid fa-gear"></i> Configuración</a>
+            </nav>
+            <a class="logout-btn" href="index.html">
+                <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+            </a>
+        </aside>
+
+        <!-- Contenido Principal - Perfil Proveedor EDITABLE -->
+        <div class="main-content">
+            <div class="perfil-container">
+                <!-- Profile Header -->
+                <div class="profile-header">
+                    <div class="profile-info-wrapper">
+                        <div class="profile-avatar">
+                            <i class="fa-solid fa-store"></i>
+                        </div>
+                        <div class="profile-main-info">
+                            <h1 id="displayProveedorName">Proveedor de Servicios Eléctricos</h1>
+                            <p id="displayLocation"><i class="fa-solid fa-location-dot" style="font-size: 16px; vertical-align: middle; color: #666;"></i> Bogotá, Colombia</p>
+                            <p id="displaySubtitle">Especialista en mantenimiento y accesorios</p>
+                        </div>
+                    </div>
+                    <button class="btn-edit-mode" id="editToggleBtn" onclick="toggleEditMode()">
+                        <i class="fa-solid fa-edit"></i>
+                        Editar Perfil
+                    </button>
+                </div>
+
+                <!-- Profile Details -->
+                <div class="profile-details-grid" id="profileDetails">
+                    <!-- Mensaje de éxito -->
+                    <div class="success-message" id="successMessage">
+                        <i class="fa-solid fa-check-circle"></i> Perfil actualizado correctamente
+                    </div>
+
+                    <!-- Email -->
+                    <div class="detail-item">
+                        <label class="detail-label">Correo Electrónico</label>
+                        <div class="detail-value" id="displayEmail">proveedor@ejemplo.com</div>
+                        <input type="email" class="detail-input" id="editEmail" style="display: none;" required>
+                    </div>
+
+                    <!-- Teléfono -->
+                    <div class="detail-item">
+                        <label class="detail-label">Teléfono</label>
+                        <div class="detail-value" id="displayPhone">+57 300 123 4567</div>
+                        <input type="tel" class="detail-input" id="editPhone" style="display: none;" required>
+                    </div>
+
+                    <!-- Sitio Web -->
+                    <div class="detail-item">
+                        <label class="detail-label">Sitio Web</label>
+                        <div class="detail-value" id="displayWebsite">www.proveedor.com</div>
+                        <input type="url" class="detail-input" id="editWebsite" style="display: none;">
+                    </div>
+
+                    <!-- Fecha de Registro (no editable) -->
+                    <div class="detail-item">
+                        <label class="detail-label">Fecha de Registro</label>
+                        <div class="detail-value">15 de Marzo, 2024</div>
+                    </div>
+
+                    <!-- Descripción -->
+                    <div class="detail-item" style="grid-column: 1 / -1;">
+                        <label class="detail-label">Descripción del Negocio</label>
+                        <div class="detail-value bio" id="displayDescription">Proveedor especializado en servicios y productos para el mantenimiento de scooters y bicicletas eléctricas. Más de 10 años de experiencia ofreciendo soluciones de calidad.</div>
+                        <textarea class="detail-input bio" id="editDescription" style="display: none;" required></textarea>
+                    </div>
+
+                    <!-- Acciones de edición -->
+                    <div class="edit-actions" id="editActions">
+                        <button class="btn-save" onclick="saveChanges()">
+                            <i class="fa-solid fa-save"></i>
+                            Guardar Cambios
+                        </button>
+                        <button class="btn-cancel" onclick="cancelEdit()">
+                            <i class="fa-solid fa-times"></i>
+                            Cancelar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Header con Logo -->
+        <header class="top-header">
+            <div class="logo">
+                <a href="index.html"><img src="images/logos/LogoRolaPet.png" alt="RolaPet Logo" /></a>
+            </div>
+        </header>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Toggle Sidebar móvil
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // Cargar datos desde localStorage
+        function loadProfileData() {
+            const proveedorName = localStorage.getItem('proveedorName') || 'Proveedor de Servicios Eléctricos';
+            const email = localStorage.getItem('proveedorEmail') || 'proveedor@ejemplo.com';
+            const phone = localStorage.getItem('proveedorPhone') || '+57 300 123 4567';
+            const website = localStorage.getItem('proveedorWebsite') || 'www.proveedor.com';
+            const description = localStorage.getItem('proveedorDescription') || 'Proveedor especializado en servicios y productos para el mantenimiento de scooters y bicicletas eléctricas. Más de 10 años de experiencia ofreciendo soluciones de calidad.';
+            const location = localStorage.getItem('proveedorLocation') || 'Bogotá, Colombia';
+            const subtitle = localStorage.getItem('proveedorSubtitle') || 'Especialista en mantenimiento y accesorios';
+
+            // Sidebar
+            document.getElementById('sidebarProveedorName').textContent = proveedorName;
+            document.getElementById('sidebarProveedorEmail').textContent = email;
+
+            // Header
+            document.getElementById('displayProveedorName').textContent = proveedorName;
+            document.getElementById('displayLocation').innerHTML = '<i class="fa-solid fa-location-dot" style="font-size: 16px; vertical-align: middle; color: #666;"></i> ' + location;
+            document.getElementById('displaySubtitle').textContent = subtitle;
+
+            // Detalles
+            document.getElementById('displayEmail').textContent = email;
+            document.getElementById('editEmail').value = email;
+            document.getElementById('displayPhone').textContent = phone;
+            document.getElementById('editPhone').value = phone;
+            document.getElementById('displayWebsite').textContent = website;
+            document.getElementById('editWebsite').value = website;
+            document.getElementById('displayDescription').textContent = description;
+            document.getElementById('editDescription').value = description;
+        }
+
+        // Toggle modo edición
+        function toggleEditMode() {
+            const detailValues = document.querySelectorAll('.detail-value');
+            const detailInputs = document.querySelectorAll('.detail-input');
+            const editActions = document.getElementById('editActions');
+            const editBtn = document.getElementById('editToggleBtn');
+
+            detailValues.forEach(value => value.style.display = 'none');
+            detailInputs.forEach(input => input.style.display = 'block');
+            editActions.classList.add('show');
+            editBtn.style.display = 'none';
+        }
+
+        // Cancelar edición
+        function cancelEdit() {
+            const detailValues = document.querySelectorAll('.detail-value');
+            const detailInputs = document.querySelectorAll('.detail-input');
+            const editActions = document.getElementById('editActions');
+            const editBtn = document.getElementById('editToggleBtn');
+
+            detailValues.forEach(value => value.style.display = 'block');
+            detailInputs.forEach(input => input.style.display = 'none');
+            editActions.classList.remove('show');
+            editBtn.style.display = 'flex';
+            loadProfileData(); // Recargar datos originales
+        }
+
+        // Guardar cambios
+        function saveChanges() {
+            const proveedorName = document.getElementById('displayProveedorName').textContent;
+            const email = document.getElementById('editEmail').value;
+            const phone = document.getElementById('editPhone').value;
+            const website = document.getElementById('editWebsite').value;
+            const description = document.getElementById('editDescription').value;
+            const location = document.getElementById('displayLocation').textContent.replace(/<[^>]*>/g, '').trim();
+            const subtitle = document.getElementById('displaySubtitle').textContent;
+
+            // Guardar en localStorage
+            localStorage.setItem('proveedorName', proveedorName);
+            localStorage.setItem('proveedorEmail', email);
+            localStorage.setItem('proveedorPhone', phone);
+            localStorage.setItem('proveedorWebsite', website);
+            localStorage.setItem('proveedorDescription', description);
+            localStorage.setItem('proveedorLocation', location);
+            localStorage.setItem('proveedorSubtitle', subtitle);
+
+            // Mostrar éxito
+            const successMsg = document.getElementById('successMessage');
+            successMsg.style.display = 'block';
+            successMsg.scrollIntoView({ behavior: 'smooth' });
+
+            setTimeout(() => {
+                successMsg.style.display = 'none';
+                cancelEdit(); // Salir de modo edición
+            }, 2000);
+        }
+
+        // Cargar datos al iniciar
+        loadProfileData();
+    </script>
+
+    <!-- JS del tema -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/menumaker.js"></script>
+    <script src="js/wow.js"></script>
+    <script src="js/custom.js"></script>
+</body>
+</html>

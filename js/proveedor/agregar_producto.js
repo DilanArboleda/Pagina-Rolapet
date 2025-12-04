@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 // Redirect after 1.5 seconds
                 setTimeout(() => {
-                    window.location.href = 'perfil_proveedor_new.html';
+                    window.location.href = 'mis_productos_proveedor.html';
                 }, 1500);
             });
         });

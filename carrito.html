@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- basic -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- mobile metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <!-- site metas -->
+  <title>RolaPet - Carrito de Compras</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- site icons -->
+  <link rel="icon" href="images/fevicon/alfiler.png" type="image/gif" />
+
+  <!-- Lightbox CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/css/lightbox.min.css">
+
+  <!-- bootstrap css -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <!-- Site css -->
+  <link rel="stylesheet" href="css/style.css" />
+  
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- responsive css -->
+  <link rel="stylesheet" href="css/responsive.css" />
+  <!-- colors css -->
+  <link rel="stylesheet" href="css/colors1.css" />
+  <!-- custom css -->
+  <link rel="stylesheet" href="css/custom.css" />
+  <!-- wow Animation css -->
+  <link rel="stylesheet" href="css/animate.css" />
+  
+  <!-- CSS personalizado para carrito -->
+  <style>
+    .carrito-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .carrito-titulo {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      color: #333;
+    }
+    .carrito-producto {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .carrito-img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 20px;
+    }
+    .carrito-detalles {
+      flex: 1;
+    }
+    .carrito-nombre {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .carrito-precio {
+      font-size: 1.1rem;
+      color: #2196F3;
+      font-weight: bold;
+    }
+    .carrito-cantidad {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0;
+    }
+    .qty-btn {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #ddd;
+      background: #f8f9fa;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .carrito-total {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: right;
+      margin: 20px 0;
+      color: #2196F3;
+    }
+    .btn-carrito {
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+      margin: 10px;
+      transition: all 0.3s;
+    }
+    .btn-seguir {
+      background: #6c757d;
+      color: white;
+    }
+    .btn-seguir:hover {
+      background: #5a6268;
+      color: white;
+    }
+    .btn-finalizar {
+      background: #2196F3;
+      color: white;
+    }
+    .btn-finalizar:hover {
+      background: #1976D2;
+      color: white;
+    }
+    .eliminar-btn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .eliminar-btn:hover {
+      background: #c82333;
+    }
+    @media (max-width: 768px) {
+      .carrito-producto {
+        flex-direction: column;
+        text-align: center;
+      }
+      .carrito-img {
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
+    }
+  </style>
+  
+  <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+</head>
+
+<body id="default_theme" class="it_shop_list">
+  <!-- loader -->
+  <div class="bg_load"> <img class="loader_animation" src="images/loaders/scoote.png" alt="#" /> </div>
+  <!-- end loader -->
+  
+  <!-- header -->
+  <header id="default_header" class="header_style_1">
+    <!-- header bottom -->
+    <div class="header_bottom">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <!-- logo start -->
+            <div class="logo"> <a href="index.html"><img src="images/logos/LogoRolaPet.png" alt="logo" /></a> </div>
+            <!-- logo end -->
+          </div>
+          <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <!-- menu start -->
+            <div class="menu_side">
+              <div id="navbar_menu">
+                <ul class="first-ul">
+                  <li><a href="index.html">Inicio</a></li>
+                  <li><a href="tienda.html">Catálogo</a></li>
+                  <li><a href="noticias_blog.html">Blog</a></li>
+                  <li><a href="mapa.html">Mapa</a></li>
+                  <li><a href="perfil_usuario.html">Perfil</a></li>
+                  <li>
+                    <a class="active" href="carrito.html">
+                      <i class="fa-solid fa-cart-shopping"></i>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <!-- menu end -->
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- header bottom end -->
+  </header>
+  <!-- end header -->
+
+  <!-- Contenido del carrito -->
+  <div class="carrito-container">
+    <h1 class="carrito-titulo">Mi Carrito de Compras</h1>
+    
+    <div class="row">
+      <!-- Productos del carrito -->
+      <div class="col-md-8">
+        <!-- Producto 1 -->
+        <div class="carrito-producto">
+          <img src="images/it_service/producto1.png" alt="Dual-Sided Rack Pannier" class="carrito-img">
+          <div class="carrito-detalles">
+            <div class="carrito-nombre">Dual-Sided Rack Pannier</div>
+            <div class="carrito-precio">$25.00</div>
+            <div class="carrito-cantidad">
+              <button class="qty-btn">-</button>
+              <span>1</span>
+              <button class="qty-btn">+</button>
+            </div>
+          </div>
+          <button class="eliminar-btn" onclick="eliminarProducto(1)">
+            <i class="fa fa-trash"></i> 
+          </button>
+        </div>
+
+        <!-- Producto 2 -->
+        <div class="carrito-producto">
+          <img src="images/it_service/producto3.png" alt="Planet Bike K.O.K.O" class="carrito-img">
+          <div class="carrito-detalles">
+            <div class="carrito-nombre">Planet Bike K.O.K.O Bike Rack</div>
+            <div class="carrito-precio">$12.49</div>
+            <div class="carrito-cantidad">
+              <button class="qty-btn">-</button>
+              <span>2</span>
+              <button class="qty-btn">+</button>
+            </div>
+          </div>
+          <button class="eliminar-btn" onclick="eliminarProducto(2)">
+            <i class="fa fa-trash"></i> 
+          </button>
+        </div>
+
+        <!-- Producto 3 -->
+        <div class="carrito-producto">
+          <img src="images/it_service/producto5.png" alt="Morral Ciclismo" class="carrito-img">
+          <div class="carrito-detalles">
+            <div class="carrito-nombre">Morral Ciclismo Impermeable</div>
+            <div class="carrito-precio">$25.00</div>
+            <div class="carrito-cantidad">
+              <button class="qty-btn">-</button>
+              <span>1</span>
+              <button class="qty-btn">+</button>
+            </div>
+          </div>
+          <button class="eliminar-btn" onclick="eliminarProducto(3)">
+            <i class="fa fa-trash"></i> 
+          </button>
+        </div>
+      </div>
+
+      <!-- Resumen del carrito -->
+      <div class="col-md-4">
+        <div class="carrito-producto" style="flex-direction: column;">
+          <h3>Resumen de Compra</h3>
+          <div style="margin: 20px 0;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+              <span>Subtotal (3 productos):</span>
+              <span>$62.49</span>
+            </div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+              <span>Envío:</span>
+              <span>Gratis</span>
+            </div>
+            <div class="carrito-total">
+              <strong>Total: $62.49</strong>
+            </div>
+          </div>
+          
+          <a href="tienda.html" class="btn-carrito btn-seguir">
+            <i class="fa fa-arrow-left"></i> Seguir Comprando
+          </a>
+          <a href="checkout.html" class="btn-carrito btn-finalizar">
+            <i class="fa fa-credit-card"></i> Finalizar Compra
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- js section -->
+  <script src="js/jquery.min.js"></script>
+  <!-- Lightbox JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.4/js/lightbox.min.js"></script>
+  <script>
+    lightbox.option({
+      'resizeDuration': 200,
+      'wrapAround': true
+    });
+  </script>
+  <script src="js/bootstrap.min.js"></script>
+  <!-- menu js -->
+  <script src="js/menumaker.js"></script>
+  <!-- wow animation -->
+  <script src="js/wow.js"></script>
+  <!-- custom js -->
+  <script src="js/custom.js"></script>
+
+  <!-- Funciones del carrito -->
+  <script>
+    function eliminarProducto(id) {
+      if(confirm('¿Estás seguro de que quieres eliminar este producto del carrito?')) {
+        // Aquí iría la lógica para eliminar del carrito
+        document.querySelector(`[onclick="eliminarProducto(${id})"]`).closest('.carrito-producto').remove();
+        alert('Producto eliminado del carrito');
+      }
+    }
+
+    // Funcionalidad de botones cantidad
+    document.querySelectorAll('.qty-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const span = this.parentElement.querySelector('span');
+        let qty = parseInt(span.textContent);
+        if(this.textContent === '-') {
+          if(qty > 1) qty--;
+        } else {
+          qty++;
+        }
+        span.textContent = qty;
+      });
+    });
+  </script>
+</body>
+</html>

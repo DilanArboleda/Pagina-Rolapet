@@ -15,14 +15,61 @@
     
     <!-- External CSS -->
     <link rel="stylesheet" href="css/style_agregar_producto.css"> 
+    
+    <style>
+        /* SOLO EL TOP HEADER AGREGADO */
+        .top-header {
+            position: fixed;
+            top: 0;
+            right: 0;
+            left: 0;
+            height: 120px;
+            background: white;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 20px;
+            z-index: 10;
+        }
+        .top-header .logo img {
+            height: 80px;
+        }
+        
+        /* AJUSTE MÍNIMO para contenido debajo del header */
+        body {
+            padding-top: 150px;
+        }
+        
+        @media (max-width: 650px) {
+            .top-header {
+                height: 62px;
+                padding: 0 8px;
+            }
+            .top-header .logo img { 
+                height: 42px; 
+            }
+            body {
+                padding-top: 72px;
+            }
+        }
+    </style>
 </head>
 <body>
+    <!-- SOLO ESTO AGREGADO: TOP HEADER -->
+    <header class="top-header">
+        <div class="logo">
+            <a href="index.html"><img src="images/logos/LogoRolaPet.png" alt="RolaPet Logo" /></a>
+        </div>
+    </header>
+
+    <!-- TU HTML ORIGINAL SIN NINGÚN CAMBIO -->
     <div class="container">
         <!-- Page Header -->
         <header class="page-header">
-            <a href="perfil_proveedor_new.html" class="back-link">
+            <a href="mis_productos_proveedor.html" class="back-link">
                 <span class="material-symbols-outlined">arrow_back</span>
-                Volver al perfil
+                Volver a mis productos
             </a>
             <h1 class="page-title">Agregar Producto/Servicio</h1>
             <p class="page-subtitle">Completa la información para agregar un nuevo producto o servicio a tu catálogo</p>
@@ -87,8 +134,6 @@
                             <option value="accesorios">Accesorios para Scooters y Bicicletas eléctricas</option>
                             <option value="reparacion_mantenimiento">Reparación y Mantenimiento</option>
                             <option value="otros">Otros</option>
-
-
                         </select>
                     </div>
 
@@ -190,6 +235,6 @@
     </div>
 
     <!-- External JS -->
-<script src="js/proveedor/agregar_producto.js"></script>
+    <script src="js/proveedor/agregar_producto.js"></script>
 </body>
 </html>
