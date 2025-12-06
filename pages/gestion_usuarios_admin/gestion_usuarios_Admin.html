@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RolaPet - Gestión de Usuarios</title>
+
+  <link rel="icon" href="../../images/fevicon/alfiler.png" type="image/gif" />
+  <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../../css/style.css" />
+  <link rel="stylesheet" href="../../css/responsive.css" />
+  <link rel="stylesheet" href="../../css/colors1.css" />
+  <link rel="stylesheet" href="../../css/custom.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS Local -->
+  <link rel="stylesheet" href="./css/gestion_usuarios_Admin.css" />
+
+
+
+</head>
+
+<body id="default_theme" class="it_service">
+  <div class="container-dashboard">
+
+    <!-- HAMBURGUESA -->
+    <div class="hamburger" onclick="toggleSidebar()">
+      <i class="fa fa-bars"></i>
+    </div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="profile">
+        <img src="../../images/it_service/administracion.png" alt="Admin" />
+        <h3 id="adminName">Administrador-</h3>
+        <small id="adminEmail">admin@example.com-</small>
+      </div>
+
+      <nav>
+        <a href="gestion_usuarios_Admin.html" class="active"><i class="fa-solid fa-users"></i> Gestión de Usuarios</a>
+        <a href="../moderacion_admin/moderacion_Admin.html"><i class="fa-solid fa-shield-halved"></i> Moderación</a>
+        <a href="../puntos_interes_admin/puntos_interes_Admin.html"><i class="fa-solid fa-location-dot"></i> Puntos de
+          Interés</a>
+        <a href="../gestion_proveedores_admin/gestion_proveedores_Admin.html"><i class="fa-solid fa-truck"></i>
+          Proveedores</a>
+        <a href="../configuracion_admin/configuracion_admin.html"><i class="fa-solid fa-gear"></i> Configuración</a>
+      </nav>
+
+      <a class="logout-btn" href="../../index.html">
+        <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+      </a>
+    </aside>
+
+    <!-- HEADER -->
+    <header class="top-header">
+      <div class="logo">
+        <a href="../../index.html"><img src="../../images/logos/LogoRolaPet.png" alt="logo" /></a>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <div class="main-content">
+      <section class="users-panel">
+        <h1>Gestión de Usuarios</h1>
+        <p>Añade, edita y gestiona los permisos de los usuarios de la plataforma.</p>
+
+        <button class="btn-primary" onclick="openNewUserModal()">+ Nuevo Usuario</button>
+
+        <div class="filters">
+          <input id="searchInput" type="text" placeholder="Buscar por nombre o correo..." />
+          <select>
+            <option>Rol</option>
+            <option>Administrador</option>
+            <option>Editor</option>
+            <option>Usuario</option>
+          </select>
+          <select>
+            <option>Estado</option>
+            <option>Activo</option>
+            <option>Inactivo</option>
+          </select>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>NOMBRE DE USUARIO</th>
+              <th>CORREO ELECTRÓNICO</th>
+              <th>ROL</th>
+              <th>FECHA DE ALTA</th>
+              <th>ESTADO</th>
+              <th>ACCIONES</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="user-row" id="user-1">
+              <td data-label="Nombre de usuario">Ana García</td>
+              <td data-label="Correo electrónico">ana@example.com</td>
+              <td data-label="Rol">Usuario</td>
+              <td data-label="Fecha de alta">10/02/2025</td>
+              <td data-label="Estado"><span class="tag-active">Activo</span></td>
+              <td data-label="Acciones" class="actions">
+                <i class="fa-solid fa-pen" title="Editar" onclick="openPanel()"></i>
+                <i class="fa-solid fa-trash" title="Eliminar" onclick="deleteUser(1)"></i>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <!-- PANEL EDITAR -->
+    <aside class="edit-panel" id="editPanel">
+      <h2>Editar Usuario</h2>
+
+      <label>Nombre</label>
+      <input type="text" value="Ana" />
+      <label>Apellido</label>
+      <input type="text" value="García" />
+      <label>Correo Electrónico</label>
+      <input type="email" value="ana@example.com" readonly />
+      <label>Rol</label>
+      <select>
+        <option>Usuario</option>
+        <option>Administrador</option>
+        <option>Editor</option>
+      </select>
+
+      <div class="checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" checked />
+          Validación de edad (+18)
+        </label>
+      </div>
+      <div class="checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" checked />
+          Consentimiento de términos
+        </label>
+      </div>
+      <div class="checkbox-group">
+        <label class="checkbox-label">
+          <input type="checkbox" checked />
+          Activar cuenta
+        </label>
+      </div>
+
+      <button class="btn-save">Guardar Cambios</button>
+      <button onclick="closePanel()" class="btn-cancel">Cancelar</button>
+    </aside>
+
+  </div>
+
+  <script src="../../js/jquery.min.js"></script>
+  <script src="../../js/bootstrap.min.js"></script>
+  <script src="../../js/menumaker.js"></script>
+  <script src="../../js/wow.js"></script>
+  <script src="../../js/custom.js"></script>
+
+  <!-- JS Local -->
+  <script type="module" src="./js/gestion_usuarios_Admin.js"></script>
+</body>
+
+</html>

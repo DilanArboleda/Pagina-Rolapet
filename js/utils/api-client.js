@@ -1,5 +1,5 @@
-import { tokenServiceLocal, tokenServiceSession } from "./token-service";
-import API from "./endpoints";
+import { tokenService } from "@token-service";
+import API from "@endpoints";
 
 class ApiClient {
     // constructor

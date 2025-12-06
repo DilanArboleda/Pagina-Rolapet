@@ -1,6 +1,8 @@
-import { api } from "../../js/utils/api-client.js";
-import API from "../../js/utils/endpoints.js";
-import { tokenService } from "../../js/utils/tokenService.js";
+import { api } from "@api";
+import API from "@endpoints";
+import { tokenService } from "@token-service";
+import { userService } from "@user-service";
+
 
 // Estado
 let currentUserType = null;
@@ -31,18 +33,24 @@ document.addEventListener("DOMContentLoaded", () => {
             // obtenemos el usuario
             const me = await api.get(API.USER.ME, currentUserType);
 
-            sessionStorage.setItem("userInfo", JSON.stringify(me.data));
+            userService.saveToCache(me.data, remember);
 
             // redireccionamos
             console.log(me.data.rol);
             switch (me.data.rol) {
-                case "user": /* window.location.href = "/dashboard/user" */; break;
-                case "provider": /* window.location.href = "/dashboard/provider" */; break;
-                case "Moderador": /* window.location.href = "../home_admin/home_admin.html" */ console.log("accedimos"); break;
+                case "user":
+                    window.location.href = "/home_usuario.html";
+                    break;
+                case "provider":
+                    window.location.href = "/home_proveedor.html";
+                    break;
+                case "Moderador":
+                    window.location.href = "/pages/home_admin/home_admin.html";
+                    break;
             }
 
         } catch (err) {
-            showError(err.message || "Error en el login");
+            window.alert(err.message || "Error en el login");
         }
     });
 });
