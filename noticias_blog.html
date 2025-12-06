@@ -1,670 +1,447 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<!-- basic -->
-<meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<!-- mobile metas -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="viewport" content="initial-scale=1, maximum-scale=1">
-<!-- site metas -->
-<title>It.Next - IT Service Responsive Html Theme</title>
-<meta name="keywords" content="">
-<meta name="description" content="">
-<meta name="author" content="">
-<!-- site icons -->
-<link rel="icon" href="images/fevicon/fevicon.png" type="image/gif" />
-<!-- bootstrap css -->
-<link rel="stylesheet" href="css/bootstrap.min.css" />
-<!-- Site css -->
-<link rel="stylesheet" href="css/style.css" />
-<!-- responsive css -->
-<link rel="stylesheet" href="css/responsive.css" />
-<!-- colors css -->
-<link rel="stylesheet" href="css/colors1.css" />
-<!-- custom css -->
-<link rel="stylesheet" href="css/custom.css" />
-<!-- wow Animation css -->
-<link rel="stylesheet" href="css/animate.css" />
-<!--[if lt IE 9]>
+  <!-- basic -->
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <!-- mobile metas -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <!-- site metas -->
+  <title>RolaPet - blog</title>
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- site icons -->
+  <link rel="icon" href="images/fevicon/alfiler.png" type="image/gif" />
+
+  <!-- bootstrap css -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <!-- Site css -->
+  <link rel="stylesheet" href="css/style.css" />
+  
+  <!-- IMPORTANTE: Actualiza Font Awesome a versión 6 para fa-cart-shopping -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  
+  <!-- responsive css -->
+  <link rel="stylesheet" href="css/responsive.css" />
+  <!-- colors css -->
+  <link rel="stylesheet" href="css/colors1.css" />
+  <!-- custom css -->
+  <link rel="stylesheet" href="css/custom.css" />
+  <!-- wow Animation css -->
+  <link rel="stylesheet" href="css/animate.css" />
+  
+  <!-- Google Fonts para Blog -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+  
+  <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
+  <![endif]-->
+
+    <style>
+        /* --- VARIABLES DEL SISTEMA (Misma paleta) --- */
+        :root {
+            --primary-blue: #2196F3;
+            --hover-blue: #6BBEF9;
+            --soft-blue: #97E9FF;
+            --dark-gray: #666666;
+            --medium-gray: #8C8C8C;
+            --white: #FFFFFF;
+            --bg-page: #F8FAFC;
+            --font-main: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        /* --- RESET & BASICS --- */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-page);
+            color: var(--medium-gray);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* --- TIPOGRAFÍA --- */
+        h1, h2, h3 { color: var(--dark-gray); font-weight: 700; }
+        p { font-weight: 400; color: var(--medium-gray); font-size: 1rem; }
+        .label { font-weight: 500; color: var(--dark-gray); font-size: 0.875rem; text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* --- LAYOUT & COMPONENTES --- */
+        .navbar {
+            background-color: var(--white);
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
+            position: sticky; top: 0; z-index: 100;
+        }
+
+        .brand {
+            font-size: 1.5rem;
+            color: var(--primary-blue);
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-blue);
+            color: var(--white);
+            font-weight: 700;
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: var(--font-main);
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-size: 0.95rem;
+        }
+        .btn-primary:hover { background-color: var(--hover-blue); }
+
+        .feed-container {
+            max-width: 680px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+            display: flex; flex-direction: column; gap: 2rem;
+        }
+
+        .feed-title { font-size: 1.75rem; margin-bottom: 0.5rem; }
+
+        /* Tarjeta */
+        .post-card {
+            background-color: var(--white);
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.04);
+            overflow: hidden;
+            border: 1px solid rgba(0,0,0,0.02);
+        }
+
+        .post-header {
+            padding: 1.25rem;
+            display: flex; align-items: center; justify-content: space-between;
+        }
+
+        .user-info { display: flex; align-items: center; gap: 1rem; }
+
+        .avatar {
+            width: 48px; height: 48px;
+            background-color: var(--soft-blue);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--primary-blue);
+        }
+
+        .user-details h3 { font-size: 1rem; margin-bottom: 0.1rem; }
+        .user-details span { font-size: 0.85rem; color: var(--medium-gray); }
+
+        .post-badge {
+            background-color: rgba(33, 150, 243, 0.1);
+            color: var(--primary-blue);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem; font-weight: 700;
+        }
+
+        .post-content { padding: 0 1.25rem 1.25rem; }
+        .post-text { margin-bottom: 1rem; line-height: 1.6; }
+
+        .post-image {
+            width: 100%; height: 320px;
+            background-color: #eee;
+            border-radius: 12px;
+            object-fit: cover;
+            /* Gradiente tecnológico para simular foto de scooter */
+            background: linear-gradient(135deg, #eef2f3 0%, #8e9eab 100%);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .post-actions {
+            padding: 0.5rem 1.25rem;
+            border-top: 1px solid #F0F0F0;
+            display: flex; gap: 1.5rem;
+        }
+
+        .action-btn {
+            background: none; border: none;
+            display: flex; align-items: center; gap: 0.4rem;
+            font-family: var(--font-main);
+            font-weight: 500;
+            color: var(--medium-gray);
+            cursor: pointer;
+            transition: color 0.2s;
+            font-size: 0.95rem;
+        }
+        .action-btn:hover { color: var(--primary-blue); }
+        .action-btn.liked { color: var(--primary-blue); }
+        .action-btn.liked .material-symbols-outlined { font-variation-settings: 'FILL' 1; }
+
+        /* Comentarios */
+        .comments-section {
+            background-color: #FAFAFA;
+            padding: 1.25rem;
+            border-top: 1px solid #F0F0F0;
+        }
+
+        .comment-item { display: flex; gap: 1rem; margin-bottom: 1rem; }
+        .comment-item:last-child { margin-bottom: 0; }
+
+        .comment-bubble {
+            background-color: var(--white);
+            border: 1px solid #EAEAEA;
+            padding: 0.75rem 1rem;
+            border-radius: 0 16px 16px 16px;
+            flex: 1;
+        }
+        
+        .comment-bubble.highlight {
+            background-color: rgba(151, 233, 255, 0.2);
+            border: none;
+        }
+
+        .comment-author {
+            color: var(--dark-gray); font-weight: 700; font-size: 0.9rem;
+            display: block; margin-bottom: 0.25rem;
+        }
+        .comment-text { font-size: 0.9rem; }
+
+        .comment-input-area { display: flex; gap: 1rem; margin-top: 1.5rem; }
+        
+        .input-field {
+            flex: 1; padding: 0.75rem 1rem;
+            border: 1px solid #E0E0E0;
+            border-radius: 12px;
+            font-family: var(--font-main);
+            outline: none; transition: border-color 0.2s;
+        }
+        .input-field:focus { border-color: var(--primary-blue); }
+
+        .material-symbols-outlined { font-size: 1.4rem; }
+        
+        /* Estilos para ocultar/mostrar comentarios */
+        .comments-section {
+            display: none;
+        }
+        .comments-section.active {
+            display: block;
+        }
+    </style>
 </head>
-<body id="default_theme" class="it_service blog_grid">
-<!-- loader -->
-<div class="bg_load"> <img class="loader_animation" src="images/loaders/loader_1.png" alt="#" /> </div>
-<!-- end loader -->
-<!-- header -->
-<header id="default_header" class="header_style_1">
-  <!-- header top -->
-  <div class="header_top">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8">
-          <div class="full">
-            <div class="topbar-left">
-              <ul class="list-inline">
-                <li> <span class="topbar-label"><i class="fa  fa-home"></i></span> <span class="topbar-hightlight">540 Lorem Ipsum New York, AB 90218</span> </li>
-                <li> <span class="topbar-label"><i class="fa fa-envelope-o"></i></span> <span class="topbar-hightlight"><a href="mailto:info@yourdomain.com">info@yourdomain.com</a></span> </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4 right_section_header_top">
-          <div class="float-left">
-            <div class="social_icon">
-              <ul class="list-inline">
-                <li><a class="fa fa-facebook" href="https://www.facebook.com/" title="Facebook" target="_blank"></a></li>
-                <li><a class="fa fa-google-plus" href="https://plus.google.com/" title="Google+" target="_blank"></a></li>
-                <li><a class="fa fa-twitter" href="https://twitter.com" title="Twitter" target="_blank"></a></li>
-                <li><a class="fa fa-linkedin" href="https://www.linkedin.com" title="LinkedIn" target="_blank"></a></li>
-                <li><a class="fa fa-instagram" href="https://www.instagram.com" title="Instagram" target="_blank"></a></li>
-              </ul>
-            </div>
-          </div>
-          <div class="float-right">
-            <div class="make_appo"> <a class="btn white_btn" href="make_appointment.html">Make Appointment</a> </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- end header top -->
-  <!-- header bottom -->
-  <div class="header_bottom">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-          <!-- logo start -->
-          <div class="logo"> <a href="it_home.html"><img src="images/logos/it_logo.png" alt="logo" /></a> </div>
-          <!-- logo end -->
-        </div>
-        <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-          <!-- menu start -->
-          <div class="menu_side">
-            <div id="navbar_menu">
-              <ul class="first-ul">
-                <li> <a href="it_home.html">Home</a>
-                  <ul>
-                    <li><a href="it_home.html">It Home Page</a></li>
-                    <li><a href="it_home_dark.html">It Dark Home Page</a></li>
-                  </ul>
-                </li>
-                <li><a href="it_about.html">About Us</a></li>
-                <li> <a href="it_service.html">Service</a>
-                  <ul>
-                    <li><a href="it_service_list.html">Services list</a></li>
-                    <li><a href="it_service_detail.html">Services Detail</a></li>
-                  </ul>
-                </li>
-                <li> <a class="active" href="it_blog.html">Blog</a>
-                  <ul>
-                    <li><a href="it_blog.html">Blog List</a></li>
-                    <li><a href="it_blog_grid.html">Blog Grid</a></li>
-                    <li><a href="it_blog_detail.html">Blog Detail</a></li>
-                  </ul>
-                </li>
-                <li> <a href="#">Pages</a>
-                  <ul>
-                    <li><a href="it_career.html">Career</a></li>
-                    <li><a href="it_price.html">Pricing</a></li>
-                    <li><a href="it_faq.html">Faq</a></li>
-                    <li><a href="it_privacy_policy.html">Privacy Policy</a></li>
-                    <li><a href="it_error.html">Error 404</a></li>
-                  </ul>
-                </li>
-                <li> <a href="it_shop.html">Shop</a>
-                  <ul>
-                    <li><a href="it_shop.html">Shop List</a></li>
-                    <li><a href="it_shop_detail.html">Shop Detail</a></li>
-                    <li><a href="it_cart.html">Shopping Cart</a></li>
-                    <li><a href="it_checkout.html">Checkout</a></li>
-                  </ul>
-                </li>
-                <li> <a href="it_contact.html">Contact</a>
-                  <ul>
-                    <li><a href="it_contact.html">Contact Page 1</a></li>
-                    <li><a href="it_contact_2.html">Contact Page 2</a></li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-            <div class="search_icon">
-              <ul>
-                <li><a href="#" data-toggle="modal" data-target="#search_bar"><i class="fa fa-search" aria-hidden="true"></i></a></li>
-              </ul>
-            </div>
-          </div>
-          <!-- menu end -->
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- header bottom end -->
-</header>
-<!-- end header -->
-<!-- inner page banner -->
-<div id="inner_banner" class="section inner_banner_section">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="full">
-          <div class="title-holder">
-            <div class="title-holder-cell text-left">
-              <h1 class="page-title">Blog Grid</h1>
-              <ol class="breadcrumb">
-                <li><a href="index.html">Home</a></li>
-                <li class="active">Blog Grid</li>
-              </ol>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end inner page banner -->
-<!-- section -->
-<div class="section padding_layout_1 blog_grid">
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-        <div class="full">
-          <div class="blog_section">
-            <div class="blog_feature_img"> <img class="img-responsive" src="images/it_service/22.jpg" alt="#"> </div>
-            <div class="blog_feature_cantant">
-              <p class="blog_head">Blogpost With Image</p>
-              <div class="post_info">
-                <ul>
-                  <li><i class="fa fa-user" aria-hidden="true"></i> Marketing</li>
-                  <li><i class="fa fa-comment" aria-hidden="true"></i> 5</li>
-                  <li><i class="fa fa-calendar" aria-hidden="true"></i> 12 Aug 2017</li>
-                </ul>
-              </div>
-              <p>Consectetur, assumenda provident lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae laboriosam sunt hic perspiciatis, 
-                asperiores mollitia excepturi voluptatibus sequi nostrum ipsam veniam omnis nihil! A ea maiores corporis. Lorem ipsum dolor sit amet, 
-                consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-              <div class="bottom_info">
-                <div class="pull-left"><a class="read_more" href="it_blog_detail.html">READ MORE <i class="fa fa-angle-right"></i></a></div>
-                <div class="pull-right">
-                  <div class="shr">Share: </div>
-                  <div class="social_icon">
-                    <ul>
-                      <li class="fb"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                      <li class="twi"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                      <li class="gp"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                      <li class="pint"><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="blog_section">
-            <div class="blog_feature_cantant theme_color_bg white_fonts">
-              <p class="blog_head">Blogpost With Image</p>
-              <div class="post_info">
-                <ul>
-                  <li><i class="fa fa-user" aria-hidden="true"></i> Marketing</li>
-                  <li><i class="fa fa-comment" aria-hidden="true"></i> 5</li>
-                  <li><i class="fa fa-calendar" aria-hidden="true"></i> 12 Aug 2017</li>
-                </ul>
-              </div>
-              <p>Consectetur, assumenda provident lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae laboriosam sunt hic perspiciatis, 
-                asperiores mollitia excepturi voluptatibus sequi nostrum ipsam veniam omnis nihil! A ea maiores corporis. Lorem ipsum dolor sit amet, 
-                consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-              <div class="bottom_info">
-                <div class="pull-left"><a class="read_more" href="it_blog_detail.html">READ MORE <i class="fa fa-angle-right"></i></a></div>
-                <div class="pull-right">
-                  <div class="shr">Share: </div>
-                  <div class="social_icon">
-                    <ul>
-                      <li class="fb"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                      <li class="twi"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                      <li class="gp"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                      <li class="pint"><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-        <div class="full">
-          <div class="blog_section">
-            <div class="blog_feature_cantant theme_color_bg white_fonts">
-              <p class="blog_head">Blogpost With Image</p>
-              <div class="post_info">
-                <ul>
-                  <li><i class="fa fa-user" aria-hidden="true"></i> Marketing</li>
-                  <li><i class="fa fa-comment" aria-hidden="true"></i> 5</li>
-                  <li><i class="fa fa-calendar" aria-hidden="true"></i> 12 Aug 2017</li>
-                </ul>
-              </div>
-              <p>Consectetur, assumenda provident lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae laboriosam sunt hic perspiciatis, 
-                asperiores mollitia excepturi voluptatibus sequi nostrum ipsam veniam omnis nihil! A ea maiores corporis. Lorem ipsum dolor sit amet, 
-                consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-              <div class="bottom_info">
-                <div class="pull-left"><a class="read_more" href="it_blog_detail.html">READ MORE <i class="fa fa-angle-right"></i></a></div>
-                <div class="pull-right">
-                  <div class="shr">Share: </div>
-                  <div class="social_icon">
-                    <ul>
-                      <li class="fb"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                      <li class="twi"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                      <li class="gp"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                      <li class="pint"><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="blog_section">
-            <div class="blog_feature_img"> <img class="img-responsive" src="images/it_service/dark_bg_img2.png" alt="#"> </div>
-            <div class="blog_feature_cantant">
-              <p class="blog_head">Blogpost With Image</p>
-              <div class="post_info">
-                <ul>
-                  <li><i class="fa fa-user" aria-hidden="true"></i> Marketing</li>
-                  <li><i class="fa fa-comment" aria-hidden="true"></i> 5</li>
-                  <li><i class="fa fa-calendar" aria-hidden="true"></i> 12 Aug 2017</li>
-                </ul>
-              </div>
-              <p>Consectetur, assumenda provident lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae laboriosam sunt hic perspiciatis, 
-                asperiores mollitia excepturi voluptatibus sequi nostrum ipsam veniam omnis nihil! A ea maiores corporis. Lorem ipsum dolor sit amet, 
-                consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-              <div class="bottom_info">
-                <div class="pull-left"><a class="read_more" href="it_blog_detail.html">READ MORE <i class="fa fa-angle-right"></i></a></div>
-                <div class="pull-right">
-                  <div class="shr">Share: </div>
-                  <div class="social_icon">
-                    <ul>
-                      <li class="fb"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                      <li class="twi"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                      <li class="gp"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                      <li class="pint"><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
-        <div class="full">
-          <div class="blog_section">
-            <div class="blog_feature_img"> <img class="img-responsive" src="images/it_service/post-03.jpg" alt="#"> </div>
-          </div>
-          <div class="blog_section" style="margin-bottom: 0;">
-            <div class="blog_feature_img"> <img class="img-responsive" src=" images/it_service/22.jpg" alt="#"> </div>
-            <div class="blog_feature_cantant">
-              <p class="blog_head">Blogpost With Image</p>
-              <div class="post_info">
-                <ul>
-                  <li><i class="fa fa-user" aria-hidden="true"></i> Marketing</li>
-                  <li><i class="fa fa-comment" aria-hidden="true"></i> 5</li>
-                  <li><i class="fa fa-calendar" aria-hidden="true"></i> 12 Aug 2017</li>
-                </ul>
-              </div>
-              <p>Consectetur, assumenda provident lorem ipsum dolor sit amet, consectetur adipisicing elit. Quae laboriosam sunt hic perspiciatis, 
-                asperiores mollitia excepturi voluptatibus sequi nostrum ipsam veniam omnis nihil! A ea maiores corporis. Lorem ipsum dolor sit amet, 
-                consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>
-              <div class="bottom_info">
-                <div class="pull-left"><a class="read_more" href="it_blog_detail.html">READ MORE <i class="fa fa-angle-right"></i></a></div>
-                <div class="pull-right">
-                  <div class="shr">Share: </div>
-                  <div class="social_icon">
-                    <ul>
-                      <li class="fb"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-                      <li class="twi"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-                      <li class="gp"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-                      <li class="pint"><a href="#"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="blog_section">
-            <div class="blog_feature_img"> <img class="img-responsive" src="images/it_service/dark_bg_img.png" alt="#"> </div>
-          </div>
-        </div>
-      </div>
-      <div class="center">
-        <ul class="pagination style_1">
-          <li><a href="#"><i class="fa fa-angle-left" aria-hidden="true"></i></a></li>
-          <li><a href="it_blog.html">1</a></li>
-          <li class="active"><a href="#">2</a></li>
-          <li><a href="#"><i class="fa fa-angle-right" aria-hidden="true"></i></a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end section -->
-<!-- section -->
-<div class="section padding_layout_1 testmonial_section white_fonts">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="full">
-          <div class="main_heading text_align_left">
-            <h2 style="text-transform: none;">What Clients Say?</h2>
-            <p class="large">Here are testimonials from clients..</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-sm-7">
-        <div class="full">
-          <div id="testimonial_slider" class="carousel slide" data-ride="carousel">
-            <!-- Indicators -->
-            <ul class="carousel-indicators">
-              <li data-target="#testimonial_slider" data-slide-to="0" class="active"></li>
-              <li data-target="#testimonial_slider" data-slide-to="1"></li>
-              <li data-target="#testimonial_slider" data-slide-to="2"></li>
-            </ul>
-            <!-- The slideshow -->
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <div class="testimonial-container">
-                  <div class="testimonial-content"> You guys rock! Thank you for making it painless, pleasant and most of all hassle free! I wish I would have thought of it first. 
-                    I am really satisfied with my first laptop service.</div>
-                  <div class="testimonial-photo"> <img src="images/it_service/client1.jpg" class="img-responsive" alt="#" width="150" height="150"> </div>
-                  <div class="testimonial-meta">
-                    <h4>Maria Anderson</h4>
-                    <span class="testimonial-position">CFO, Tech NY</span> </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="testimonial-container">
-                  <div class="testimonial-content"> You guys rock! Thank you for making it painless, pleasant and most of all hassle free! I wish I would have thought of it first. 
-                    I am really satisfied with my first laptop service.</div>
-                  <div class="testimonial-photo"> <img src="images/it_service/client2.jpg" class="img-responsive" alt="#" width="150" height="150"> </div>
-                  <div class="testimonial-meta">
-                    <h4>Maria Anderson</h4>
-                    <span class="testimonial-position">CFO, Tech NY</span> </div>
-                </div>
-              </div>
-              <div class="carousel-item">
-                <div class="testimonial-container">
-                  <div class="testimonial-content"> You guys rock! Thank you for making it painless, pleasant and most of all hassle free! I wish I would have thought of it first. 
-                    I am really satisfied with my first laptop service.</div>
-                  <div class="testimonial-photo"> <img src="images/it_service/client3.jpg" class="img-responsive" alt="#" width="150" height="150"> </div>
-                  <div class="testimonial-meta">
-                    <h4>Maria Anderson</h4>
-                    <span class="testimonial-position">CFO, Tech NY</span> </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-5">
-        <div class="full"> </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end section -->
-<!-- section -->
-<div class="section">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="full">
-          <div class="contact_us_section">
-            <div class="call_icon"> <img src="images/it_service/phone_icon.png" alt="#" /> </div>
-            <div class="inner_cont">
-              <h2>REQUEST A FREE QUOTE</h2>
-              <p>Get answers and advice from people you want it from.</p>
-            </div>
-            <div class="button_Section_cont"> <a class="btn dark_gray_bt" href="it_contact.html">Contact us</a> </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end section -->
-<!-- section -->
-<div class="section padding_layout_1" style="padding: 50px 0;">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12">
-        <div class="full">
-          <ul class="brand_list">
-            <li><img src="images/it_service/brand_icon1.png" alt="#" /></li>
-            <li><img src="images/it_service/brand_icon2.png" alt="#" /></li>
-            <li><img src="images/it_service/brand_icon3.png" alt="#" /></li>
-            <li><img src="images/it_service/brand_icon4.png" alt="#" /></li>
-            <li><img src="images/it_service/brand_icon5.png" alt="#" /></li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-<!-- end section -->
-<!-- Modal -->
-<div class="modal fade" id="search_bar" role="dialog">
-  <div class="modal-dialog">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal"><i class="fa fa-close"></i></button>
-      </div>
-      <div class="modal-body">
+<body id="default_theme" class="it_shop_list">
+  <!-- loader -->
+  <div class="bg_load"> <img class="loader_animation" src="images/loaders/scoote.png" alt="#" /> </div>
+  <!-- end loader -->
+  
+  <!-- header -->
+  <header id="default_header" class="header_style_1">
+    <!-- header bottom -->
+    <div class="header_bottom">
+      <div class="container">
         <div class="row">
-          <div class="col-lg-8 col-md-8 col-sm-8 offset-lg-2 offset-md-2 offset-sm-2 col-xs-10 col-xs-offset-1">
-            <div class="navbar-search">
-              <form action="#" method="get" id="search-global-form" class="search-global">
-                <input type="text" placeholder="Type to search" autocomplete="off" name="s" id="search" value="" class="search-global__input">
-                <button class="search-global__btn"><i class="fa fa-search"></i></button>
-                <div class="search-global__note">Begin typing your search above and press return to search.</div>
-              </form>
+          <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
+            <!-- logo start -->
+            <div class="logo"> <a href="index.html"><img src="images/logos/LogoRolaPet.png" alt="logo" /></a> </div>
+            <!-- logo end -->
+          </div>
+          <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
+            <!-- menu start -->
+            <div class="menu_side">
+              <div id="navbar_menu">
+                <ul class="first-ul">
+                  <li><a href="index.html">Inicio</a></li>
+                  <li><a href="tienda.html">Catálogo</a></li>
+                  <li> <a href="noticias_blog.html">Blog</a></li>
+                  <li> <a href="mapa.html">Mapa</a></li>
+                </ul>
+              </div>
             </div>
+            <!-- menu end -->
           </div>
         </div>
       </div>
     </div>
-  </div>
-</div>
-<!-- End Model search bar -->
-<!-- footer -->
-<footer class="footer_style_2">
-  <div class="container-fuild">
-    <div class="row">
-      <div class="map_section">
-        <div id="map"></div>
-      </div>
-      <div class="footer_blog">
-        <div class="row">
-          <div class="col-md-6">
-            <div class="main-heading left_text">
-              <h2>It Next Theme</h2>
-            </div>
-            <p>Tincidunt elit magnis nulla facilisis. Dolor sagittis maecenas. Sapien nunc amet ultrices, dolores sit ipsum velit purus aliquet, massa fringilla leo orci.</p>
-            <ul class="social_icons">
-              <li class="social-icon fb"><a href="#"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
-              <li class="social-icon tw"><a href="#"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
-              <li class="social-icon gp"><a href="#"><i class="fa fa-google-plus" aria-hidden="true"></i></a></li>
-            </ul>
-          </div>
-          <div class="col-md-6">
-            <div class="main-heading left_text">
-              <h2>Additional links</h2>
-            </div>
-            <ul class="footer-menu">
-              <li><a href="it_about.html"><i class="fa fa-angle-right"></i> About us</a></li>
-              <li><a href="it_term_condition.html"><i class="fa fa-angle-right"></i> Terms and conditions</a></li>
-              <li><a href="it_privacy_policy.html"><i class="fa fa-angle-right"></i> Privacy policy</a></li>
-              <li><a href="it_news.html"><i class="fa fa-angle-right"></i> News</a></li>
-              <li><a href="it_contact.html"><i class="fa fa-angle-right"></i> Contact us</a></li>
-            </ul>
-          </div>
-          <div class="col-md-6">
-            <div class="main-heading left_text">
-              <h2>Services</h2>
-            </div>
-            <ul class="footer-menu">
-              <li><a href="it_data_recovery.html"><i class="fa fa-angle-right"></i> Data recovery</a></li>
-              <li><a href="it_computer_repair.html"><i class="fa fa-angle-right"></i> Computer repair</a></li>
-              <li><a href="it_mobile_service.html"><i class="fa fa-angle-right"></i> Mobile service</a></li>
-              <li><a href="it_network_solution.html"><i class="fa fa-angle-right"></i> Network solutions</a></li>
-              <li><a href="it_techn_support.html"><i class="fa fa-angle-right"></i> Technical support</a></li>
-            </ul>
-          </div>
-          <div class="col-md-6">
-            <div class="main-heading left_text">
-              <h2>Contact us</h2>
-            </div>
-            <p>123 Second Street Fifth Avenue,<br>
-              Manhattan, New York<br>
-              <span style="font-size:18px;"><a href="tel:+9876543210">+987 654 3210</a></span></p>
-            <div class="footer_mail-section">
-              <form>
-                <fieldset>
-                <div class="field">
-                  <input placeholder="Email" type="text">
-                  <button class="button_custom"><i class="fa fa-envelope" aria-hidden="true"></i></button>
+    <!-- header bottom end -->
+  </header>
+  <!-- end header -->
+
+    <main class="feed-container">
+        
+        <header>
+            <h1 class="feed-title">Movilidad Eléctrica</h1>
+            <p>Encuentra repuestos, talleres y vehículos en Bogotá.</p>
+        </header>
+
+        <article class="post-card">
+            <div class="post-header">
+                <div class="user-info">
+                    <div class="avatar">
+                        <span class="material-symbols-outlined">storefront</span>
+                    </div>
+                    <div class="user-details">
+                        <h3>EcoWheels Bogotá</h3>
+                        <span>Hace 45 min</span>
+                    </div>
                 </div>
-                </fieldset>
-              </form>
+                <div class="post-badge">TIENDA</div>
             </div>
-          </div>
-        </div>
-      </div>
-      <div class="cprt">
-        <p>ItNext © Copyrights 2019 Design by html.design</p>
-      </div>
-    </div>
-  </div>
-</footer>
-<!-- end footer -->
-<!-- js section -->
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-<!-- menu js -->
-<script src="js/menumaker.js"></script>
-<!-- wow animation -->
-<script src="js/wow.js"></script>
-<!-- custom js -->
-<script src="js/custom.js"></script>
-<script>
 
-      // This example adds a marker to indicate the position of Bondi Beach in Sydney,
-      // Australia.
-      function initMap() {
-        var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 11,
-          center: {lat: 40.645037, lng: -73.880224},
-		  styles: [
-               {
-                 elementType: 'geometry',
-                 stylers: [{color: '#fefefe'}]
-               },
-               {
-                 elementType: 'labels.icon',
-                 stylers: [{visibility: 'off'}]
-               },
-               {
-                 elementType: 'labels.text.fill',
-                 stylers: [{color: '#616161'}]
-               },
-               {
-                 elementType: 'labels.text.stroke',
-                 stylers: [{color: '#f5f5f5'}]
-               },
-               {
-                 featureType: 'administrative.land_parcel',
-                 elementType: 'labels.text.fill',
-                 stylers: [{color: '#bdbdbd'}]
-               },
-               {
-                 featureType: 'poi',
-                 elementType: 'geometry',
-                 stylers: [{color: '#eeeeee'}]
-               },
-               {
-                 featureType: 'poi',
-                 elementType: 'labels.text.fill',
-                 stylers: [{color: '#757575'}]
-               },
-               {
-                 featureType: 'poi.park',
-                 elementType: 'geometry',
-                 stylers: [{color: '#e5e5e5'}]
-               },
-               {
-                 featureType: 'poi.park',
-                 elementType: 'labels.text.fill',
-                 stylers: [{color: '#9e9e9e'}]
-               },
-               {
-                 featureType: 'road',
-                 elementType: 'geometry',
-                 stylers: [{color: '#eee'}]
-               },
-               {
-                 featureType: 'road.arterial',
-                 elementType: 'labels.text.fill',
-                 stylers: [{color: '#3d3523'}]
-               },
-               {
-                 featureType: 'road.highway',
-                 elementType: 'geometry',
-                 stylers: [{color: '#eee'}]
-               },
-               {
-                 featureType: 'road.highway',
-                 elementType: 'labels.text.fill',
-                 stylers: [{color: '#616161'}]
-               },
-               {
-                 featureType: 'road.local',
-                 elementType: 'labels.text.fill',
-                 stylers: [{color: '#9e9e9e'}]
-               },
-               {
-                 featureType: 'transit.line',
-                 elementType: 'geometry',
-                 stylers: [{color: '#e5e5e5'}]
-               },
-               {
-                 featureType: 'transit.station',
-                 elementType: 'geometry',
-                 stylers: [{color: '#000'}]
-               },
-               {
-                 featureType: 'water',
-                 elementType: 'geometry',
-                 stylers: [{color: '#c8d7d4'}]
-               },
-               {
-                 featureType: 'water',
-                 elementType: 'labels.text.fill',
-                 stylers: [{color: '#b1a481'}]
-               }
-             ]
-		});
+            <div class="post-content">
+                <p class="post-text">🛴 ¡Llegaron las nuevas unidades! Disponibles scooters <strong>Dualtron Mini</strong> con autonomía real de 45km. Ideales para subir a la Calera o andar por la Séptima sin problemas. Incluye casco certificado de regalo. 🎁</p>
+                
+                <div class="post-image">
+                    [Foto: Scooter Eléctrico Urbano]
+                </div>
+                
+                <button class="btn-primary" style="width: 100%; justify-content: center;">
+                    Ver Precio y Detalles
+                </button>
+            </div>
 
-        var image = 'images/it_service/location_icon_map_cont.png';
-        var beachMarker = new google.maps.Marker({
-          position: {lat: 40.645037, lng: -73.880224},
-          map: map,
-          icon: image
+            <div class="post-actions">
+                <button class="action-btn liked">
+                    <span class="material-symbols-outlined">favorite</span>
+                    42 Likes
+                </button>
+                <button class="action-btn toggle-comments">
+                    <span class="material-symbols-outlined">chat_bubble</span>
+                    Ver comentarios
+                </button>
+                <button class="action-btn" style="margin-left: auto;">
+                    <span class="material-symbols-outlined">share</span>
+                </button>
+            </div>
+
+            <div class="comments-section" id="comments-1">
+                <div class="label" style="margin-bottom: 1rem;">Preguntas recientes</div>
+                
+                <div class="comment-item">
+                    <div class="avatar" style="width: 32px; height: 32px; font-size: 0.8rem; background-color: #eee; color: #888;">D</div>
+                    <div class="comment-bubble">
+                        <span class="comment-author">Daniel R.</span>
+                        <p class="comment-text">¿Qué garantía ofrecen? Me interesa para ir a la oficina en el centro.</p>
+                    </div>
+                </div>
+
+                <div class="comment-item">
+                    <div class="avatar" style="width: 32px; height: 32px; font-size: 0.8rem; background-color: #eee; color: #888;">E</div>
+                    <div class="comment-bubble highlight">
+                        <span class="comment-author">EcoWheels Bogotá</span>
+                        <p class="comment-text">Hola Daniel, damos 1 año de garantía directa en motor y batería. ⚡</p>
+                    </div>
+                </div>
+
+                <div class="comment-input-area">
+                    <input type="text" class="input-field" placeholder="Escribe una pregunta...">
+                    <button class="btn-primary" style="padding: 0.5rem 1rem;">
+                        <span class="material-symbols-outlined">send</span>
+                    </button>
+                </div>
+            </div>
+        </article>
+
+        <article class="post-card">
+            <div class="post-header">
+                <div class="user-info">
+                    <div class="avatar" style="background-color: #FFE0B2; color: #F57C00;">
+                        <span class="material-symbols-outlined">build</span>
+                    </div>
+                    <div class="user-details">
+                        <h3>Taller Voltaje 93</h3>
+                        <span>Ayer a las 14:00</span>
+                    </div>
+                </div>
+                <div class="post-badge">TALLER</div>
+            </div>
+
+            <div class="post-content">
+                <p class="post-text">🔧 <strong>Mantenimiento Preventivo</strong> <br> ¿Sientes que tus frenos ya no responden igual o la batería dura menos? Agenda tu diagnóstico hoy. Especialistas en Xiaomi, Ninebot y Segway. Estamos ubicados cerca al Parque de la 93.</p>
+            </div>
+
+            <div class="post-actions">
+                <button class="action-btn">
+                    <span class="material-symbols-outlined">favorite</span>
+                    15 Likes
+                </button>
+                <button class="action-btn toggle-comments">
+                    <span class="material-symbols-outlined">chat_bubble</span>
+                    Ver comentarios
+                </button>
+            </div>
+            
+            <div class="comments-section" id="comments-2">
+                <div class="label" style="margin-bottom: 1rem;">Comentarios</div>
+                
+                <div class="comment-item">
+                    <div class="avatar" style="width: 32px; height: 32px; font-size: 0.8rem; background-color: #eee; color: #888;">M</div>
+                    <div class="comment-bubble">
+                        <span class="comment-author">María P.</span>
+                        <p class="comment-text">¿Cuánto cobran por el mantenimiento completo?</p>
+                    </div>
+                </div>
+
+                <div class="comment-item">
+                    <div class="avatar" style="width: 32px; height: 32px; font-size: 0.8rem; background-color: #FFE0B2; color: #F57C00;">T</div>
+                    <div class="comment-bubble highlight">
+                        <span class="comment-author">Taller Voltaje 93</span>
+                        <p class="comment-text">Hola María, desde $80.000. Incluye revisión de frenos, batería y software. 🔧</p>
+                    </div>
+                </div>
+
+                <div class="comment-item">
+                    <div class="avatar" style="width: 32px; height: 32px; font-size: 0.8rem; background-color: #eee; color: #888;">C</div>
+                    <div class="comment-bubble">
+                        <span class="comment-author">Carlos S.</span>
+                        <p class="comment-text">Excelente servicio, muy recomendado 👍</p>
+                    </div>
+                </div>
+
+                <div class="comment-input-area">
+                    <input type="text" class="input-field" placeholder="Escribe un comentario...">
+                    <button class="btn-primary" style="padding: 0.5rem 1rem;">
+                        <span class="material-symbols-outlined">send</span>
+                    </button>
+                </div>
+            </div>
+        </article>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/menumaker.js"></script>
+    <script src="js/wow.js"></script>
+    <script src="js/custom.js"></script>
+    
+    <script>
+        // Toggle de comentarios
+        document.querySelectorAll('.toggle-comments').forEach((btn, index) => {
+            btn.addEventListener('click', function() {
+                const commentsSection = this.closest('.post-card').querySelector('.comments-section');
+                commentsSection.classList.toggle('active');
+                
+                // Cambiar texto del botón
+                const textNode = this.childNodes[2];
+                if (commentsSection.classList.contains('active')) {
+                    textNode.textContent = 'Ocultar comentarios';
+                } else {
+                    textNode.textContent = 'Ver comentarios';
+                }
+            });
         });
-      }
     </script>
-<!-- google map js -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8eaHt9Dh5H57Zh0xVTqxVdBFCvFMqFjQ&callback=initMap"></script>
-<!-- end google map js -->
+
 </body>
 </html>
