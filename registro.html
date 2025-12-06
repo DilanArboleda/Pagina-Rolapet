@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema de Registro</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,300,0,0" />
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #97E9FF 0%, #2196F3 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 24px;
+            box-shadow: 0 20px 60px rgba(33, 150, 243, 0.3);
+            max-width: 580px;
+            width: 100%;
+            padding: 48px 40px;
+            animation: fadeIn 0.5s ease;
+            margin: 20px 0;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #666666;
+            margin-bottom: 12px;
+        }
+
+        .header p {
+            font-size: 16px;
+            font-weight: 400;
+            color: #8C8C8C;
+        }
+
+        .user-type-selector {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 32px;
+            background: #F5F5F5;
+            padding: 6px;
+            border-radius: 12px;
+        }
+
+        .user-type-btn {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            background: transparent;
+            color: #8C8C8C;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .user-type-btn .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .user-type-btn.active {
+            background: #2196F3;
+            color: white;
+            box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+        }
+
+        .user-type-btn:hover:not(.active) {
+            background: rgba(33, 150, 243, 0.1);
+            color: #2196F3;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 500;
+            color: #666666;
+            margin-bottom: 8px;
+        }
+
+        .form-group label .required {
+            color: #F44336;
+            margin-left: 4px;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+        }
+
+        .input-wrapper .material-symbols-outlined {
+            position: absolute;
+            left: 16px;
+            color: #8C8C8C;
+            font-size: 22px;
+            pointer-events: none;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 14px 16px 14px 48px;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 15px;
+            color: #666666;
+            transition: all 0.3s ease;
+            background: white;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #2196F3;
+            box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.1);
+        }
+
+        .form-group input::placeholder {
+            color: #BDBDBD;
+        }
+
+        .toggle-password {
+            position: absolute;
+            right: 16px;
+            color: #8C8C8C;
+            cursor: pointer;
+            font-size: 22px;
+            transition: color 0.3s ease;
+            user-select: none;
+        }
+
+        .toggle-password:hover {
+            color: #2196F3;
+        }
+
+        .file-upload-wrapper {
+            position: relative;
+            padding: 24px;
+            border: 2px dashed #E0E0E0;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: #FAFAFA;
+        }
+
+        .file-upload-wrapper:hover {
+            border-color: #2196F3;
+            background: rgba(33, 150, 243, 0.05);
+        }
+
+        .file-upload-wrapper.dragover {
+            border-color: #2196F3;
+            background: rgba(33, 150, 243, 0.1);
+        }
+
+        .file-upload-wrapper input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .file-upload-content {
+            pointer-events: none;
+        }
+
+        .file-upload-icon {
+            font-size: 48px;
+            color: #2196F3;
+            margin-bottom: 12px;
+        }
+
+        .file-upload-text {
+            font-size: 14px;
+            font-weight: 500;
+            color: #666666;
+            margin-bottom: 4px;
+        }
+
+        .file-upload-hint {
+            font-size: 12px;
+            font-weight: 400;
+            color: #8C8C8C;
+        }
+
+        .file-preview {
+            display: none;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 16px;
+            background: #E3F2FD;
+            border-radius: 8px;
+            margin-top: 12px;
+        }
+
+        .file-preview.show {
+            display: flex;
+        }
+
+        .file-preview .material-symbols-outlined {
+            font-size: 24px;
+            color: #2196F3;
+        }
+
+        .file-info {
+            flex: 1;
+        }
+
+        .file-name {
+            font-size: 14px;
+            font-weight: 500;
+            color: #666666;
+            margin-bottom: 2px;
+        }
+
+        .file-size {
+            font-size: 12px;
+            color: #8C8C8C;
+        }
+
+        .remove-file {
+            cursor: pointer;
+            color: #F44336;
+            font-size: 20px;
+            transition: color 0.3s ease;
+        }
+
+        .remove-file:hover {
+            color: #D32F2F;
+        }
+
+        .age-warning {
+            display: none;
+            background: #FFF3E0;
+            border-left: 4px solid #FF9800;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .age-warning.show {
+            display: block;
+        }
+
+        .age-warning-title {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 700;
+            color: #E65100;
+            margin-bottom: 8px;
+        }
+
+        .age-warning-title .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .age-warning-text {
+            font-size: 13px;
+            font-weight: 400;
+            color: #8C8C8C;
+            line-height: 1.5;
+        }
+
+        .guardian-section {
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+
+        .guardian-section.show {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .password-strength {
+            margin-top: 8px;
+            display: none;
+        }
+
+        .password-strength.show {
+            display: block;
+        }
+
+        .strength-bar {
+            height: 4px;
+            background: #E0E0E0;
+            border-radius: 2px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+
+        .strength-fill {
+            height: 100%;
+            width: 0%;
+            transition: all 0.3s ease;
+            border-radius: 2px;
+        }
+
+        .strength-fill.weak {
+            width: 33%;
+            background: #F44336;
+        }
+
+        .strength-fill.medium {
+            width: 66%;
+            background: #FF9800;
+        }
+
+        .strength-fill.strong {
+            width: 100%;
+            background: #4CAF50;
+        }
+
+        .strength-text {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .strength-text.weak {
+            color: #F44336;
+        }
+
+        .strength-text.medium {
+            color: #FF9800;
+        }
+
+        .strength-text.strong {
+            color: #4CAF50;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 16px;
+            background: #2196F3;
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background: #6BBEF9;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3);
+        }
+
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+
+        .submit-btn:disabled {
+            background: #BDBDBD;
+            cursor: not-allowed;
+        }
+
+        .submit-btn .material-symbols-outlined {
+            font-size: 22px;
+        }
+
+        .error-message {
+            background: #FFEBEE;
+            color: #C62828;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .error-message.show {
+            display: flex;
+        }
+
+        .error-message .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .success-message {
+            background: #E8F5E9;
+            color: #2E7D32;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 14px;
+            margin-bottom: 20px;
+            display: none;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .success-message.show {
+            display: flex;
+        }
+
+        .success-message .material-symbols-outlined {
+            font-size: 20px;
+        }
+
+        .login-link {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 14px;
+            color: #8C8C8C;
+        }
+
+        .login-link a {
+            color: #2196F3;
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .login-link a:hover {
+            color: #6BBEF9;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 32px 24px;
+            }
+
+            .header h1 {
+                font-size: 26px;
+            }
+
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+
+            .user-type-btn span:not(.material-symbols-outlined) {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Crear Cuenta</h1>
+            <p>Completa tus datos para registrarte</p>
+        </div>
+
+        <div class="user-type-selector">
+            <button class="user-type-btn active" data-type="user">
+                <span class="material-symbols-outlined">person</span>
+                <span>Usuario</span>
+            </button>
+            <button class="user-type-btn" data-type="provider">
+                <span class="material-symbols-outlined">store</span>
+                <span>Proveedor</span>
+            </button>
+        </div>
+
+        <div class="error-message" id="errorMessage">
+            <span class="material-symbols-outlined">error</span>
+            <span id="errorText">Error en el registro</span>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            <span class="material-symbols-outlined">check_circle</span>
+            <span id="successText">Registro exitoso</span>
+        </div>
+
+        <form id="signupForm" enctype="multipart/form-data">
+            <!-- Información Personal -->
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="firstName">Nombre<span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <span class="material-symbols-outlined">person</span>
+                        <input 
+                            type="text" 
+                            id="firstName" 
+                            name="firstName" 
+                            placeholder="Tu nombre" 
+                            required
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="lastName">Apellido<span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <span class="material-symbols-outlined">person</span>
+                        <input 
+                            type="text" 
+                            id="lastName" 
+                            name="lastName" 
+                            placeholder="Tu apellido" 
+                            required
+                        >
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="username">Nombre de Usuario<span class="required">*</span></label>
+                <div class="input-wrapper">
+                    <span class="material-symbols-outlined">badge</span>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        placeholder="nombre_usuario" 
+                        required
+                    >
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="documentNumber">Número de Documento<span class="required">*</span></label>
+                <div class="input-wrapper">
+                    <span class="material-symbols-outlined">credit_card</span>
+                    <input 
+                        type="text" 
+                        id="documentNumber" 
+                        name="documentNumber" 
+                        placeholder="Número de cédula o documento de identidad" 
+                        required
+                    >
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Correo Electrónico<span class="required">*</span></label>
+                <div class="input-wrapper">
+                    <span class="material-symbols-outlined">mail</span>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        placeholder="ejemplo@correo.com" 
+                        required
+                    >
+                </div>
+            </div>
+
+            <div class="form-group birthdate-field">
+                <label for="birthdate">Fecha de Nacimiento<span class="required">*</span></label>
+                <div class="input-wrapper">
+                    <span class="material-symbols-outlined">cake</span>
+                    <input 
+                        type="date" 
+                        id="birthdate" 
+                        name="birthdate"
+                    >
+                </div>
+            </div>
+
+            <!-- Advertencia de menor de edad -->
+            <div class="age-warning" id="ageWarning">
+                <div class="age-warning-title">
+                    <span class="material-symbols-outlined">warning</span>
+                    <span>Menor de Edad Detectado</span>
+                </div>
+                <p class="age-warning-text">
+                    Como eres menor de 18 años, necesitamos la cédula de tu tutor legal previamente registrado y una autorización firmada para completar tu registro.
+                </p>
+            </div>
+
+            <!-- Sección de Tutor Legal (solo para menores) -->
+            <div class="guardian-section" id="guardianSection">
+                <div class="form-group">
+                    <label for="guardianId">Cédula del Tutor Legal<span class="required">*</span></label>
+                    <div class="input-wrapper">
+                        <span class="material-symbols-outlined">credit_card</span>
+                        <input 
+                            type="text" 
+                            id="guardianId" 
+                            name="guardianId" 
+                            placeholder="Número de cédula del tutor" 
+                        >
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="guardianDocument">Copia de la Cédula del Tutor<span class="required">*</span></label>
+                    <div class="file-upload-wrapper" id="fileUploadWrapper">
+                        <input 
+                            type="file" 
+                            id="guardianDocument" 
+                            name="guardianDocument" 
+                            accept=".pdf,.jpg,.jpeg,.png"
+                        >
+                        <div class="file-upload-content">
+                            <div class="file-upload-icon material-symbols-outlined">upload_file</div>
+                            <div class="file-upload-text">Haz clic o arrastra el archivo aquí</div>
+                            <div class="file-upload-hint">PDF, JPG o PNG (Max. 5MB)</div>
+                        </div>
+                    </div>
+                    <div class="file-preview" id="filePreview">
+                        <span class="material-symbols-outlined">description</span>
+                        <div class="file-info">
+                            <div class="file-name" id="fileName"></div>
+                            <div class="file-size" id="fileSize"></div>
+                        </div>
+                        <span class="material-symbols-outlined remove-file" id="removeFile">close</span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="authorizationDocument">Autorización Firmada del Tutor<span class="required">*</span></label>
+                    <div class="file-upload-wrapper" id="authFileUploadWrapper">
+                        <input 
+                            type="file" 
+                            id="authorizationDocument" 
+                            name="authorizationDocument" 
+                            accept=".pdf,.jpg,.jpeg,.png"
+                        >
+                        <div class="file-upload-content">
+                            <div class="file-upload-icon material-symbols-outlined">upload_file</div>
+                            <div class="file-upload-text">Haz clic o arrastra el archivo aquí</div>
+                            <div class="file-upload-hint">PDF, JPG o PNG (Max. 5MB)</div>
+                        </div>
+                    </div>
+                    <div class="file-preview" id="authFilePreview">
+                        <span class="material-symbols-outlined">description</span>
+                        <div class="file-info">
+                            <div class="file-name" id="authFileName"></div>
+                            <div class="file-size" id="authFileSize"></div>
+                        </div>
+                        <span class="material-symbols-outlined remove-file" id="removeAuthFile">close</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contraseña -->
+            <div class="form-group">
+                <label for="password">Contraseña<span class="required">*</span></label>
+                <div class="input-wrapper">
+                    <span class="material-symbols-outlined">lock</span>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        placeholder="••••••••" 
+                        required
+                    >
+                    <span class="material-symbols-outlined toggle-password" id="togglePassword">
+                        visibility_off
+                    </span>
+                </div>
+                <div class="password-strength" id="passwordStrength">
+                    <div class="strength-bar">
+                        <div class="strength-fill" id="strengthFill"></div>
+                    </div>
+                    <div class="strength-text" id="strengthText"></div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="confirmPassword">Confirmar Contraseña<span class="required">*</span></label>
+                <div class="input-wrapper">
+                    <span class="material-symbols-outlined">lock</span>
+                    <input 
+                        type="password" 
+                        id="confirmPassword" 
+                        name="confirmPassword" 
+                        placeholder="••••••••" 
+                        required
+                    >
+                    <span class="material-symbols-outlined toggle-password" id="toggleConfirmPassword">
+                        visibility_off
+                    </span>
+                </div>
+            </div>
+
+            <button type="submit" class="submit-btn" id="submitBtn">
+                <span>Crear Cuenta</span>
+                <span class="material-symbols-outlined">arrow_forward</span>
+            </button>
+        </form>
+
+        <div class="login-link">
+            ¿Ya tienes cuenta? <a href="/login.html">Inicia sesión aquí</a>
+        </div>
+    </div>
+
+    <script>
+        // ============================================
+        // CONFIGURACIÓN PARA EL BACKEND
+        // ============================================
+        const API_CONFIG = {
+            // backend debe configurar la URL base
+            baseURL: 'https://tu-api.com/api',
+            // Endpoints para cada tipo de usuario (a configurar por el backend)
+            // NOTA: Los administradores NO se pueden registrar desde este formulario
+            endpoints: {
+                user: '/auth/user/register',
+                provider: '/auth/provider/register'
+            }
+        };
+
+        // ============================================
+        // ESTADO DE LA APLICACIÓN
+        // ============================================
+        let currentUserType = 'user';
+        let isMinor = false;
+        let uploadedFile = null;
+        let uploadedAuthFile = null;
+
+        // ============================================
+        // ELEMENTOS DEL DOM
+        // ============================================
+        const userTypeBtns = document.querySelectorAll('.user-type-btn');
+        const signupForm = document.getElementById('signupForm');
+        const birthdateInput = document.getElementById('birthdate');
+        const birthdateField = document.querySelector('.birthdate-field');
+        const ageWarning = document.getElementById('ageWarning');
+        const guardianSection = document.getElementById('guardianSection');
+        const guardianIdInput = document.getElementById('guardianId');
+        const guardianDocumentInput = document.getElementById('guardianDocument');
+        const authorizationDocumentInput = document.getElementById('authorizationDocument');
+        const fileUploadWrapper = document.getElementById('fileUploadWrapper');
+        const authFileUploadWrapper = document.getElementById('authFileUploadWrapper');
+        const filePreview = document.getElementById('filePreview');
+        const authFilePreview = document.getElementById('authFilePreview');
+        const fileName = document.getElementById('fileName');
+        const fileSize = document.getElementById('fileSize');
+        const authFileName = document.getElementById('authFileName');
+        const authFileSize = document.getElementById('authFileSize');
+        const removeFile = document.getElementById('removeFile');
+        const removeAuthFile = document.getElementById('removeAuthFile');
+        const passwordInput = document.getElementById('password');
+        const confirmPasswordInput = document.getElementById('confirmPassword');
+        const togglePassword = document.getElementById('togglePassword');
+        const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+        const passwordStrength = document.getElementById('passwordStrength');
+        const strengthFill = document.getElementById('strengthFill');
+        const strengthText = document.getElementById('strengthText');
+        const errorMessage = document.getElementById('errorMessage');
+        const successMessage = document.getElementById('successMessage');
+        const errorText = document.getElementById('errorText');
+        const successText = document.getElementById('successText');
+        const submitBtn = document.getElementById('submitBtn');
+
+        // ============================================
+        // CAMBIAR TIPO DE USUARIO
+        // ============================================
+        userTypeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                userTypeBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                currentUserType = btn.dataset.type;
+                hideMessages();
+                updateFormFields();
+            });
+        });
+
+        // Actualizar campos según tipo de usuario
+        function updateFormFields() {
+            if (currentUserType === 'provider') {
+                // Ocultar fecha de nacimiento para proveedores
+                birthdateField.style.display = 'none';
+                birthdateInput.required = false;
+                birthdateInput.value = '';
+                // Ocultar sección de tutor si estaba visible
+                ageWarning.classList.remove('show');
+                guardianSection.classList.remove('show');
+                isMinor = false;
+            } else {
+                // Mostrar fecha de nacimiento para usuarios
+                birthdateField.style.display = 'block';
+                birthdateInput.required = true;
+            }
+        }
+
+        // Inicializar campos al cargar
+        updateFormFields();
+
+        // ============================================
+        // VALIDACIÓN DE EDAD
+        // ============================================
+        birthdateInput.addEventListener('change', (e) => {
+            const birthDate = new Date(e.target.value);
+            const today = new Date();
+            const age = today.getFullYear() - birthDate.getFullYear();
+            const monthDiff = today.getMonth() - birthDate.getMonth();
+            
+            const isActuallyMinor = age < 18 || (age === 18 && monthDiff < 0) || 
+                                    (age === 18 && monthDiff === 0 && today.getDate() < birthDate.getDate());
+
+            isMinor = isActuallyMinor;
+
+            if (isMinor) {
+                ageWarning.classList.add('show');
+                guardianSection.classList.add('show');
+                guardianIdInput.required = true;
+                guardianDocumentInput.required = true;
+                authorizationDocumentInput.required = true;
+            } else {
+                ageWarning.classList.remove('show');
+                guardianSection.classList.remove('show');
+                guardianIdInput.required = false;
+                guardianDocumentInput.required = false;
+                authorizationDocumentInput.required = false;
+                guardianIdInput.value = '';
+                guardianDocumentInput.value = '';
+                authorizationDocumentInput.value = '';
+                uploadedFile = null;
+                uploadedAuthFile = null;
+                filePreview.classList.remove('show');
+                authFilePreview.classList.remove('show');
+            }
+        });
+
+        // ============================================
+        // MANEJO DE ARCHIVO
+        // ============================================
+        fileUploadWrapper.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            fileUploadWrapper.classList.add('dragover');
+        });
+
+        fileUploadWrapper.addEventListener('dragleave', () => {
+            fileUploadWrapper.classList.remove('dragover');
+        });
+
+        fileUploadWrapper.addEventListener('drop', (e) => {
+            e.preventDefault();
+            fileUploadWrapper.classList.remove('dragover');
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                handleFileUpload(files[0]);
+            }
+        });
+
+        guardianDocumentInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileUpload(e.target.files[0], 'guardian');
+            }
+        });
+
+        authorizationDocumentInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                handleFileUpload(e.target.files[0], 'authorization');
+            }
+        });
+
+        function handleFileUpload(file, type = 'guardian') {
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            const allowedTypes = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png'];
+
+            if (!allowedTypes.includes(file.type)) {
+                showError('Formato de archivo no válido. Solo se permiten PDF, JPG y PNG.');
+                return;
+            }
+
+            if (file.size > maxSize) {
+                showError('El archivo es demasiado grande. El tamaño máximo es 5MB.');
+                return;
+            }
+
+            if (type === 'guardian') {
+                uploadedFile = file;
+                fileName.textContent = file.name;
+                fileSize.textContent = formatFileSize(file.size);
+                filePreview.classList.add('show');
+            } else if (type === 'authorization') {
+                uploadedAuthFile = file;
+                authFileName.textContent = file.name;
+                authFileSize.textContent = formatFileSize(file.size);
+                authFilePreview.classList.add('show');
+            }
+        }
+
+        removeFile.addEventListener('click', (e) => {
+            e.stopPropagation();
+            uploadedFile = null;
+            guardianDocumentInput.value = '';
+            filePreview.classList.remove('show');
+        });
+
+        removeAuthFile.addEventListener('click', (e) => {
+            e.stopPropagation();
+            uploadedAuthFile = null;
+            authorizationDocumentInput.value = '';
+            authFilePreview.classList.remove('show');
+        });
+
+        function formatFileSize(bytes) {
+            if (bytes === 0) return '0 Bytes';
+            const k = 1024;
+            const sizes = ['Bytes', 'KB', 'MB'];
+            const i = Math.floor(Math.log(bytes) / Math.log(k));
+            return Math.round(bytes / Math.pow(k, i) * 100) / 100 + ' ' + sizes[i];
+        }
+
+        // ============================================
+        // TOGGLE CONTRASEÑAS
+        // ============================================
+        togglePassword.addEventListener('click', () => {
+            const type = passwordInput.type === 'password' ? 'text' : 'password';
+            passwordInput.type = type;
+            togglePassword.textContent = type === 'password' ? 'visibility_off' : 'visibility';
+        });
+
+        toggleConfirmPassword.addEventListener('click', () => {
+            const type = confirmPasswordInput.type === 'password' ? 'text' : 'password';
+            confirmPasswordInput.type = type;
+            toggleConfirmPassword.textContent = type === 'password' ? 'visibility_off' : 'visibility';
+        });
+
+        // ============================================
+        // VALIDACIÓN DE FORTALEZA DE CONTRASEÑA
+        // ============================================
+        passwordInput.addEventListener('input', (e) => {
+            const password = e.target.value;
+            const strength = calculatePasswordStrength(password);
+
+            if (password.length > 0) {
+                passwordStrength.classList.add('show');
+                strengthFill.className = 'strength-fill ' + strength.class;
+                strengthText.className = 'strength-text ' + strength.class;
+                strengthText.textContent = strength.text;
+            } else {
+                passwordStrength.classList.remove('show');
+            }
+        });
+
+        function calculatePasswordStrength(password) {
+            let score = 0;
+
+            if (password.length >= 8) score++;
+            if (password.length >= 12) score++;
+            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) score++;
+            if (/\d/.test(password)) score++;
+            if (/[^a-zA-Z0-9]/.test(password)) score++;
+
+            if (score <= 2) {
+                return { class: 'weak', text: 'Contraseña débil' };
+            } else if (score <= 4) {
+                return { class: 'medium', text: 'Contraseña media' };
+            } else {
+                return { class: 'strong', text: 'Contraseña fuerte' };
+            }
+        }
+
+        // ============================================
+        // MENSAJES
+        // ============================================
+        function showError(message) {
+            errorText.textContent = message;
+            errorMessage.classList.add('show');
+            successMessage.classList.remove('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showSuccess(message) {
+            successText.textContent = message;
+            successMessage.classList.add('show');
+            errorMessage.classList.remove('show');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function hideMessages() {
+            errorMessage.classList.remove('show');
+            successMessage.classList.remove('show');
+        }
+
+        // ============================================
+        // ENVÍO DEL FORMULARIO
+        // ============================================
+        signupForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            hideMessages();
+
+            // Validar contraseñas coincidan
+            if (passwordInput.value !== confirmPasswordInput.value) {
+                showError('Las contraseñas no coinciden. Por favor, verifica.');
+                return;
+            }
+
+            // Validar fortaleza mínima de contraseña
+            const strength = calculatePasswordStrength(passwordInput.value);
+            if (strength.class === 'weak') {
+                showError('La contraseña es demasiado débil. Usa al menos 8 caracteres, mayúsculas, minúsculas y números.');
+                return;
+            }
+
+            // Validar campos de menor de edad
+            if (isMinor) {
+                if (!guardianIdInput.value.trim()) {
+                    showError('Debes ingresar la cédula del tutor legal.');
+                    return;
+                }
+                if (!uploadedFile) {
+                    showError('Debes subir la copia de la cédula del tutor legal.');
+                    return;
+                }
+                if (!uploadedAuthFile) {
+                    showError('Debes subir la autorización firmada del tutor legal.');
+                    return;
+                }
+            }
+
+            // Deshabilitar botón durante el envío
+            submitBtn.disabled = true;
+            const originalText = submitBtn.querySelector('span:first-child').textContent;
+            submitBtn.querySelector('span:first-child').textContent = 'Registrando...';
+
+            try {
+                // ============================================
+                // PREPARAR DATOS PARA EL BACKEND
+                // ============================================
+                
+                // Crear FormData para enviar archivo si es necesario
+                const formData = new FormData();
+                
+                // Datos básicos del usuario
+                formData.append('firstName', document.getElementById('firstName').value.trim());
+                formData.append('lastName', document.getElementById('lastName').value.trim());
+                formData.append('username', document.getElementById('username').value.trim());
+                formData.append('documentNumber', document.getElementById('documentNumber').value.trim());
+                formData.append('email', document.getElementById('email').value.trim());
+                formData.append('password', passwordInput.value);
+                formData.append('userType', currentUserType);
+
+                // Solo agregar fecha de nacimiento si NO es proveedor
+                if (currentUserType !== 'provider') {
+                    formData.append('birthdate', birthdateInput.value);
+                    formData.append('isMinor', isMinor);
+                } else {
+                    formData.append('isMinor', false);
+                }
+
+                // Si es menor de edad, agregar datos del tutor
+                if (isMinor && currentUserType !== 'provider') {
+                    formData.append('guardianId', guardianIdInput.value.trim());
+                    formData.append('guardianDocument', uploadedFile);
+                    formData.append('authorizationDocument', uploadedAuthFile);
+                }
+
+                // ============================================
+                // REALIZAR PETICIÓN AL BACKEND
+                // ============================================
+                // backendconfigurar el endpoint correcto según el tipo de usuario
+                const endpoint = API_CONFIG.baseURL + API_CONFIG.endpoints[currentUserType];
+                
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    // NO establecer Content-Type cuando se usa FormData
+                    // El navegador lo hace automáticamente con el boundary correcto
+                    body: formData
+                });
+
+                // Parsear respuesta del backend
+                const data = await response.json();
+
+                if (response.ok) {
+                    // ============================================
+                    // REGISTRO EXITOSO
+                    // ============================================
+                    showSuccess('¡Cuenta creada exitosamente! Redirigiendo al inicio de sesión...');
+
+                    // Limpiar formulario
+                    signupForm.reset();
+                    uploadedFile = null;
+                    uploadedAuthFile = null;
+                    filePreview.classList.remove('show');
+                    authFilePreview.classList.remove('show');
+                    passwordStrength.classList.remove('show');
+                    ageWarning.classList.remove('show');
+                    guardianSection.classList.remove('show');
+
+                    // Redirigir al login después de 2 segundos
+                    setTimeout(() => {
+                        window.location.href = '/login.html';
+                    }, 2000);
+
+                } else {
+                    // ============================================
+                    // MANEJO DE ERRORES ESPECÍFICOS
+                    // ============================================
+                    let errorMsg = 'Error al crear la cuenta. Por favor, intenta de nuevo.';
+                    
+                    // El backend puede enviar códigos de error específicos
+                    if (response.status === 400) {
+                        // Errores de validación
+                        errorMsg = data.message || 'Datos inválidos. Verifica los campos.';
+                    } else if (response.status === 409) {
+                        // Conflicto - usuario ya existe
+                        errorMsg = data.message || 'El correo o nombre de usuario ya está registrado.';
+                    } else if (response.status === 403) {
+                        // Tutor legal no encontrado
+                        errorMsg = data.message || 'La cédula del tutor legal no está registrada en el sistema.';
+                    } else if (response.status === 422) {
+                        // Error de validación de archivo
+                        errorMsg = data.message || 'El archivo de la cédula no es válido.';
+                    } else if (data.message) {
+                        errorMsg = data.message;
+                    }
+                    
+                    showError(errorMsg);
+                }
+
+            } catch (error) {
+                // ============================================
+                // ERROR DE CONEXIÓN O RED
+                // ============================================
+                console.error('Error de red:', error);
+                showError('Error de conexión. Por favor, verifica tu conexión a internet e intenta de nuevo.');
+                
+            } finally {
+                // Rehabilitar botón
+                submitBtn.disabled = false;
+                submitBtn.querySelector('span:first-child').textContent = originalText;
+            }
+        });
+
+        // ============================================
+        // LIMPIAR MENSAJES AL ESCRIBIR
+        // ============================================
+        const inputs = signupForm.querySelectorAll('input');
+        inputs.forEach(input => {
+            input.addEventListener('input', hideMessages);
+        });
+
+        // ============================================
+        // VALIDACIONES EN TIEMPO REAL
+        // ============================================
+        
+        // Validar nombre de usuario (sin espacios, solo caracteres permitidos)
+        document.getElementById('username').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^a-zA-Z0-9_.-]/g, '');
+        });
+
+        // Validar número de documento (solo números)
+        document.getElementById('documentNumber').addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+        });
+
+        // Validar cédula del tutor (solo números)
+        guardianIdInput.addEventListener('input', (e) => {
+            e.target.value = e.target.value.replace(/[^0-9]/g, '');
+        });
+
+        // Validar que no se pueda seleccionar fecha futura
+        const today = new Date().toISOString().split('T')[0];
+        birthdateInput.setAttribute('max', today);
+
+        // ============================================
+        // INFORMACIÓN PARA EL BACKEND --- DE CHATGPT ----
+        // ============================================
+        /*
+        ESTRUCTURA DE DATOS QUE SE ENVÍA AL BACKEND:
+        
+        FormData con los siguientes campos:
+        
+        CAMPOS COMUNES (para todos los tipos):
+        - firstName: string (requerido)
+        - lastName: string (requerido)
+        - username: string (requerido, sin espacios)
+        - documentNumber: string (requerido, solo números)
+        - email: string (requerido, formato email)
+        - password: string (requerido, mínimo 8 caracteres)
+        - userType: string (requerido, valores: 'user' | 'provider')
+        - isMinor: boolean
+        
+        SOLO PARA USUARIOS (userType = 'user'):
+        - birthdate: string (requerido, formato YYYY-MM-DD)
+        
+        SOLO SI isMinor = true Y userType = 'user':
+        - guardianId: string (requerido, número de cédula del tutor)
+        - guardianDocument: File (requerido, archivo PDF/JPG/PNG - Copia de cédula)
+        - authorizationDocument: File (requerido, archivo PDF/JPG/PNG - Autorización firmada)
+        
+        NOTA IMPORTANTE: 
+        - Los proveedores NO tienen campo de fecha de nacimiento
+        - Los administradores NO pueden registrarse desde este formulario
+        - Solo usuarios pueden ser menores de edad
+        
+        ---
+        
+        RESPUESTA ESPERADA DEL BACKEND:
+        
+        ÉXITO (status 200 o 201):
+        {
+            "success": true,
+            "message": "Usuario registrado exitosamente",
+            "user": {
+                "id": 123,
+                "username": "nombre_usuario",
+                "documentNumber": "1234567890",
+                "email": "email@ejemplo.com",
+                "userType": "user"
+            }
+        }
+        
+        ERROR (status 400, 403, 409, 422, etc.):
+        {
+            "success": false,
+            "message": "Descripción del error",
+            "errors": {
+                // Detalles opcionales de errores por campo
+                "email": "El correo ya está registrado",
+                "username": "El nombre de usuario no está disponible",
+                "documentNumber": "El número de documento ya está registrado"
+            }
+        }
+        
+        ---
+        
+        CÓDIGOS DE RESPUESTA MANEJADOS:
+        
+        - 200/201: Registro exitoso
+        - 400: Datos inválidos o faltantes
+        - 403: Tutor legal no encontrado o sin permisos
+        - 409: Conflicto - usuario/email/documento ya existe
+        - 422: Error de validación de archivo
+        - 500: Error interno del servidor
+        
+        ---
+        
+        VALIDACIONES QUE DEBE HACER EL BACKEND:
+        
+        1. Verificar que el email no esté registrado
+        2. Verificar que el username no esté registrado
+        3. Verificar que el documentNumber no esté registrado
+        4. Validar formato de email
+        5. Validar fortaleza de contraseña (mínimo 8 caracteres)
+        6. Si userType = 'user':
+           - Validar que birthdate esté presente
+           - Calcular si es menor de edad
+        7. Si isMinor = true:
+           - Verificar que guardianId existe en la base de datos
+           - Verificar que el tutor sea mayor de edad
+           - Validar que guardianDocument sea un archivo válido
+           - Validar que authorizationDocument sea un archivo válido
+           - Almacenar ambos documentos de forma segura
+        8. Hashear la contraseña antes de guardar
+        9. Crear el usuario en la base de datos
+        10. Enviar email de confirmación (opcional)
+        
+        ---
+        
+        ENDPOINTS DISPONIBLES:
+        
+        POST /auth/user/register - Registro de usuarios (con birthdate, puede ser menor)
+        POST /auth/provider/register - Registro de proveedores (sin birthdate, siempre mayor)
+        
+        NOTA: NO existe endpoint para registro de administradores.
+        Los administradores deben ser creados directamente por otro administrador
+        o mediante un proceso interno del sistema.
+        
+        ---
+        
+        DIFERENCIAS ENTRE USUARIO Y PROVEEDOR:
+        
+        USUARIO:
+        - Requiere fecha de nacimiento
+        - Puede ser menor de edad
+        - Si es menor, requiere: guardianId + guardianDocument + authorizationDocument
+        
+        PROVEEDOR:
+        - NO requiere fecha de nacimiento
+        - Siempre es considerado mayor de edad
+        - NO requiere datos de tutor
+        
+        */
+    </script>
+</body>
+</html>

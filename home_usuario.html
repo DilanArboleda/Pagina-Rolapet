@@ -31,10 +31,119 @@
   <link rel="stylesheet" type="text/css" href="revolution/css/settings.css" />
   <link rel="stylesheet" type="text/css" href="revolution/css/layers.css" />
   <link rel="stylesheet" type="text/css" href="revolution/css/navigation.css" />
-  <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-      <![endif]-->
+
+    <!-- CSS personalizado para carrito -->
+  <style>
+    .carrito-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+    .carrito-titulo {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 40px;
+      color: #333;
+    }
+    .carrito-producto {
+      display: flex;
+      align-items: center;
+      padding: 20px;
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      margin-bottom: 20px;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .carrito-img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-right: 20px;
+    }
+    .carrito-detalles {
+      flex: 1;
+    }
+    .carrito-nombre {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    .carrito-precio {
+      font-size: 1.1rem;
+      color: #2196F3;
+      font-weight: bold;
+    }
+    .carrito-cantidad {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin: 10px 0;
+    }
+    .qty-btn {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #ddd;
+      background: #f8f9fa;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .carrito-total {
+      font-size: 1.5rem;
+      font-weight: bold;
+      text-align: right;
+      margin: 20px 0;
+      color: #2196F3;
+    }
+    .btn-carrito {
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-weight: bold;
+      text-decoration: none;
+      display: inline-block;
+      margin: 10px;
+      transition: all 0.3s;
+    }
+    .btn-seguir {
+      background: #6c757d;
+      color: white;
+    }
+    .btn-seguir:hover {
+      background: #5a6268;
+      color: white;
+    }
+    .btn-finalizar {
+      background: #2196F3;
+      color: white;
+    }
+    .btn-finalizar:hover {
+      background: #1976D2;
+      color: white;
+    }
+    .eliminar-btn {
+      background: #dc3545;
+      color: white;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .eliminar-btn:hover {
+      background: #c82333;
+    }
+    @media (max-width: 768px) {
+      .carrito-producto {
+        flex-direction: column;
+        text-align: center;
+      }
+      .carrito-img {
+        margin-right: 0;
+        margin-bottom: 15px;
+      }
+    }
+  </style>
+  
 </head>
 
 <body id="default_theme" class="it_service">
@@ -44,9 +153,7 @@
   <!-- header -->
   <header id="default_header" class="header_style_1">
     <!-- header top -->
-
-
-    <body id="default_theme" class="it_service">
+     
       <!-- loader -->
       <div class="bg_load"> <img class="loader_animation" src="images/loaders/scoote.png" alt="#" /> </div>
       <!-- end loader -->
@@ -66,25 +173,33 @@
               </div>
               <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
                 <!-- menu start -->
-                <div class="menu_side">
-                  <div id="navbar_menu">
-                    <ul class="first-ul">
-                      <li><a class="active" href="index.html">Inicio</a>
+            <div class="menu_side">
+              <div id="navbar_menu">
+                <ul class="first-ul">
+                  <li><a class="active" href="home_usuario.html">Inicio</a>
 
-                      </li>
-                      <li><a href="catalogo_no_registrados.html">Catálogo</a></li>
-                      </li>
-                       
-                      <li><a href="login.html">Login</a></li>
-                      </li>
-                      
-                      <li><a href="registro.html">Registro</a></li>
-                      </li>
-                    </ul>
-                  </div>
+                  </li>
+                  <li><a href="tienda.html">Catálogo</a></li>
 
-                </div>
-                <!-- menu end -->
+                  <li> <a href="noticias_blog.html">Blog</a>
+
+                  </li>
+                  <li> <a href="mapa.html">Mapa</a>
+
+                  </li>
+                  <li>
+                    <a href="carrito.html">
+                      <i class="fa-solid fa-cart-shopping"></i>
+                    </a>
+                  </li>
+
+
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+            <!-- menu end -->
               </div>
             </div>
           </div>
@@ -136,7 +251,7 @@
                     </div>
                     <!-- LAYER NR. 2 -->
                     <a class="tp-caption NotGeneric-Title tp-resizeme rs-parallaxlevel-0" id="slide-18-layer-112"
-                      href="index.html" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+                      href="home_usuario.html" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
                       data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']"
                       data-fontsize="['70','70','70','35']" data-lineheight="['70','70','70','50']" data-width="none"
                       data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;"
@@ -158,8 +273,7 @@
                       data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;"
                       data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;"
                       data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" data-start="1500" data-splitin="none"
-                      data-splitout="none" data-responsive_offset="on" style="z-index: 7; white-space: nowrap;">a tu
-                      espacio de movilidad eléctrica</div>
+                      data-splitout="none" data-responsive_offset="on" style="z-index: 7; white-space: nowrap;">Selecciona la opcion que necesites</div>
                   </li>
                   <li data-index="rs-181" data-transition="zoomin" data-slotamount="7" data-easein="Power4.easeInOut"
                     data-easeout="Power4.easeInOut" data-masterspeed="2000"
@@ -194,7 +308,7 @@
                     </div>
                     <!-- LAYER NR. 2 -->
                     <a class="tp-caption NotGeneric-Title tp-resizeme rs-parallaxlevel-0" id="slide-18-layer-112"
-                      href="login.html" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
+                      href="mapa.html" data-x="['center','center','center','center']" data-hoffset="['0','0','0','0']"
                       data-y="['middle','middle','middle','middle']" data-voffset="['0','0','0','0']"
                       data-fontsize="['70','70','70','35']" data-lineheight="['70','70','70','50']" data-width="none"
                       data-height="none" data-whitespace="nowrap" data-transform_idle="o:1;"
@@ -204,7 +318,7 @@
                       data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" data-start="1000" data-splitin="chars"
                       data-splitout="none" data-responsive_offset="on" data-elementdelay="0.05"
                       style="z-index: 6; white-space: nowrap;">
-                      Login
+                      Mapa
                     </a>
                     <!-- LAYER NR. 3 -->
                     <div class="tp-caption NotGeneric-SubTitle   tp-resizeme rs-parallaxlevel-0" id="slide-18-layer-41"
@@ -215,8 +329,7 @@
                       data-transform_out="y:[100%];s:1000;e:Power2.easeInOut;s:1000;e:Power2.easeInOut;"
                       data-mask_in="x:0px;y:[100%];s:inherit;e:inherit;"
                       data-mask_out="x:inherit;y:inherit;s:inherit;e:inherit;" data-start="1500" data-splitin="none"
-                      data-splitout="none" data-responsive_offset="on" style="z-index: 7; white-space: nowrap;">Ingresa
-                      al aplicativo</div>
+                      data-splitout="none" data-responsive_offset="on" style="z-index: 7; white-space: nowrap;">Encuentra un punto en el mapa</div>
                   </li>
                   <li data-index="rs-18" data-transition="zoomin" data-slotamount="7" data-easein="Power4.easeInOut"
                     data-easeout="Power4.easeInOut" data-masterspeed="2000"
@@ -431,26 +544,7 @@
           </div>
         </div>
       </div>
-      <script src="js/jquery.min.js"></script>
-      <script src="js/bootstrap.min.js"></script>
-      <!-- menu js -->
-      <script src="js/menumaker.js"></script>
-      <!-- wow animation -->
-      <script src="js/wow.js"></script>
-      <!-- custom js -->
-      <script src="js/custom.js"></script>
-      <!-- revolution js files -->
-      <script src="revolution/js/jquery.themepunch.tools.min.js"></script>
-      <script src="revolution/js/jquery.themepunch.revolution.min.js"></script>
-      <script src="revolution/js/extensions/revolution.extension.actions.min.js"></script>
-      <script src="revolution/js/extensions/revolution.extension.carousel.min.js"></script>
-      <script src="revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
-      <script src="revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
-      <script src="revolution/js/extensions/revolution.extension.migration.min.js"></script>
-      <script src="revolution/js/extensions/revolution.extension.navigation.min.js"></script>
-      <script src="revolution/js/extensions/revolution.extension.parallax.min.js"></script>
-      <script src="revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
-      <script src="revolution/js/extensions/revolution.extension.video.min.js"></script>
+
 
       
       <!-- ==================== FOOTER ==================== -->
@@ -484,6 +578,30 @@
   </div>
 </footer>
 <!-- ================== END FOOTER ================== -->
+
+
+      <script src="js/jquery.min.js"></script>
+      <script src="js/bootstrap.min.js"></script>
+      <!-- menu js -->
+      <script src="js/menumaker.js"></script>
+      <!-- wow animation -->
+      <script src="js/wow.js"></script>
+      <!-- custom js -->
+      <script src="js/custom.js"></script>
+      <!-- revolution js files -->
+      <script src="revolution/js/jquery.themepunch.tools.min.js"></script>
+      <script src="revolution/js/jquery.themepunch.revolution.min.js"></script>
+      <script src="revolution/js/extensions/revolution.extension.actions.min.js"></script>
+      <script src="revolution/js/extensions/revolution.extension.carousel.min.js"></script>
+      <script src="revolution/js/extensions/revolution.extension.kenburn.min.js"></script>
+      <script src="revolution/js/extensions/revolution.extension.layeranimation.min.js"></script>
+      <script src="revolution/js/extensions/revolution.extension.migration.min.js"></script>
+      <script src="revolution/js/extensions/revolution.extension.navigation.min.js"></script>
+      <script src="revolution/js/extensions/revolution.extension.parallax.min.js"></script>
+      <script src="revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
+      <script src="revolution/js/extensions/revolution.extension.video.min.js"></script>
+
+
 
 
 
