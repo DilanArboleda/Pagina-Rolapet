@@ -1,0 +1,238 @@
+.user-type-selector {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 32px;
+    background: #F5F5F5;
+    padding: 6px;
+    border-radius: 12px;
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.user-type-btn {
+    flex: 1;
+    padding: 12px 16px;
+    border: none;
+    background: transparent;
+    color: #8C8C8C;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.user-type-btn .material-symbols-outlined {
+    font-size: 20px;
+}
+
+.user-type-btn.active {
+    background: #2196F3;
+    color: white;
+    box-shadow: 0 4px 12px rgba(33, 150, 243, 0.3);
+}
+
+.user-type-btn:hover:not(.active) {
+    background: rgba(33, 150, 243, 0.1);
+    color: #2196F3;
+}
+
+.form-group {
+    margin-bottom: 24px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    color: #666666;
+    margin-bottom: 8px;
+}
+
+.input-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-wrapper .material-symbols-outlined {
+    position: absolute;
+    left: 16px;
+    color: #8C8C8C;
+    font-size: 22px;
+    pointer-events: none;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 14px 16px 14px 48px;
+    border: 2px solid #E0E0E0;
+    border-radius: 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 15px;
+    color: #666666;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #2196F3;
+    box-shadow: 0 0 0 4px rgba(33, 150, 243, 0.1);
+}
+
+.form-group input::placeholder {
+    color: #BDBDBD;
+}
+
+.toggle-password {
+    position: absolute;
+    right: 16px;
+    color: #8C8C8C;
+    cursor: pointer;
+    font-size: 22px;
+    transition: color 0.3s ease;
+    user-select: none;
+}
+
+.toggle-password:hover {
+    color: #2196F3;
+}
+
+.form-options {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.remember-me input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    accent-color: #2196F3;
+}
+
+.remember-me label {
+    font-size: 14px;
+    font-weight: 400;
+    color: #666666;
+    cursor: pointer;
+}
+
+.forgot-password {
+    font-size: 14px;
+    font-weight: 500;
+    color: #2196F3;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.forgot-password:hover {
+    color: #6BBEF9;
+}
+
+.submit-btn {
+    width: 100%;
+    padding: 16px;
+    background: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.submit-btn:hover {
+    background: #6BBEF9;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(33, 150, 243, 0.3);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+.submit-btn .material-symbols-outlined {
+    font-size: 22px;
+}
+
+.error-message {
+    background: #FFEBEE;
+    color: #C62828;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    display: none;
+    align-items: center;
+    gap: 8px;
+}
+
+.error-message.show {
+    display: flex;
+}
+
+.error-message .material-symbols-outlined {
+    font-size: 20px;
+}
+
+.success-message {
+    background: #E8F5E9;
+    color: #2E7D32;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-size: 14px;
+    margin-bottom: 20px;
+    display: none;
+    align-items: center;
+    gap: 8px;
+}
+
+.success-message.show {
+    display: flex;
+}
+
+.success-message .material-symbols-outlined {
+    font-size: 20px;
+}
+
+@media (max-width: 640px) {
+    .user-type-btn span:not(.material-symbols-outlined) {
+        display: none;
+    }
+}
+
+@media (max-width: 767px) {
+    .header_bottom .logo {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .header_bottom .logo img {
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        display: block;
+    }
+}
