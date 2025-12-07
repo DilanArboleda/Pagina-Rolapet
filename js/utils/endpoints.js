@@ -10,6 +10,7 @@ const API = {
     USER: {
         ME: `${URL_BASE}/usuario/api/v1/jwt/users/me`,
         FIND_BY_ID: `${URL_BASE}/usuario/api/v1/jwt/users/findById`,
+        FIND_ALL: `${URL_BASE}/usuario/api/v1/jwt/users`,
     }
 };
 

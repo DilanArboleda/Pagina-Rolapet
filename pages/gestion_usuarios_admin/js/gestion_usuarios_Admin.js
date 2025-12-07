@@ -1,53 +1,43 @@
-import { userService } from "../../../js/services/user-service.js";
+import { userService } from "@user-service";
+import { UsersTable } from "./users-table.js";
+import { exposeUIFunctions } from "./users-ui.js";
 
+class UsersPage {
+    constructor() {
+        this.usersTable = null;
+    }
 
-function toggleSidebar() {
-    const sidebar = document.getElementById('sidebar');
-    sidebar.classList.toggle('open');
-}
-// Busqueda del nombre: 
-let email = userService.getFromCache().email;
+    // esto inicia la pagina
+    async init() {
+        // expone las funciones iniciales
+        exposeUIFunctions();
 
-console.log(email);
+        // Cargar información del usuario actual
+        this.loadCurrentUserInfo();
 
+        // Inicializar tabla de usuarios
+        this.usersTable = new UsersTable('table');
+        await this.usersTable.load();
+    }
 
-// Asignar al DOM
-document.getElementById('adminEmail').textContent =
-    email || 'No está registrado';
+    //
+    loadCurrentUserInfo() {
+        const currentUser = userService.getFromCache();
 
+        const emailElement = document.getElementById('adminEmail');
+        if (emailElement) {
+            emailElement.textContent = currentUser?.email || 'No está registrado';
+        }
 
-// Autocompletar nombre/email igual que en el panel principal
-document.getElementById('adminName').textContent =
-    userService.getFromCache().name || 'Administrador';
-
-
-// Filtro de búsqueda
-document.getElementById('searchInput').addEventListener('input', function () {
-    const filter = this.value.toLowerCase();
-    document.querySelectorAll('.user-row').forEach(row => {
-        const text = row.textContent.toLowerCase();
-        row.style.display = text.includes(filter) ? '' : 'none';
-    });
-});
-
-
-
-/*------ */
-function openPanel() {
-    document.getElementById('editPanel').classList.add('open');
-}
-
-function closePanel() {
-    document.getElementById('editPanel').classList.remove('open');
-}
-
-function deleteUser(id) {
-    const row = document.getElementById('user-' + id);
-    if (confirm('¿Seguro que deseas eliminar este usuario?')) {
-        row.remove();
+        const nameElement = document.getElementById('adminName');
+        if (nameElement) {
+            nameElement.textContent = currentUser?.nombre || 'Administrador';
+        }
     }
 }
 
-function openNewUserModal() {
-    alert('Funcionalidad para nuevo usuario no implementada.');
-}
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    const page = new UsersPage();
+    page.init();
+});

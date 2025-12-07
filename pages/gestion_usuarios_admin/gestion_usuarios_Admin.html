@@ -19,6 +19,19 @@
   <!-- CSS Local -->
   <link rel="stylesheet" href="./css/gestion_usuarios_Admin.css" />
 
+  <script type="importmap">
+  {
+      "imports": {
+          "@utils/": "/js/utils/",
+          "@api": "/js/utils/api-client.js",
+          "@endpoints": "/js/utils/endpoints.js",
+          "@token-service": "/js/utils/token-service.js",
+          "@user-service": "/js/services/user-service.js",
+          "@auth-service": "/js/services/auth-service.js"
+      }
+  }
+  </script>
+
 
 
 </head>
@@ -35,8 +48,8 @@
     <aside class="sidebar" id="sidebar">
       <div class="profile">
         <img src="../../images/it_service/administracion.png" alt="Admin" />
-        <h3 id="adminName">Administrador-</h3>
-        <small id="adminEmail">admin@example.com-</small>
+        <h3 id="adminName">Administrador</h3>
+        <small id="adminEmail"></small>
       </div>
 
       <nav>
