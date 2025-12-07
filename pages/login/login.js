@@ -27,13 +27,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
             // redireccionamos
             switch (me.data.rol) {
-                case "user":
+                case "USUARIO COMUN":
                     window.location.href = "/home_usuario.html";
                     break;
-                case "provider":
+                case "PROVEEDOR":
                     window.location.href = "/home_proveedor.html";
                     break;
-                case "Moderador":
+                case "ADMIN":
                     window.location.href = "/pages/home_admin/home_admin.html";
                     break;
             }
