@@ -1,11 +1,8 @@
 import { api } from "@api";
 import API from "@endpoints";
-import { tokenService } from "@token-service";
+import { authService } from "@auth-service";
 import { userService } from "@user-service";
 
-
-// Estado
-let currentUserType = null;
 
 document.addEventListener("DOMContentLoaded", () => {
     const loginForm = document.getElementById("loginForm");
@@ -20,23 +17,15 @@ document.addEventListener("DOMContentLoaded", () => {
         try {
             // login
             const data = await api.post(API.AUTH.LOGIN, { email, password });
-
-            const { accessToken, refreshToken, isValid } = data.data;
-
-            if (!isValid) {
-                showError("Credenciales inválidas");
-                return;
-            }
-
-            tokenService.save(accessToken, refreshToken, currentUserType, remember);
+            console.log("data recibida login: ", data.data);
+            authService.save(data.data, remember);
 
             // obtenemos el usuario
-            const me = await api.get(API.USER.ME, currentUserType);
+            const me = await api.get(API.USER.ME);
 
             userService.saveToCache(me.data, remember);
 
             // redireccionamos
-            console.log(me.data.rol);
             switch (me.data.rol) {
                 case "user":
                     window.location.href = "/home_usuario.html";
@@ -50,7 +39,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
         } catch (err) {
-            window.alert(err.message || "Error en el login");
+            window.alert("Error en el login: " + err.message || "Error en el login");
         }
     });
 });

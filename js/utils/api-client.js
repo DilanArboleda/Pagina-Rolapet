@@ -1,5 +1,5 @@
-import { tokenService } from "@token-service";
-import API from "@endpoints";
+import { authService as tokenService } from "../services/auth-service.js";
+import API from "./endpoints.js";
 
 class ApiClient {
     // constructor
@@ -21,17 +21,33 @@ class ApiClient {
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ refreshToken: refresh }),
         });
-
+        // la propiedad que viene: 
+        /**
+         * {
+            "status": "success",
+            "message": "Token exitoso",
+            "data": {
+                    "accessToken": "",
+                    "refreshToken": "",
+                    "expiresAt": "",
+                    "isValid": true
+                    },
+            "code": 200
+            }
+        */
         const data = await res.json();
-        tokenService.save(data);
+        const wasRemembered = !!localStorage.getItem("auth");
+        tokenService.save(data.data, wasRemembered);
 
         this.refreshing = false;
-        return data.accessToken;
+        return data.data.accessToken;
     }
 
     // Request cualquiera 
     async request(url, opts = {}) {
         const token = tokenService.getAccess();
+
+        console.log("El token es: ", token);
 
         const config = {
             method: opts.method || "GET",
@@ -41,6 +57,7 @@ class ApiClient {
             },
             body: opts.body ? JSON.stringify(opts.body) : undefined,
         };
+        console.log("El fetch lo hago: ", config);
 
         let res = await fetch(url, config);
 

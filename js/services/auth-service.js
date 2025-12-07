@@ -1,60 +1,54 @@
-
 class AuthService {
 
-    // auth service guardará un objeto como: 
-    /* 
-    *   accesToken
-    *   refreshToken
-    *   isValid
-    */
-
     constructor() {
-        this.auth = {
-            accessToken: null,
-            refreshToken: null,
-            isValid: false
-        };
+        this.auth = null;
     }
 
+    getAccess() {
+        return this.getFromCache()?.accessToken || null;
+    }
+
+    getRefresh() {
+        return this.getFromCache()?.refreshToken || null;
+    }
+
+    save(data, remember = true) {
+        // data = { accessToken, refreshToken, expiresAt, isValid }
+        this.auth = data;
+        this.saveToCache(data, remember);
+    }
 
     getFromCache() {
-        const local = localStorage.getItem('authInfo');
-        const session = sessionStorage.getItem('authInfo');
+        if (this.auth) return this.auth;
 
-        if (local && JSON.parse(local).isValid) {
-            this.auth = JSON.parse(local);
-        } else if (session && JSON.parse(session).isValid) {
-            this.auth = JSON.parse(session);
-        } else {
-            this.auth = {};
-            this.clear();
+        const raw = localStorage.getItem("auth") || sessionStorage.getItem("auth");
+        if (!raw) return null;
+
+        try {
+            this.auth = JSON.parse(raw);
+        } catch {
+            this.auth = null;
         }
         return this.auth;
     }
 
     saveToCache(auth, remember = true) {
-        this.auth = auth;
+        const value = JSON.stringify(auth);
+
         if (remember) {
-            localStorage.setItem('authInfo', JSON.stringify(auth));
+            localStorage.setItem("auth", value);
+            sessionStorage.removeItem("auth");
         } else {
-            sessionStorage.setItem('authInfo', JSON.stringify(auth));
+            sessionStorage.setItem("auth", value);
+            localStorage.removeItem("auth");
         }
     }
 
     clear() {
-        this.auth = {};
-        localStorage.removeItem('authInfo');
-        sessionStorage.removeItem('authInfo');
-    }
-
-
-    validateToken() {
-        const auth = this.getFromCache();
-        if (auth.isValid && auth.accessToken && auth.refreshToken) {
-            return true;
-        } else {
-            this.clear();
-            return false;
-        }
+        this.auth = null;
+        localStorage.removeItem("auth");
+        sessionStorage.removeItem("auth");
     }
 }
+
+export const authService = new AuthService();
