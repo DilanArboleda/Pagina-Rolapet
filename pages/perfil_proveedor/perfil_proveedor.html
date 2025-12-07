@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RolaPet - Perfil del Proveedor</title>
+    <link rel="icon" href="images/fevicon/alfiler.png" type="image/gif" />
+
+    <!-- Bootstrap y CSS del tema -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/responsive.css" />
+    <link rel="stylesheet" href="/css/colors1.css" />
+</head>
+
+<body id="default_theme" class="it_service">
+    <div class="container-dashboard">
+        <!-- Hamburguesa menú móvil -->
+        <div class="hamburger" onclick="toggleSidebar()">
+            <i class="fa fa-bars"></i>
+        </div>
+        <!-- Sidebar Proveedor -->
+        <aside class="sidebar" id="sidebar">
+            <div class="profile">
+                <div class="profile-avatar">
+                    <i class="fa-solid fa-store"></i>
+                </div>
+                <h3 id="proveedorName">Proveedor Principal</h3>
+                <small id="proveedorEmail">proveedor@rolapet.com</small>
+            </div>
+            <nav>
+                <a href="perfil_proveedor.html" class="active"><i class="fa-solid fa-user"></i> Mi Perfil</a>
+                <a href="mis_productos_proveedor.html"><i class="fa-solid fa-box"></i> Mis Productos</a>
+                <a href="pedidos_proveedor.html"><i class="fa-solid fa-shopping-bag"></i> Pedidos</a>
+                <a href="configuracion_proveedor.html"><i class="fa-solid fa-gear"></i> Configuración</a>
+            </nav>
+            <a class="logout-btn" href="index.html">
+                <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+            </a>
+        </aside>
+
+        <!-- Contenido Principal - Perfil Proveedor Detallado -->
+        <div class="main-content">
+            <div class="perfil-container">
+                <!-- Hero Section -->
+                <div class="hero-section">
+                    <div class="hero-content">
+                        <div class="hero-avatar">
+                            <i class="fa-solid fa-store"></i>
+                        </div>
+                        <div class="hero-text">
+                            <h1>ElectroMotos Bogotá</h1>
+                            <div class="rating">
+                                <div class="stars">
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                    <i class="fa-solid fa-star"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Información Detallada -->
+                <div class="info-section">
+                    <!-- Información de Contacto -->
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            <i class="fa-solid fa-address-book"></i>
+                            Información de Contacto
+                        </h2>
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h3><i class="fa-solid fa-envelope"></i> Correo Electrónico</h3>
+                            <div class="info-value">contacto@electromotosbogota.com</div>
+                        </div>
+                        <div class="info-card">
+                            <h3><i class="fa-solid fa-phone"></i> Teléfono</h3>
+                            <div class="info-value">+57 300 123 4567</div>
+                        </div>
+                        <div class="info-card">
+                            <h3><i class="fa-solid fa-globe"></i> Sitio Web</h3>
+                            <div class="info-value">
+                                <a href="https://electromotosbogota.com" target="_blank">electromotosbogota.com</a>
+                            </div>
+                        </div>
+                        <div class="info-card">
+                            <h3><i class="fa-solid fa-calendar-days"></i> Fecha de Registro</h3>
+                            <div class="info-value">15 de Marzo, 2024</div>
+                        </div>
+                        <div class="info-card" style="grid-column: 1 / -1;">
+                            <h3><i class="fa-solid fa-map-marker-alt"></i> Dirección</h3>
+                            <div class="info-value">
+                                Calle 72 #15-45, Chapinero<br>
+                                Bogotá, Colombia<br>
+                                Horario: Lunes a Sábado 8:00 AM - 7:00 PM
+                            </div>
+                        </div>
+                        <div class="info-card" style="grid-column: 1 / -1;">
+                            <h3><i class="fa-solid fa-info-circle"></i> Sobre Nosotros</h3>
+                            <div class="info-value">
+                                ElectroMotos Bogotá es tu aliado estratégico en movilidad eléctrica. Con más de 10 años
+                                de experiencia en el sector, ofrecemos servicios premium de mantenimiento, reparación y
+                                venta de accesorios para scooters y bicicletas eléctricas. Nuestro equipo certificado
+                                garantiza la máxima calidad en cada servicio.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Certificaciones -->
+                    <div class="section-header">
+                        <h2 class="section-title">
+                            <i class="fa-solid fa-award"></i>
+                            Certificaciones y Garantías
+                        </h2>
+                    </div>
+
+                    <div class="info-grid">
+                        <div class="info-card">
+                            <h3><i class="fa-solid fa-check-circle"></i> Técnicos Certificados</h3>
+                            <div class="info-value">Todos nuestros técnicos cuentan con certificación oficial de los
+                                principales fabricantes</div>
+                        </div>
+                        <div class="info-card">
+                            <h3><i class="fa-solid fa-shield-alt"></i> Garantía en Piezas</h3>
+                            <div class="info-value">6 meses de garantía en todas las piezas originales instaladas</div>
+                        </div>
+                        <div class="info-card">
+                            <h3><i class="fa-solid fa-clock"></i> Tiempo de Entrega</h3>
+                            <div class="info-value">95% de servicios completados en menos de 24 horas</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Top Header con Logo -->
+        <header class="top-header">
+            <div class="logo">
+                <a href="index.html"><img src="images/logos/LogoRolaPet.png" alt="RolaPet Logo" /></a>
+            </div>
+        </header>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Toggle Sidebar móvil
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        // Autocompletar datos desde localStorage
+        document.getElementById('proveedorName').textContent = localStorage.getItem('proveedorName') || 'Proveedor Principal';
+        document.getElementById('proveedorEmail').textContent = localStorage.getItem('proveedorEmail') || 'proveedor@rolapet.com';
+    </script>
+
+    <!-- JS del tema -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/menumaker.js"></script>
+    <script src="js/wow.js"></script>
+    <script src="js/custom.js"></script>
+</body>
+
+</html>

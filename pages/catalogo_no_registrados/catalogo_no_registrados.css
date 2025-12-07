@@ -1,0 +1,127 @@
+/* CSS personalizado para carrito */
+.carrito-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+.carrito-titulo {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 40px;
+    color: #333;
+}
+
+.carrito-producto {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    background: #fff;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.carrito-img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 20px;
+}
+
+.carrito-detalles {
+    flex: 1;
+}
+
+.carrito-nombre {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.carrito-precio {
+    font-size: 1.1rem;
+    color: #2196F3;
+    font-weight: bold;
+}
+
+.carrito-cantidad {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.qty-btn {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ddd;
+    background: #f8f9fa;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.carrito-total {
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: right;
+    margin: 20px 0;
+    color: #2196F3;
+}
+
+.btn-carrito {
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-decoration: none;
+    display: inline-block;
+    margin: 10px;
+    transition: all 0.3s;
+}
+
+.btn-seguir {
+    background: #6c757d;
+    color: white;
+}
+
+.btn-seguir:hover {
+    background: #5a6268;
+    color: white;
+}
+
+.btn-finalizar {
+    background: #2196F3;
+    color: white;
+}
+
+.btn-finalizar:hover {
+    background: #1976D2;
+    color: white;
+}
+
+.eliminar-btn {
+    background: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.eliminar-btn:hover {
+    background: #c82333;
+}
+
+@media (max-width: 768px) {
+    .carrito-producto {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .carrito-img {
+        margin-right: 0;
+        margin-bottom: 15px;
+    }
+}
