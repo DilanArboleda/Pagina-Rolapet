@@ -45,27 +45,12 @@
     </div>
 
     <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-      <div class="profile">
-        <img src="../../images/it_service/administracion.png" alt="Admin" />
-        <h3 id="adminName">Administrador</h3>
-        <small id="adminEmail"></small>
-      </div>
-
-      <nav>
-        <a href="gestion_usuarios_Admin.html" class="active"><i class="fa-solid fa-users"></i> Gestión de Usuarios</a>
-        <a href="../moderacion_admin/moderacion_Admin.html"><i class="fa-solid fa-shield-halved"></i> Moderación</a>
-        <a href="../puntos_interes_admin/puntos_interes_Admin.html"><i class="fa-solid fa-location-dot"></i> Puntos de
-          Interés</a>
-        <a href="../gestion_proveedores_admin/gestion_proveedores_Admin.html"><i class="fa-solid fa-truck"></i>
-          Proveedores</a>
-        <a href="../configuracion_admin/configuracion_admin.html"><i class="fa-solid fa-gear"></i> Configuración</a>
-      </nav>
-
-      <a class="logout-btn" href="../../index.html">
-        <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
-      </a>
-    </aside>
+    <!-- SIDEBAR -->
+    <div id="sidebar-container"></div>
+    <script type="module">
+      import { renderSidebar } from '/js/components/AdminSidebar.js';
+      renderSidebar('sidebar-container');
+    </script>
 
     <!-- HEADER -->
     <header class="top-header">

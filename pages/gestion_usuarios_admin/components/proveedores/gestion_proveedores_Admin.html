@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <title>RolaPet - Gestión de Proveedores</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="icon" href="../../../../images/fevicon/alfiler.png" type="image/gif" />
+  <link rel="stylesheet" href="../../../../css/bootstrap.min.css" />
+  <link rel="stylesheet" href="../../../../css/style.css" />
+  <link rel="stylesheet" href="../../../../css/responsive.css" />
+  <link rel="stylesheet" href="../../../../css/colors1.css" />
+  <link rel="stylesheet" href="../../../../css/custom.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="./gestion_proveedores_Admin.css">
+
+
+</head>
+
+<body id="default_theme" class="it_service">
+  <div class="container-dashboard">
+
+    <!-- HAMBURGUESA -->
+    <div class="hamburger" onclick="toggleSidebar()">
+      <i class="fa fa-bars"></i>
+    </div>
+
+    <!-- SIDEBAR -->
+    <!-- SIDEBAR -->
+    <div id="sidebar-container"></div>
+    <script type="module">
+      import { renderSidebar } from '/js/components/AdminSidebar.js';
+      renderSidebar('sidebar-container');
+    </script>
+
+    <!-- HEADER SUPERIOR -->
+    <header class="top-header">
+      <div class="logo">
+        <a href="../../../../index.html"><img src="../../../../images/logos/LogoRolaPet.png" alt="logo" /></a>
+      </div>
+    </header>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <div class="main-content">
+      <section class="providers-panel">
+        <h1>Gestión de Proveedores</h1>
+        <p>Añade, edita y gestiona los proveedores de la plataforma.</p>
+
+        <button class="btn-primary" onclick="openPanel()">+ Nuevo Proveedor</button>
+
+        <!-- Filtros -->
+        <div class="filter-bar">
+          <input type="text" id="searchInput" placeholder="Buscar proveedor..." onkeyup="filterTable()">
+          <select id="statusFilter" onchange="filterTable()">
+            <option value="">Todos los estados</option>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+          </select>
+        </div>
+
+        <!-- Tabla de proveedores -->
+        <table id="providerTable">
+          <thead>
+            <tr>
+              <th>Proveedor</th>
+              <th>Categoria</th>
+              <th>Estado</th>
+              <th>Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Proveedor">Transporte Medellín</td>
+              <td data-label="Servicio">Movilidad</td>
+              <td data-label="Estado">Activo</td>
+              <td data-label="Acciones">
+                <button class="btn-warning" onclick="editProvider(this)">Editar</button>
+                <button class="btn-danger" onclick="deleteProvider(this)">Eliminar</button>
+              </td>
+            </tr>
+            <tr>
+              <td data-label="Proveedor">Tours S.A.</td>
+              <td data-label="Servicio">Guías turísticos</td>
+              <td data-label="Estado">Inactivo</td>
+              <td data-label="Acciones">
+                <button class="btn-warning" onclick="editProvider(this)">Editar</button>
+                <button class="btn-danger" onclick="deleteProvider(this)">Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+
+    <!-- PANEL LATERAL -->
+    <aside class="side-panel" id="panel">
+      <button class="close-panel" onclick="closePanel()">Cerrar</button>
+
+      <h2 id="panelTitle">Nuevo Proveedor</h2>
+
+      <form id="providerForm" method="POST" action="/api/proveedores/guardar">
+        <label>Nombre del Proveedor</label>
+        <input type="text" name="nombre" required>
+
+        <label>Categoria</label>
+        <select name="Categoria" required>
+          <option value="Producto">Producto</option>
+          <option value="Servicio">Servicio</option>
+        </select>
+
+        <label>Estado</label>
+        <select name="estado" required>
+          <option value="Activo">Activo</option>
+          <option value="Inactivo">Inactivo</option>
+        </select>
+
+        <button class="btn-primary" type="submit">Guardar</button>
+      </form>
+    </aside>
+
+  </div>
+
+
+  <script src="../../../../js/jquery.min.js"></script>
+  <script src="../../../../js/bootstrap.min.js"></script>
+  <script src="../../../../js/menumaker.js"></script>
+  <script src="../../../../js/wow.js"></script>
+  <script src="../../../../js/custom.js"></script>
+  <script type="module" src="./gestion_proveedores_Admin.js"></script>
+</body>
+
+</html>

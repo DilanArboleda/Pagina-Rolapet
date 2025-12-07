@@ -1,8 +1,3 @@
-/**
- * users-table.js
- * Clase para manejar la tabla de usuarios (fetch, render, search)
- */
-
 import { api } from "@api";
 import API from "@endpoints";
 

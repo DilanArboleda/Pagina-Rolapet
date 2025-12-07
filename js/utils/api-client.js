@@ -61,7 +61,7 @@ class ApiClient {
 
         let res = await fetch(url, config);
 
-        if (res.status === 401) {
+        if (res.status === 401 || res.status === 403) {
             try {
                 const newToken = await this.refreshToken();
                 config.headers.Authorization = `Bearer ${newToken}`;
