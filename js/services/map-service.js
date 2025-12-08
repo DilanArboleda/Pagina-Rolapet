@@ -37,3 +37,42 @@ export async function geocodeAddress(address) {
         address: address,
     };
 }
+
+/**
+ * Obtener ruta entre varios puntos
+ * @param {Array} waypoints - Array de objetos {lat, lng} o arrays [lat, lng]
+ * @param {string} mode - Modo de transporte (drive, bicycle, walk, transit)
+ * @returns {Promise<Object>} Promesa con el GeoJSON de la ruta
+ */
+export async function getRoute(waypoints, mode = 'drive') {
+    const apiKey = '6a7a078ede27470497b05a41bcca3526';
+
+    if (!waypoints || waypoints.length < 2) {
+        console.error("Se requieren al menos 2 wyapoints para calcular una ruta");
+        return null;
+    }
+
+    // Format waypoints: lat1,lon1|lat2,lon2
+    const waypointsString = waypoints.map(p => {
+        if (Array.isArray(p)) return `${p[0]},${p[1]}`;
+        return `${p.lat},${p.lng}`;
+    }).join('|');
+
+    const url = `https://api.geoapify.com/v1/routing?waypoints=${waypointsString}&mode=${mode}&apiKey=${apiKey}`;
+
+    var requestOptions = {
+        method: 'GET',
+    };
+
+    try {
+        const response = await fetch(url, requestOptions);
+        if (!response.ok) {
+            throw new Error(`GeoApify error: ${response.statusText}`);
+        }
+        const result = await response.json();
+        return result;
+    } catch (error) {
+        console.error('Error fetching route:', error);
+        throw error;
+    }
+}
