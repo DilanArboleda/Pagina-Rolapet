@@ -1,0 +1,317 @@
+/* Global Layout */
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Plus Jakarta Sans', Arial, sans-serif;
+    background: #f4f5f7;
+    min-height: 100vh;
+}
+
+.container-dashboard {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR - Moved to component styles eventually, but keeping here for now as shared/global context */
+sidebar-usuario {
+    display: block;
+    position: fixed;
+    top: 125px;
+    /* Below header-usuario */
+    left: 0;
+    height: calc(100vh - 125px);
+    width: 250px;
+    z-index: 90;
+}
+
+.sidebar {
+    background: #fff;
+    color: #555;
+    height: 100%;
+    /* Full height of host */
+    width: 100%;
+    position: relative;
+    /* Relative to host */
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #ddd;
+    transition: transform .2s;
+}
+
+.sidebar .profile {
+    padding: 20px 10px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+}
+
+.profile-avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin: 0 auto 10px;
+    background: linear-gradient(135deg, #2094f3, #1976d2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.6rem;
+}
+
+.sidebar nav {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 10px;
+}
+
+.sidebar nav a {
+    padding: 12px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #333;
+    text-decoration: none;
+    border-radius: 8px;
+    transition: .15s;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.sidebar nav a:hover,
+.sidebar nav a.active {
+    background: #2094f3;
+    color: #fff;
+}
+
+.logout-btn {
+    margin: 10px;
+    padding: 12px;
+    background: #fff;
+    color: #d23;
+    text-align: center;
+    cursor: pointer;
+    border-radius: 8px;
+    border: 1px solid #f1f1f1;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* HAMBURGER */
+.hamburger {
+    display: none;
+    position: absolute;
+    left: 15px;
+    top: 14px;
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    z-index: 51;
+    background: #fff;
+    border-radius: 8px;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.hamburger i {
+    color: #000;
+    font-size: 18px;
+}
+
+/* HEADER USUARIO FIX */
+header-usuario {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    height: 125px;
+    background: white;
+}
+
+/* MAIN CONTENT */
+.main-content {
+    margin-left: 250px;
+    margin-top: 125px;
+    /* Adjusted for header height */
+    width: calc(100vw - 250px);
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 70vh;
+}
+
+.perfil-container {
+    width: 100%;
+    max-width: 980px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 6px 30px rgba(33, 148, 243, 0.06);
+    overflow: hidden;
+}
+
+/* Simple hero */
+.hero-simple {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    padding: 26px 28px;
+    background: linear-gradient(135deg, #2094f3, #1976d2);
+    color: #fff;
+}
+
+.hero-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    border: 2px solid rgba(255, 255, 255, 0.18);
+}
+
+.hero-text h1 {
+    margin: 0;
+    font-size: 1.4rem;
+    font-weight: 800;
+}
+
+.hero-text p {
+    margin: 6px 0 0 0;
+    opacity: 0.95;
+    font-weight: 500;
+}
+
+/* Content grid */
+.content-grid {
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 18px;
+    align-items: start;
+}
+
+.card {
+    background: #f8f9fa;
+    padding: 18px;
+    border-radius: 12px;
+    border: 1px solid #eef2f7;
+}
+
+.card h3 {
+    margin: 0 0 10px 0;
+    color: #0f1724;
+    font-size: 1.05rem;
+}
+
+.info-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 8px 0;
+}
+
+.info-row small {
+    color: #6b7280;
+}
+
+/* Buttons */
+.btn-primary {
+    background: #2094f3;
+    color: #fff;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 10px;
+    text-decoration: none;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid #d1d5db;
+    padding: 8px 12px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #111827;
+    cursor: pointer;
+}
+
+/* RESPONSIVE */
+@media (max-width:900px) {
+    sidebar-usuario {
+        transform: translateX(-100%);
+        transition: transform .2s;
+    }
+
+    sidebar-usuario.open {
+        transform: translateX(0);
+    }
+
+    .main-content {
+        margin-left: 0;
+        width: 100vw;
+        margin-top: 125px;
+        padding: 18px;
+    }
+
+    .content-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width:650px) {
+    sidebar-usuario {
+        width: 250px;
+        z-index: 200;
+        height: calc(100vh - 125px);
+        top: 125px;
+    }
+
+    .sidebar {
+        /* Reset internal styles if needed */
+        position: relative;
+        transform: none;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Make sidebar-usuario handle the open state transform manually or via class */
+    /* Note: original JS toggles .sidebar class 'open'. 
+       We might need to update JS to toggle sidebar-usuario class or keep targeting internal sidebar.
+       If JS targets document.querySelector('#sidebar'), it targets the internal div.
+       CSS here says sidebar-usuario.open but JS adds class to .sidebar inside.
+       We should probably stick to targeting .sidebar for simplicity in this CSS update, 
+       but typically the host handles size/pos.
+       Let's assume the internal sidebar still gets the class.
+    */
+    .sidebar {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        transform: translateX(-100%);
+        transition: transform .2s;
+        height: 100%;
+        z-index: 50;
+    }
+
+    .sidebar.open {
+        transform: translateX(0);
+    }
+
+    .hamburger {
+        display: flex;
+        top: 140px;
+        /* Below header */
+    }
+}

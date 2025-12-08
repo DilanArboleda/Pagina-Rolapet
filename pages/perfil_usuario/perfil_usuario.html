@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RolaPet - Perfil del Usuario</title>
+    <link rel="icon" href="/images/fevicon/alfiler.png" type="image/gif" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/style.css" />
+    <link rel="stylesheet" href="/css/responsive.css" />
+    <link rel="stylesheet" href="/css/colors1.css" />
+    <link rel="stylesheet" href="/css/custom.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="./css/perfil_usuario.css" />
+
+    <!-- Components -->
+    <script type="module" src="/components/header-usuario/header-usuario.js"></script>
+    <script type="module" src="./components/sidebar-usuario/sidebar-usuario.js"></script>
+    <script type="module" src="./components/mi-perfil/mi-perfil.js"></script>
+    <script type="module" src="./components/registro-vehiculos/registro-vehiculos.js"></script>
+    <script type="module" src="./components/mis-vehiculos/mis-vehiculos.js"></script>
+    <script type="module" src="./components/configuracion-usuario/configuracion-usuario.js"></script>
+
+</head>
+
+<body id="default_theme" class="it_service">
+    <div class="container-dashboard">
+        <!-- Hamburguesa móvil -->
+        <div class="hamburger" onclick="document.querySelector('sidebar-usuario').toggleSidebar()">
+            <i class="fa fa-bars"></i>
+        </div>
+
+        <!-- SIDEBAR -->
+        <sidebar-usuario></sidebar-usuario>
+
+        <!-- TOP HEADER -->
+        <header-usuario></header-usuario>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content" id="main-content">
+            <!-- Components will be injected here -->
+            <div class="perfil-container init-loader">
+                <p style="text-align:center; padding:50px;">Cargando perfil...</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/menumaker.js"></script>
+    <script src="/js/wow.js"></script>
+    <script src="/js/custom.js"></script>
+
+    <!-- Main Controller -->
+    <script type="module" src="./js/perfil_usuario.js"></script>
+</body>
+
+</html>
