@@ -1,3 +1,7 @@
+import API from '../../../../js/utils/endpoints.js';
+import { api } from '../../../../js/utils/api-client.js';
+import { userService } from '../../../../js/services/user-service.js';
+
 class MisVehiculosComponent extends HTMLElement {
     constructor() {
         super();
@@ -32,37 +36,61 @@ class MisVehiculosComponent extends HTMLElement {
         this.loadVehicles();
     }
 
-    loadVehicles() {
+    async loadVehicles() {
         const container = this.querySelector('#vehiclesList');
-        // Example data
-        const exampleVehicles = [
-            { id: 'v1', title: 'Moto eléctrica ZX100', image: '/images/it_service/producto1.png', details: '2019 • 150km' },
-            { id: 'v2', title: 'Bici cargo B-200', image: '/images/it_service/producto2.png', details: '2021 • 50km' }
-        ];
 
-        // Timeout to simulate fetch
-        setTimeout(() => {
-            this.renderVehicles(exampleVehicles, container);
-        }, 300);
+        try {
+            const user = userService.getFromCache();
+            if (!user || (!user.user_id && !user.id)) {
+                container.innerHTML = '<p style="color:#d32f2f;">Error: No has iniciado sesión correctamente.</p>';
+                return;
+            }
+
+            const userId = user.user_id || user.id;
+
+            const response = await api.get(API.VEHICULO.GET_VEHICULOS_BY_USUARIO_ID(userId));
+
+            // Response structure: { status: "success", data: [...], ... }
+            let vehicles = [];
+            if (response && response.data && Array.isArray(response.data)) {
+                vehicles = response.data;
+            } else if (Array.isArray(response)) {
+                // Fallback in case raw array is returned
+                vehicles = response;
+            }
+
+            this.renderVehicles(vehicles, container);
+
+        } catch (error) {
+            console.error("Error loading vehicles:", error);
+            container.innerHTML = '<p style="color:#d32f2f;">Ocurrió un error al cargar tus vehículos. Por favor intenta más tarde.</p>';
+        }
     }
 
     renderVehicles(vehicles, container) {
         if (!vehicles || vehicles.length === 0) {
-            container.innerHTML = '<p style="color:#6b7280;">No tienes vehículos registrados.</p>';
+            container.innerHTML = '<p style="color:#6b7280;">No tienes vehículos registrados asociadas a esta cuenta.</p>';
             return;
         }
         container.innerHTML = '';
         vehicles.forEach(v => {
             const card = document.createElement('div');
             card.style = 'display:flex; gap:12px; align-items:center; margin-bottom:12px; padding:10px; background:white; border-radius:10px; border:1px solid #eef2f7;';
+
+            // As per provided JSON: { id: 1, matricula: "ABC123", idUsuario: 1 }
+            const imgUrl = '/images/default_vehicle.png';
+
             const img = document.createElement('img');
-            img.src = v.image || '/images/default_vehicle.png';
-            img.alt = v.title;
+            img.src = imgUrl;
+            img.alt = v.matricula || 'Vehículo';
             img.style = 'width:84px; height:64px; object-fit:cover; border-radius:8px;';
+
+            const title = v.matricula ? `Matrícula: ${v.matricula}` : 'Vehículo sin matrícula';
+            const subtext = `ID Vehículo: ${v.id}`;
 
             const body = document.createElement('div');
             body.style = 'flex:1';
-            body.innerHTML = `<strong>${v.title}</strong><div style="color:#6b7280; font-size:13px; margin-top:6px;">${v.details || ''}</div>`;
+            body.innerHTML = `<strong>${title}</strong><div style="color:#6b7280; font-size:13px; margin-top:6px;">${subtext}</div>`;
 
             const actions = document.createElement('div');
             actions.innerHTML = `
@@ -75,10 +103,13 @@ class MisVehiculosComponent extends HTMLElement {
             card.appendChild(actions);
             container.appendChild(card);
 
-            // Add event listeners to buttons
-            card.querySelector('[data-action="view"]').addEventListener('click', () => alert(`Ver vehículo: ${v.id}`));
+            card.querySelector('[data-action="view"]').addEventListener('click', () => {
+                alert(`Detalles del vehículo: ${v.matricula} (ID: ${v.id})`);
+            });
             card.querySelector('[data-action="delete"]').addEventListener('click', () => {
-                if (confirm('¿Eliminar este vehículo?')) alert(`Vehículo ${v.id} eliminado (simulado)`);
+                if (confirm(`¿Eliminar vehículo ${v.matricula}?`)) {
+                    alert(`Eliminar (simulado) para ID ${v.id}`);
+                }
             });
         });
     }

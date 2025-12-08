@@ -32,7 +32,6 @@ class POIService {
             const response = await api.get(API.POI.GET_BY_ID(id));
             return response.data;
         } catch (error) {
-            console.error(`Error al obtener POI ${id}:`, error);
             return null;
         }
     }
@@ -45,7 +44,6 @@ class POIService {
     async createPOI(data) {
         try {
             const response = await api.post(API.POI.CREATE, data);
-            console.log('POI creado (simulado):', response);
             return response.data;
         } catch (error) {
             console.error('Error al crear POI:', error);
@@ -62,10 +60,8 @@ class POIService {
     async updatePOI(id, data) {
         try {
             const response = await api.put(API.POI.UPDATE(id), data);
-            console.log('POI actualizado (simulado):', response);
             return response.data;
         } catch (error) {
-            console.error(`Error al actualizar POI ${id}:`, error);
             throw error;
         }
     }
@@ -78,10 +74,8 @@ class POIService {
     async deletePOI(id) {
         try {
             await api.delete(API.POI.DELETE(id));
-            console.log('POI eliminado (simulado):', id);
             return true;
         } catch (error) {
-            console.error(`Error al eliminar POI ${id}:`, error);
             return false;
         }
     }
@@ -95,7 +89,6 @@ class POIService {
     async uploadPOIImages(id, files) {
         try {
             // En producción, esto debería usar FormData
-            console.log('Subiendo imágenes (simulado) para POI:', id, files);
 
             // Simular respuesta
             return {

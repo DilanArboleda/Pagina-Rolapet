@@ -13,7 +13,7 @@ const API = {
         FIND_ALL: `${URL_BASE}/usuario/api/v1/jwt/users`,
     },
     CONTENIDO: {
-        GET_PUBLICACIONES: `${URL_BASE}/contenido/api/v1/publicaciones`,
+        GET_PUBLICACIONES: `${URL_BASE}/contenido/api/v1/publicaciones`, // obtengo todas las publicaciones
         GET_PUBLICACIONES_BY_FORO: (id) => `${URL_BASE}/contenido/api/v1/publicaciones/foro/${id}`,
         GET_PUBLICACIONES_BY_USUARIO: (id) => `${URL_BASE}/contenido/api/v1/publicaciones/usuario/${id}`,
         POST_CREAR_PUBLICACION: `${URL_BASE}/contenido/api/v1/publicaciones`,
@@ -26,8 +26,8 @@ const API = {
         DELETE_ELIMINAR_COMENTARIO: `${URL_BASE}/contenido/api/v1/comentarios/`,//ESTA NO SIRVE
     },
     FORO: {
-        GET_PUBLICACIONES_BY_FORO: `${URL_BASE}/foro/api/foros`,
-        GET_PUBLICACIONES_BY_FORO_ID: (id) => `${URL_BASE}/foro/api/foros/${id}`,
+        GET_PUBLICACIONES_BY_FORO: `${URL_BASE}/foro/api/foros`, // listo los foros
+        GET_PUBLICACIONES_BY_FORO_ID: `${URL_BASE}/foro/api/foros/`, // listo el foro por id
     },
     // SIMULATED - Reemplazar cuando el backend esté listo
     POI: {

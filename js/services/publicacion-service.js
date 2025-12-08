@@ -76,7 +76,7 @@ class PublicacionService {
     async getPublicacionesByUsuario(usuarioId) {
         try {
             const response = await api.get(
-                `${API.CONTENIDO.GET_PUBLICACIONES_BY_USUARIO}${usuarioId}`
+                API.CONTENIDO.GET_PUBLICACIONES_BY_USUARIO(usuarioId)
             );
 
             if (response.status === 'success' && response.data) {

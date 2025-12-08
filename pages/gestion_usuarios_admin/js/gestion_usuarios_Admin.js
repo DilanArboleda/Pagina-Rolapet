@@ -15,10 +15,8 @@ class AdminPage {
         // Since elements are now inside components (sidebar), we might need to handle this differently
         // if we want to display user info in the sidebar.
         // Assuming the sidebar handles its own data loading or we need to pass it.
-        // For now, I'll leave this empty or logging, as the sidebar component should ideally handle itself.
-        console.log("Admin Page Initialized for:", currentUser?.email);
+        // For now, I'll leave this empty or logging, as the sidebar component should ideally handle itself.    }
     }
-
     setupNavigation() {
         document.addEventListener('navigate-admin', (e) => {
             const view = e.detail;

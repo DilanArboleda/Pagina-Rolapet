@@ -207,8 +207,6 @@ signupForm.addEventListener('submit', async (e) => {
         // Preparar datos de registro
         const requestBody = RegistrationService.prepareRegistrationData(formData, currentUserType, isMinor);
 
-        console.log('Enviando datos de registro:', requestBody);
-
         // Realizar registro
         const result = await RegistrationService.register(requestBody);
 

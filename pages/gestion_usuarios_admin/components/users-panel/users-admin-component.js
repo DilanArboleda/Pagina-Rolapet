@@ -146,7 +146,6 @@ class UsersAdminComponent extends HTMLElement {
     openPanel(userId) {
         const panel = this.shadowRoot.getElementById('editPanel');
         if (panel) panel.classList.add('open');
-        console.log('Editing user:', userId);
     }
 
     closePanel() {
@@ -158,7 +157,6 @@ class UsersAdminComponent extends HTMLElement {
         if (confirm('¿Seguro que deseas eliminar este usuario?')) {
             try {
                 // await this.userService.deleteUser(userId); // Uncomment when ready to actually delete
-                console.log('Deleted user (simulated):', userId);
                 const row = this.shadowRoot.getElementById('user-' + userId);
                 if (row) row.remove();
             } catch (error) {

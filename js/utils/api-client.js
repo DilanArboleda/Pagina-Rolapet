@@ -47,8 +47,6 @@ class ApiClient {
     async request(url, opts = {}) {
         const token = tokenService.getAccess();
 
-        console.log("El token es: ", token);
-
         const config = {
             method: opts.method || "GET",
             headers: {
@@ -57,8 +55,6 @@ class ApiClient {
             },
             body: opts.body ? JSON.stringify(opts.body) : undefined,
         };
-        console.log("El fetch lo hago: ", config);
-
         let res = await fetch(url, config);
 
         if (res.status === 401 || res.status === 403) {

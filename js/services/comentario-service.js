@@ -13,7 +13,7 @@ class ComentarioService {
     async getComentariosByPublicacion(publicacionId) {
         try {
             // Reemplazar el /1 hardcodeado con el ID real
-            const endpoint = API.CONTENIDO.GET_COMENTARIOS_BY_PUBLICACION.replace('/1', `/${publicacionId}`);
+            const endpoint = API.CONTENIDO.GET_COMENTARIOS_BY_PUBLICACION(publicacionId);
             const response = await api.get(endpoint);
 
             if (response.status === 'success' && response.data) {

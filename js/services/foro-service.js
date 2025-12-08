@@ -31,8 +31,7 @@ class ForoService {
      */
     async getForoById(foroId) {
         try {
-            const response = await api.get(`${API.FORO.GET_PUBLICACIONES_BY_FORO_ID}${foroId}`);
-
+            const response = await api.get(API.CONTENIDO.GET_PUBLICACIONES_BY_FORO(foroId));
             if (response.status === 'success' && response.data) {
                 return response.data;
             }
