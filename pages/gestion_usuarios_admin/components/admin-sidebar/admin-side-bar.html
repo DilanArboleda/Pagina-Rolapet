@@ -1,0 +1,35 @@
+<style>
+    @import "./admin-side-bar.css";
+</style>
+
+
+<aside class="sidebar" id="sidebar">
+    <div class="profile">
+        <img src="/images/it_service/administracion.png" alt="Admin" />
+        <h3 id="adminName">Administrador</h3>
+        <small id="adminEmail"></small>
+    </div>
+
+    <nav>
+        <button class="nav-link active" data-view="users">
+            <i class="fa-solid fa-users"></i> Gestión de Usuarios
+        </button>
+        <button class="nav-link" data-view="moderation">
+            <i class="fa-solid fa-shield-halved"></i> Moderación
+        </button>
+        <button class="nav-link" data-view="points">
+            <i class="fa-solid fa-location-dot"></i> Puntos de Interés
+        </button>
+        <button class="nav-link" data-view="providers">
+            <i class="fa-solid fa-truck"></i> Proveedores
+        </button>
+        <button class="nav-link" data-view="config">
+            <i class="fa-solid fa-gear"></i> Configuración
+        </button>
+    </nav>
+
+    <button class="logout-btn" onclick="window.location.href='/index.html'">
+        <i class="fa-solid fa-right-from-bracket"></i> Cerrar Sesión
+    </button>
+
+</aside>

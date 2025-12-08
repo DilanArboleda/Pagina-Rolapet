@@ -1,0 +1,76 @@
+<style>
+    @import "./configuracion-admin-component.css";
+</style>
+
+<div class="main-content">
+    <section class="config-panel">
+        <h1>Configuración y Contenidos</h1>
+        <p class="description">Gestiona categorías del mapa, noticias y copias de seguridad de la aplicación.</p>
+
+        <!-- TABS -->
+        <div class="tabs">
+            <div class="active">Gestión de Categorías del mapa</div>
+            <div>Listado de Noticias</div>
+            <div>Copia de Seguridad</div>
+        </div>
+
+        <!-- ACTIONS -->
+        <div class="top-actions">
+            <input id="searchInput" type="text" placeholder="Buscar categoría...">
+            <button class="btn-primary" onclick="openPanel()">+ Crear Nueva Categoría</button>
+        </div>
+
+        <!-- TABLA -->
+        <table id="categoryTable">
+            <thead>
+                <tr>
+                    <th>NOMBRE DE CATEGORÍA</th>
+                    <th>PUNTOS ASIGNADOS</th>
+                    <th>ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td data-label="Nombre de categoría">Museos</td>
+                    <td data-label="Puntos asignados">50</td>
+                    <td data-label="Acciones" class="actions">
+                        <i class="fa-solid fa-pen" onclick="editCategory(this)"></i>
+                        <i class="fa-solid fa-trash" onclick="deleteCategory(this)"></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td data-label="Nombre de categoría">Parques</td>
+                    <td data-label="Puntos asignados">30</td>
+                    <td data-label="Acciones" class="actions">
+                        <i class="fa-solid fa-pen" onclick="editCategory(this)"></i>
+                        <i class="fa-solid fa-trash" onclick="deleteCategory(this)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- BACKUP SECTION -->
+        <div class="backup-section">
+            <h2>Copia de Seguridad y Restauración</h2>
+
+            <div class="backup-columns">
+                <!-- EXPORTAR -->
+                <div class="backup-col">
+                    <i class="fa-solid fa-download"></i>
+                    <h3>Exportar Copia</h3>
+                    <p>Genera una copia de seguridad completa de los datos del sistema.</p>
+                    <button class="btn-primary" onclick="generateBackup()">Generar y Descargar Copia</button>
+                </div>
+
+                <!-- RESTAURAR -->
+                <div class="backup-col">
+                    <i class="fa-solid fa-upload"></i>
+                    <h3>Restaurar Copia</h3>
+                    <p class="warning">⚠ Esta acción reemplazará los datos actuales</p>
+                    <input type="file" id="backupFile">
+                    <button class="btn-secondary" onclick="restoreBackup()">Restaurar</button>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

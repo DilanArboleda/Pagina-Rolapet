@@ -1,0 +1,53 @@
+<style>
+    @import "./users-admin-component.css";
+</style>
+
+<div class="main-content">
+    <section class="users-panel">
+        <h1>Gestión de Usuarios</h1>
+        <p>Añade, edita y gestiona los permisos de los usuarios de la plataforma.</p>
+
+        <button class="btn-primary" onclick="openNewUserModal()">+ Nuevo Usuario</button>
+
+        <div class="filters">
+            <input id="searchInput" type="text" placeholder="Buscar por nombre o correo..." />
+            <select>
+                <option>Rol</option>
+                <option>Administrador</option>
+                <option>Editor</option>
+                <option>Usuario</option>
+            </select>
+            <select>
+                <option>Estado</option>
+                <option>Activo</option>
+                <option>Inactivo</option>
+            </select>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>NOMBRE DE USUARIO</th>
+                    <th>CORREO ELECTRÓNICO</th>
+                    <th>ROL</th>
+                    <th>FECHA DE ALTA</th>
+                    <th>ESTADO</th>
+                    <th>ACCIONES</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="user-row" id="user-1">
+                    <td data-label="Nombre de usuario">Ana García</td>
+                    <td data-label="Correo electrónico">ana@example.com</td>
+                    <td data-label="Rol">Usuario</td>
+                    <td data-label="Fecha de alta">10/02/2025</td>
+                    <td data-label="Estado"><span class="tag-active">Activo</span></td>
+                    <td data-label="Acciones" class="actions">
+                        <i class="fa-solid fa-pen" title="Editar" onclick="openPanel()"></i>
+                        <i class="fa-solid fa-trash" title="Eliminar" onclick="deleteUser(1)"></i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+</div>

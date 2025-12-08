@@ -1,0 +1,48 @@
+<section class="providers-panel">
+    <h1>Gestión de Proveedores</h1>
+    <p>Añade, edita y gestiona los proveedores de la plataforma.</p>
+
+    <button class="btn-primary">+ Nuevo Proveedor</button>
+
+    <!-- Filtros -->
+    <div class="filter-bar">
+        <input type="text" id="searchInput" placeholder="Buscar proveedor...">
+        <select id="statusFilter">
+            <option value="">Todos los estados</option>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+        </select>
+    </div>
+
+    <!-- Tabla de proveedores -->
+    <table id="providerTable">
+        <thead>
+            <tr>
+                <th>Proveedor</th>
+                <th>Categoria</th>
+                <th>Estado</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td data-label="Proveedor">Transporte Medellín</td>
+                <td data-label="Servicio">Movilidad</td>
+                <td data-label="Estado">Activo</td>
+                <td data-label="Acciones">
+                    <button class="btn-warning">Editar</button>
+                    <button class="btn-danger">Eliminar</button>
+                </td>
+            </tr>
+            <tr>
+                <td data-label="Proveedor">Tours S.A.</td>
+                <td data-label="Servicio">Guías turísticos</td>
+                <td data-label="Estado">Inactivo</td>
+                <td data-label="Acciones">
+                    <button class="btn-warning">Editar</button>
+                    <button class="btn-danger">Eliminar</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>

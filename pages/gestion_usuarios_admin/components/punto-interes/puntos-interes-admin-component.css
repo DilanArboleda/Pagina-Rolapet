@@ -1,4 +1,5 @@
 body,
+body,
 html {
     margin: 0;
     padding: 0;
@@ -12,7 +13,7 @@ html {
     min-height: 100vh;
 }
 
-/* SIDEBAR (igual al primero) */
+/* SIDEBAR (igual que el resto de paneles) */
 .sidebar {
     background: #fff;
     color: #555;
@@ -101,7 +102,7 @@ html {
     font-size: 22px;
 }
 
-/* HEADER superior (igual al primero) */
+/* HEADER superior (igual al principal) */
 .top-header {
     position: fixed;
     top: 0;
@@ -121,53 +122,58 @@ html {
     height: 80px;
 }
 
-/* MAIN CONTENT: DEJA ESPACIO PARA SIDEBAR Y PANEL DERECHO */
-.main-content {
-    margin-left: 250px;
-    margin-top: 150px;
-    width: calc(100vw - 250px - 300px);
-    /* 300px = ancho right-panel */
-    padding: 25px;
-    min-height: 80vh;
+
+.panel-puntos {
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 25px;
+    box-shadow: 0 4px 32px rgba(33, 150, 243, 0.07);
+    padding: 22px 24px 26px 24px;
+    color: #0e2f44;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
 }
 
-h1 {
+.panel-puntos h1 {
     color: #0e2f44;
-    margin-bottom: 20px;
-    font-size: 2rem;
+    margin: 0 0 6px 0;
+    font-size: 1.8rem;
     font-weight: 800;
 }
 
-/* TABS COMO BOTONES GRANDES */
-.tabs {
-    display: flex;
-    gap: 15px;
-    margin-bottom: 20px;
+.panel-puntos p.subtitulo {
+    margin: 0 0 12px 0;
+    color: #555;
+    font-weight: 500;
+    font-size: 0.97rem;
 }
 
-.tabs button {
-    border: none;
-    cursor: pointer;
-    padding: 12px 28px;
-    border-radius: 12px;
-    font-size: 16px;
-    font-weight: 700;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    background: #eaeaea;
-    color: #333;
-    transition: 0.2s;
-}
-
-.tabs button.active {
+.create-btn {
+    display: inline-block;
+    padding: 10px 20px;
     background: #2094f3;
     color: #fff;
+    border: none;
+    border-radius: 18px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 15px;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    margin-bottom: 5px;
 }
 
-/* FILTROS */
+.create-btn:hover {
+    background: #1078d1;
+}
+
 .filters {
     display: flex;
     gap: 10px;
-    margin-bottom: 25px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
 }
 
 .filters input,
@@ -179,115 +185,101 @@ h1 {
     font-family: 'Plus Jakarta Sans', sans-serif;
     min-width: 180px;
     outline: none;
+    color: #555;
 }
 
-/* TARJETAS DE MODERACIÓN (CONTENEDOR REDONDEADO) */
-.card {
-    background: white;
-    padding: 30px 40px;
-    border-radius: 25px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 25px;
+#map {
+    width: 100%;
+    height: 50vh;
+    border-radius: 18px;
+    margin-bottom: 18px;
+    border: 1px solid #e0e0e0;
+}
+
+.table-wrapper {
+    background: #fff;
+    border-radius: 18px;
+    padding: 8px 10px 14px 10px;
+    box-shadow: 0 2px 14px rgba(33, 150, 243, 0.06);
     border: 1px solid #e2e2e2;
-    box-shadow: 0 4px 32px rgba(33, 150, 243, 0.07);
-    text-align: center;
 }
 
-.card img {
-    width: 75px;
-    height: 75px;
-    border-radius: 50%;
-    object-fit: cover;
-}
-
-.card .text {
-    color: #232323;
+table {
+    width: 100%;
+    border-collapse: collapse;
     font-size: 15px;
-    font-weight: 500;
-    max-width: 650px;
 }
 
-.card .text strong {
-    font-size: 17px;
-    font-weight: 700;
-}
-
-.highlight {
-    background: yellow;
-    font-weight: 700;
-    padding: 2px 4px;
-    border-radius: 5px;
-}
-
-.actions {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.actions button {
-    padding: 8px 25px;
-    border-radius: 20px;
-    border: none;
-    cursor: pointer;
+th {
+    background: #f0f3f6;
+    padding: 12px 14px;
+    text-align: left;
     font-weight: 700;
     font-size: 15px;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    transition: 0.2s;
-    min-width: 130px;
-}
-
-.btn-edit {
-    background: #e0e0e0;
     color: #333;
 }
 
-.btn-reject {
-    background: #e74c3c;
-    color: #fff;
+td {
+    padding: 12px 14px;
+    border-bottom: 1px solid #ddd;
+    font-size: 14px;
+    color: #333;
 }
 
-.btn-approve {
+tr:last-child td {
+    border-bottom: none;
+}
+
+.actions button {
+    padding: 7px 14px;
+    border-radius: 18px;
+    border: none;
+    cursor: pointer;
+    margin-right: 5px;
+    font-size: 14px;
+    font-weight: 700;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.edit-btn {
     background: #2094f3;
     color: #fff;
 }
 
-/* ESTADOS (PARA GESTIÓN USUARIOS SI LOS USAS) */
-.status-btn {
-    padding: 6px 18px;
-    border-radius: 20px;
-    border: none;
-    font-size: 14px;
-    font-weight: 700;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    cursor: default;
+.edit-btn:hover {
+    background: #1078d1;
 }
 
-.status-active {
-    background: #3cbc81;
-    color: #fff;
-}
-
-.status-inactive {
+.delete-btn {
     background: #e74c3c;
     color: #fff;
 }
 
-/* PANEL DERECHO (PALABRAS BLOQUEADAS) */
+.delete-btn:hover {
+    background: #c0392b;
+}
+
+.icon-punto {
+    font-size: 22px;
+    color: #008cff;
+}
+
+/* PANEL DERECHO tipo “modal lateral” (mismo estilo que config/usuarios) */
 .right-panel {
     position: fixed;
     top: 120px;
     right: 0;
-    width: 300px;
+    width: 320px;
     height: calc(100% - 120px);
     background: #ffffff;
-    padding: 20px;
+    padding: 20px 24px;
     border-left: 1px solid #ddd;
     overflow-y: auto;
+    display: none;
+    z-index: 30;
+    box-shadow: -4px 0 8px rgba(33, 150, 243, 0.07);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
 }
 
 .right-panel h3 {
@@ -298,58 +290,57 @@ h1 {
     margin-bottom: 15px;
 }
 
-.right-panel input {
+.right-panel input,
+.right-panel select,
+.right-panel textarea {
     width: 100%;
     padding: 10px 15px;
     border-radius: 10px;
     border: 1px solid #ccc;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     font-size: 15px;
     font-family: 'Plus Jakarta Sans', sans-serif;
+    outline: none;
+    color: #555;
 }
 
-.right-panel button {
+textarea {
+    height: 70px;
+}
+
+.dropzone {
     width: 100%;
-    background: #2094f3;
-    color: white;
-    padding: 10px 0;
-    border-radius: 20px;
-    border: none;
-    margin-bottom: 15px;
-    font-size: 16px;
-    font-weight: 700;
-    font-family: 'Plus Jakarta Sans', sans-serif;
-    cursor: pointer;
-}
-
-.word-list div {
-    background: #f4f4f4;
-    padding: 8px 12px;
-    margin-bottom: 8px;
-    display: flex;
-    justify-content: space-between;
+    padding: 20px;
     border-radius: 18px;
-    font-size: 14px;
-    font-weight: 500;
-    color: #232323;
-}
-
-.word-list i {
+    border: 2px dashed #bbb;
+    text-align: center;
+    color: #777;
+    margin-bottom: 15px;
     cursor: pointer;
-    color: #e74c3c;
-    font-size: 15px;
+    font-size: 14px;
+    background: #fafbfc;
 }
 
-/* RESPONSIVE -------------------------------------------------- */
+.btn-guardar {
+    width: 100%;
+    padding: 10px;
+    background: #2094f3;
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.btn-guardar:hover {
+    background: #1078d1;
+}
+
+/* RESPONSIVE igual patrón que el resto */
 @media (max-width:900px) {
     .top-header {
         left: 0;
-    }
-
-    .main-content {
-        margin-left: 0;
-        width: 100vw;
-        margin-top: 95px;
     }
 }
 
@@ -387,27 +378,82 @@ h1 {
         height: 42px;
     }
 
-    .main-content {
-        margin-top: 72px;
-        width: 100vw;
-        min-height: 0;
-        padding: 15px;
+
+    .panel-puntos {
+        border-radius: 10px;
+        box-shadow: none;
+        padding: 14px 10px 16px 10px;
+    }
+
+    .panel-puntos h1 {
+        font-size: 1.25rem;
+        text-align: center;
+    }
+
+    .panel-puntos p.subtitulo {
+        text-align: center;
+    }
+
+    #map {
+        height: 45vh;
     }
 
     .right-panel {
-        position: fixed;
         top: 62px;
         width: 100vw;
-        height: auto;
-        max-height: 300px;
-        bottom: 0;
+        height: calc(100vh - 62px);
+        max-width: 100vw;
         border-left: none;
         border-top: 1px solid #ddd;
+        box-shadow: none;
+        padding: 18px 5vw 10vh 5vw;
+    }
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+        width: 100%;
+    }
+
+    thead tr {
+        display: none;
+    }
+
+    tbody tr {
+        background: #f9fbfc;
+        margin: 16px 0 18px 0;
+        border-radius: 10px;
+        box-shadow: 0 2px 4px rgba(33, 150, 243, 0.04);
+        padding: 14px 8px;
+    }
+
+    td {
+        border: none;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        font-size: 15px;
+        margin: 0 0 8px 0;
+        padding: 0;
+    }
+
+    td:before {
+        content: attr(data-label);
+        display: block;
+        font-weight: bold;
+        color: #2094f3;
+        margin-bottom: 2px;
+        font-size: 15px;
     }
 }
 
 @media (max-width:450px) {
-    .main-content {
-        margin-top: 58px;
+
+    #map {
+        height: 40vh;
     }
 }

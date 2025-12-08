@@ -128,18 +128,6 @@ html {
     height: 80px;
 }
 
-/* MAIN CONTENT */
-.main-content {
-    margin-left: 250px;
-    margin-top: 150px;
-    width: calc(100vw - 250px);
-    padding: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 80vh;
-}
-
 .perfil-container {
     width: 100%;
     max-width: 800px;
@@ -328,13 +316,6 @@ html {
     .top-header {
         left: 0;
     }
-
-    .main-content {
-        margin-left: 0;
-        width: 100vw;
-        margin-top: 95px;
-        padding: 20px;
-    }
 }
 
 @media (max-width: 650px) {
@@ -369,10 +350,6 @@ html {
 
     .top-header .logo img {
         height: 42px;
-    }
-
-    .main-content {
-        margin-top: 72px;
     }
 
     .profile-header {

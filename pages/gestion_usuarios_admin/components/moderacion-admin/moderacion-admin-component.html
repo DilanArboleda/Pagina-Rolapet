@@ -1,0 +1,51 @@
+<style>
+    @import "./moderacion-admin-component.css";
+</style>
+
+
+<section class="main-content">
+    <h1>Moderación de Contenido</h1>
+
+    <div class="tabs">
+        <button class="active" type="button">Publicaciones Pendientes</button>
+        <button type="button">Comentarios Pendientes</button>
+    </div>
+
+    <div class="filters">
+        <input id="searchInput" type="text" placeholder="Buscar..." />
+        <select>
+            <option>Filtrar por Usuario</option>
+        </select>
+        <select>
+            <option>Filtrar por Fecha</option>
+        </select>
+    </div>
+
+    <!-- TARJETA 1 -->
+    <div class="card mod-row" id="mod-1">
+        <img src="https://i.pravatar.cc/61" alt="Usuario" />
+        <div class="text">
+            <strong>Soha Vergara</strong><br>
+            Este texto contiene una palabra <span class="highlight">inapropiada</span> que debe revisarse.
+        </div>
+        <div class="actions">
+            <button class="btn-edit">Editar</button>
+            <button class="btn-reject" onclick="removeCard('mod-1')">Rechazar</button>
+            <button class="btn-approve">Aprobar</button>
+        </div>
+    </div>
+
+    <!-- TARJETA 2 -->
+    <div class="card mod-row" id="mod-2">
+        <img src="https://i.pravatar.cc/62" alt="Usuario" />
+        <div class="text">
+            <strong>Juan Pérez</strong><br>
+            Esta publicación contiene <span class="highlight">palabra-mala</span> y debe moderarse.
+        </div>
+        <div class="actions">
+            <button class="btn-edit">Editar</button>
+            <button class="btn-reject" onclick="removeCard('mod-2')">Rechazar</button>
+            <button class="btn-approve">Aprobar</button>
+        </div>
+    </div>
+</section>

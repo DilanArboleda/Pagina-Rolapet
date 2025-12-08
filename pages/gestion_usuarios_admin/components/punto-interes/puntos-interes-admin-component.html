@@ -1,0 +1,50 @@
+<section class="panel-puntos">
+    <h1>Gestión de Puntos de Interés</h1>
+    <p class="subtitulo">Añade, edita y administra los puntos importantes en el mapa para los usuarios.</p>
+
+    <button class="create-btn" type="button">+ Crear Nuevo Punto</button>
+
+    <div class="filters">
+        <input id="searchInput" type="text" placeholder="Buscar por nombre o dirección...">
+        <select id="filtroCategoria">
+            <option value="">Categoría</option>
+            <option value="Museo">Museo</option>
+            <option value="Parque">Parque</option>
+            <option value="Restaurante">Restaurante</option>
+            <option value="Monumento">Monumento</option>
+        </select>
+        <select id="filtroEstado">
+            <option value="">Estado</option>
+            <option value="Activo">Activo</option>
+            <option value="Inactivo">Inactivo</option>
+        </select>
+    </div>
+
+    <div id="map"></div>
+
+    <div class="table-wrapper">
+        <table id="puntosTable">
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Categoría</th>
+                    <th>Estado</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr data-id="1" data-nombre="Museo de Arte Moderno"
+                    data-descripcion="Museo ubicado en el centro histórico..." data-categoria="Museo"
+                    data-estado="Activo" data-direccion="Centro Histórico, Bogotá">
+                    <td data-label="Nombre">Museo de Arte Moderno</td>
+                    <td data-label="Categoría">Museo</td>
+                    <td data-label="Estado">Activo</td>
+                    <td data-label="Acciones" class="actions">
+                        <button class="edit-btn" type="button">Editar</button>
+                        <button class="delete-btn" type="button">Eliminar</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>

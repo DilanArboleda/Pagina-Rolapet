@@ -1,32 +1,52 @@
     body,
-    body,
     html {
         margin: 0;
         padding: 0;
         font-family: 'Plus Jakarta Sans', Arial, sans-serif;
         background: #f4f5f7;
         min-height: 100vh;
+        overflow-x: hidden;
     }
 
+    /* HEADER ADMIN FIX */
+    header-admin {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        height: 125px;
+        /* Altura aproximada del header */
+        background: white;
+    }
+
+    /* Container adjusts */
     .container-dashboard {
         display: flex;
         min-height: 100vh;
+        padding-top: 125px;
+        /* Espacio para el header fijo */
+        position: relative;
     }
 
-    /* SIDEBAR (igual que en el panel principal) */
+    /* SIDEBAR */
     .sidebar {
         background: #fff;
         color: #555;
-        height: 100vh;
+        height: calc(100vh - 125px);
+        /* Altura total menos el header */
         width: 250px;
         position: fixed;
         left: 0;
-        top: 0;
+        top: 125px;
+        /* Empieza debajo del header */
         display: flex;
         flex-direction: column;
         border-right: 1px solid #ddd;
-        z-index: 20;
+        z-index: 90;
         transition: transform 0.2s;
+        overflow-y: auto;
     }
 
     .sidebar .profile {
@@ -81,61 +101,31 @@
         font-size: 15px;
     }
 
-    /* Hamburguesa (igual que en el panel principal) */
+    /* Hamburguesa menú */
     .hamburger {
         display: none;
-        position: absolute;
+        position: fixed;
+        /* Fijo para que siempre se vea en móvil */
         left: 15px;
-        top: 22px;
-        width: 33px;
-        height: 33px;
+        top: 140px;
+        /* Debajo del header en móvil si es necesario, o encima */
+        width: 40px;
+        height: 40px;
         cursor: pointer;
-        z-index: 51;
-        background: #ffffff;
+        z-index: 101;
+        background: #2094f3;
         border-radius: 8px;
         align-items: center;
         justify-content: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
     .hamburger i {
-        color: #000000;
-        font-size: 22px;
+        color: #fff;
+        font-size: 20px;
     }
 
-    /* HEADER SUPERIOR (igual que en el panel principal) */
-    .top-header {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 250px;
-        height: 120px;
-        background: white;
-        border-bottom: 1px solid #ddd;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0 20px;
-        z-index: 10;
-    }
-
-    .top-header .logo img {
-        height: 80px;
-    }
-
-    /* MAIN CONTENT GENERAL */
-    .main-content {
-        margin-left: 250px;
-        margin-top: 150px;
-        width: calc(100vw - 250px);
-        display: flex;
-        justify-content: center;
-        align-items: flex-start;
-        min-height: 80vh;
-        padding: 25px;
-        box-sizing: border-box;
-    }
-
-    .providers-panel {
+    .users-panel {
         width: 100%;
         max-width: 1100px;
         background: white;
@@ -148,80 +138,64 @@
         flex-direction: column;
     }
 
-    .providers-panel h1 {
+    .users-panel h1 {
         font-weight: 800;
         font-size: 1.8rem;
         margin-bottom: 6px;
         color: #0e2f44;
     }
 
-    .providers-panel p {
+    .users-panel p {
         font-weight: 500;
         margin-bottom: 16px;
     }
 
     .btn-primary {
         background: #2094f3;
-        color: white;
-        padding: 10px 15px;
+        color: #fff;
+        padding: 10px 0;
         border-radius: 8px;
-        border: none;
-        cursor: pointer;
+        text-decoration: none;
         font-weight: 700;
         font-size: 16px;
+        cursor: pointer;
+        border: none;
         margin-bottom: 14px;
-        align-self: flex-start;
+        width: 100%;
     }
 
     .btn-primary:hover {
         background: #1078d1;
     }
 
-    .btn-danger {
-        background: #dc3545;
-        color: white;
-        padding: 7px 12px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-    }
-
-    .btn-warning {
-        background: #ffc107;
-        color: black;
-        padding: 7px 12px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-        font-size: 14px;
-    }
-
-    /* Barra de filtros */
-    .filter-bar {
+    .filters {
         display: flex;
-        gap: 10px;
-        margin-bottom: 20px;
+        gap: 12px;
+        margin-bottom: 18px;
         flex-wrap: wrap;
     }
 
-    .filter-bar input,
-    .filter-bar select {
+    input,
+    select {
         padding: 10px 14px;
-        border-radius: 8px;
         border: 1px solid #ccc;
+        border-radius: 8px;
         font-family: 'Plus Jakarta Sans', Arial, sans-serif;
         font-size: 16px;
         color: #555;
         outline: none;
+        transition: border-color 0.2s;
         min-width: 160px;
     }
 
-    /* TABLA PROVEEDORES */
+    input::placeholder {
+        color: #999;
+    }
+
     table {
         width: 100%;
-        background: white;
         border-collapse: collapse;
+        background: #fff;
         border-radius: 14px;
         overflow: hidden;
         box-shadow: 0 2px 8px rgba(33, 150, 243, 0.1);
@@ -231,8 +205,10 @@
     th,
     td {
         padding: 14px 18px;
-        border-bottom: 1px solid #ddd;
+        border-bottom: 1px solid #eee;
         text-align: left;
+        vertical-align: top;
+        word-break: break-word;
     }
 
     th {
@@ -245,16 +221,51 @@
         border-bottom: none;
     }
 
-    /* PANEL LATERAL PARA FORMULARIO */
-    .side-panel {
+    .tag-active {
+        background: #28a745;
+        color: #fff;
+        padding: 6px 14px;
+        border-radius: 15px;
+        font-size: 13px;
+        font-weight: 600;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .tag-inactive {
+        background: #dc3545;
+        color: #fff;
+        padding: 6px 14px;
+        border-radius: 15px;
+        font-size: 13px;
+        font-weight: 600;
+        display: inline-block;
+        text-align: center;
+    }
+
+    .actions i {
+        cursor: pointer;
+        margin-right: 15px;
+        color: #2094f3;
+        font-size: 18px;
+        transition: color 0.2s;
+    }
+
+    .actions i:hover {
+        color: #1078d1;
+    }
+
+    /* PANEL LATERAL EDITAR */
+    .edit-panel {
         position: fixed;
         top: 120px;
         right: 0;
         width: 350px;
         height: calc(100% - 120px);
-        background: white;
-        border-left: 1px solid #ccc;
+        background: #fff;
+        border-left: 1px solid #ddd;
         padding: 20px 25px;
+        overflow-y: auto;
         display: none;
         box-shadow: -4px 0 8px rgba(33, 150, 243, 0.07);
         font-family: 'Plus Jakarta Sans', Arial, sans-serif;
@@ -262,119 +273,156 @@
         z-index: 30;
     }
 
-    .side-panel h2 {
+    .edit-panel.open {
+        display: block;
+    }
+
+    .edit-panel h2 {
         margin-top: 0;
         color: #0e2f44;
         font-weight: 800;
         font-size: 1.5rem;
     }
 
-    .side-panel input,
-    .side-panel textarea,
-    .side-panel select {
+    label {
+        font-weight: 700;
+        margin-top: 15px;
+        display: block;
+        color: #0e2f44;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    .edit-panel select {
         width: 100%;
+        margin-top: 6px;
         padding: 10px 14px;
-        border: 1px solid #ccc;
         border-radius: 8px;
-        margin-bottom: 10px;
+        border: 1px solid #ccc;
         font-family: 'Plus Jakarta Sans', Arial, sans-serif;
         font-size: 16px;
         color: #555;
     }
 
-    .close-panel {
-        background: #6c757d;
-        color: white;
-        padding: 8px 12px;
-        border-radius: 8px;
-        border: none;
-        cursor: pointer;
-        margin-bottom: 10px;
+    input[type="email"][readonly] {
+        background: #f0f3f6;
+        cursor: not-allowed;
+    }
+
+    .checkbox-group {
+        margin-top: 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 0;
+    }
+
+    .checkbox-label {
         font-weight: 600;
+        font-size: 16px;
+        color: #0e2f44;
+        margin-bottom: 0;
+        display: flex;
+        align-items: center;
+        gap: 10px;
     }
 
+    .checkbox-label input[type="checkbox"] {
+        width: 18px;
+        height: 18px;
+        accent-color: #2094f3;
+        margin: 0;
+    }
+
+    .btn-save,
+    .btn-cancel {
+        background: #2094f3;
+        border: none;
+        color: #fff;
+        padding: 12px;
+        border-radius: 8px;
+        display: block;
+        width: 100%;
+        text-align: center;
+        font-weight: 700;
+        font-size: 17px;
+        margin-top: 20px;
+        cursor: pointer;
+        transition: background .15s;
+    }
+
+    .btn-cancel {
+        background: #ccc;
+        color: #2094f3;
+        margin-top: 12px;
+    }
+
+    .btn-save:hover {
+        background: #1078d1;
+    }
+
+    .btn-cancel:hover {
+        background: #bdbdbd;
+        color: #0e2f44;
+    }
+
+    /* RESPONSIVE (igual lógica que el primero) */
     /* RESPONSIVE */
-    @media (max-width:900px) {
-        .top-header {
-            left: 0;
+    @media (max-width: 900px) {
+        .sidebar {
+            width: 250px;
+            /* Mantener ancho fijo para transiciones suaves */
+            transform: translateX(-100%);
+            /* Oculto por defecto en pantallas medianas/pequeñas */
         }
 
-        .main-content {
-            margin-left: 0;
-            width: 100vw;
-            margin-top: 95px;
+        .hamburger {
+            display: flex;
+            /* Mostrar hamburguesa */
         }
     }
 
-    @media (max-width:650px) {
+    @media (max-width: 650px) {
         .container-dashboard {
-            flex-direction: column;
+            /* flex-direction: column; Not strictly needed with fixed positioning */
         }
 
         .sidebar {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 230px;
-            transform: translateX(-100%);
-            transition: transform 0.2s;
-            height: 100vh;
-            z-index: 50;
+            top: 125px;
+            height: calc(100vh - 125px);
+            z-index: 200;
         }
 
         .sidebar.open {
             transform: translateX(0);
         }
 
-        .hamburger {
-            display: flex;
+        .users-panel {
+            padding: 15px;
+            border-radius: 15px;
         }
 
-        .top-header {
-            height: 62px;
-            padding: 0 8px;
-            left: 0;
-        }
-
-        .top-header .logo img {
-            height: 42px;
-        }
-
-        .main-content {
-            margin-top: 72px;
-            width: 100vw;
-            padding: 0 10px;
-        }
-
-        .providers-panel {
-            margin-top: 7px;
-            width: 100%;
-            max-width: 100%;
-            padding: 14px 10px 12px 10px;
-            border-radius: 10px;
-            box-shadow: none;
-        }
-
-        .providers-panel h1 {
-            font-size: 1.2rem;
+        .users-panel h1 {
+            font-size: 1.4rem;
             text-align: center;
         }
 
-        .providers-panel p {
+        .users-panel p {
             text-align: center;
         }
 
-        .filter-bar {
+        .filters {
             flex-direction: column;
             gap: 8px;
         }
 
-        .filter-bar input,
-        .filter-bar select {
+        input,
+        select {
             width: 100% !important;
             font-size: 15px;
         }
 
+        /* Responsive Table */
         table,
         thead,
         tbody,
@@ -405,6 +453,7 @@
             font-size: 15px;
             margin: 0 0 8px 0;
             padding: 0;
+            word-break: break-word;
         }
 
         td:before {
@@ -415,10 +464,19 @@
             margin-bottom: 2px;
             font-size: 15px;
         }
-    }
 
-    @media (max-width:450px) {
-        .main-content {
-            margin-top: 58px;
+        .actions {
+            display: flex;
+            justify-content: flex-start;
+            gap: 18px;
+        }
+
+        .edit-panel {
+            top: 125px;
+            width: 100% !important;
+            height: calc(100vh - 125px) !important;
+            max-width: 100% !important;
+            border-left: none;
+            z-index: 250;
         }
     }

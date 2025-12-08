@@ -6,20 +6,37 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>RolaPet - Gestión de Usuarios</title>
 
-  <link rel="icon" href="../../images/fevicon/alfiler.png" type="image/gif" />
-  <link rel="stylesheet" href="../../css/bootstrap.min.css" />
-  <link rel="stylesheet" href="../../css/style.css" />
-  <link rel="stylesheet" href="../../css/responsive.css" />
-  <link rel="stylesheet" href="../../css/colors1.css" />
-  <link rel="stylesheet" href="../../css/custom.css" />
+  <link rel="icon" href="/images/fevicon/alfiler.png" type="image/gif" />
+  <link rel="stylesheet" href="/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="/css/style.css" />
+  <link rel="stylesheet" href="/css/responsive.css" />
+  <link rel="stylesheet" href="/css/colors1.css" />
+  <link rel="stylesheet" href="/css/custom.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700;800&display=swap"
     rel="stylesheet">
 
+  <!-- Leaflet Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
   <!-- CSS Local -->
   <link rel="stylesheet" href="./css/gestion_usuarios_Admin.css" />
 
-  <script src="/components/header-admin/header-admin.js" defer></script>
+  <script type="module" src="/pages/gestion_usuarios_admin/components/users-panel/users-admin-component.js"></script>
+  <script type="module"
+    src="/pages/gestion_usuarios_admin/components/punto-interes/puntos-interes-admin-component.js"></script>
+  <script type="module"
+    src="/pages/gestion_usuarios_admin/components/proveedores/gestion-proveedores-admin-component.js"></script>
+  <script type="module"
+    src="/pages/gestion_usuarios_admin/components/configuracion/configuracion-admin-component.js"></script>
+  <script type="module"
+    src="/pages/gestion_usuarios_admin/components/moderacion-admin/moderacion-admin-component.js"></script>
+  <script type="module" src="/components/header-admin/header-admin.js"></script>
+  <script type="module" src="/pages/gestion_usuarios_admin/components/admin-sidebar/admin-side-bar.js"></script>
+
 
 
 
@@ -36,103 +53,15 @@
     </div>
 
     <!-- SIDEBAR -->
-    <!-- SIDEBAR -->
-    <div id="sidebar-container"></div>
-    <script type="module">
-      import { renderSidebar } from '/js/components/AdminSidebar.js';
-      renderSidebar('sidebar-container');
-    </script>
-
-    <!-- MAIN -->
-    <div class="main-content">
-      <section class="users-panel">
-        <h1>Gestión de Usuarios</h1>
-        <p>Añade, edita y gestiona los permisos de los usuarios de la plataforma.</p>
-
-        <button class="btn-primary" onclick="openNewUserModal()">+ Nuevo Usuario</button>
-
-        <div class="filters">
-          <input id="searchInput" type="text" placeholder="Buscar por nombre o correo..." />
-          <select>
-            <option>Rol</option>
-            <option>Administrador</option>
-            <option>Editor</option>
-            <option>Usuario</option>
-          </select>
-          <select>
-            <option>Estado</option>
-            <option>Activo</option>
-            <option>Inactivo</option>
-          </select>
-        </div>
-
-        <table>
-          <thead>
-            <tr>
-              <th>NOMBRE DE USUARIO</th>
-              <th>CORREO ELECTRÓNICO</th>
-              <th>ROL</th>
-              <th>FECHA DE ALTA</th>
-              <th>ESTADO</th>
-              <th>ACCIONES</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="user-row" id="user-1">
-              <td data-label="Nombre de usuario">Ana García</td>
-              <td data-label="Correo electrónico">ana@example.com</td>
-              <td data-label="Rol">Usuario</td>
-              <td data-label="Fecha de alta">10/02/2025</td>
-              <td data-label="Estado"><span class="tag-active">Activo</span></td>
-              <td data-label="Acciones" class="actions">
-                <i class="fa-solid fa-pen" title="Editar" onclick="openPanel()"></i>
-                <i class="fa-solid fa-trash" title="Eliminar" onclick="deleteUser(1)"></i>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </section>
+    <div id="sidebar-container">
+      <admin-sidebar></admin-sidebar>
     </div>
 
-    <!-- PANEL EDITAR -->
-    <aside class="edit-panel" id="editPanel">
-      <h2>Editar Usuario</h2>
 
-      <label>Nombre</label>
-      <input type="text" value="Ana" />
-      <label>Apellido</label>
-      <input type="text" value="García" />
-      <label>Correo Electrónico</label>
-      <input type="email" value="ana@example.com" readonly />
-      <label>Rol</label>
-      <select>
-        <option>Usuario</option>
-        <option>Administrador</option>
-        <option>Editor</option>
-      </select>
-
-      <div class="checkbox-group">
-        <label class="checkbox-label">
-          <input type="checkbox" checked />
-          Validación de edad (+18)
-        </label>
-      </div>
-      <div class="checkbox-group">
-        <label class="checkbox-label">
-          <input type="checkbox" checked />
-          Consentimiento de términos
-        </label>
-      </div>
-      <div class="checkbox-group">
-        <label class="checkbox-label">
-          <input type="checkbox" checked />
-          Activar cuenta
-        </label>
-      </div>
-
-      <button class="btn-save">Guardar Cambios</button>
-      <button onclick="closePanel()" class="btn-cancel">Cancelar</button>
-    </aside>
+    <!-- MAIN -->
+    <div class="main-content" id="main-content-gestion-usuario-admin">
+      <!-- Aqui van los componentes -->
+    </div>
 
   </div>
 
