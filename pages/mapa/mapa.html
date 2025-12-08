@@ -40,6 +40,8 @@
     rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <link rel="stylesheet" href="./mapa.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
   <script src="/components/header-usuario/header-usuario.js" defer></script>
   <style>
     .material-symbols-outlined {
@@ -60,7 +62,7 @@
             'border-color': '#E0E0E0',
           },
           fontFamily: {
-            display: ['Plus Jakarta Sans', 'sans-serif'],
+            // display: ['Plus Jakarta Sans', 'sans-serif'],
           },
           borderRadius: { DEFAULT: '0.25rem', lg: '0.5rem', xl: '0.75rem', full: '9999px' },
         },
@@ -77,8 +79,17 @@
   <!-- header -->
   <header-usuario></header-usuario>
   <!-- end header -->
-  <!-- Contenedor del mapa -->
-  <div id="mapa_container">
+  <!-- Contenedor principal con sidebar y mapa -->
+  <div id="main_map_container">
+    <!-- Sidebar -->
+    <div id="sidebar">
+      <h3 class="sidebar-title">Puntos de Interés</h3>
+      <div id="proveedores_list">
+        <!-- Se llena dinamicamente -->
+      </div>
+    </div>
+
+    <!-- Mapa -->
     <div id="mi_mapa"></div>
   </div>
 

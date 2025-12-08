@@ -5,27 +5,48 @@
         font-family: 'Plus Jakarta Sans', Arial, sans-serif;
         background: #f4f5f7;
         min-height: 100vh;
+        overflow-x: hidden;
     }
 
+    /* HEADER ADMIN FIX */
+    header-admin {
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 100;
+        height: 125px;
+        /* Altura aproximada del header */
+        background: white;
+    }
+
+    /* Container adjusts */
     .container-dashboard {
         display: flex;
         min-height: 100vh;
+        padding-top: 125px;
+        /* Espacio para el header fijo */
+        position: relative;
     }
 
-    /* SIDEBAR (idéntico al primero) */
+    /* SIDEBAR */
     .sidebar {
         background: #fff;
         color: #555;
-        height: 100vh;
+        height: calc(100vh - 125px);
+        /* Altura total menos el header */
         width: 250px;
         position: fixed;
         left: 0;
-        top: 0;
+        top: 125px;
+        /* Empieza debajo del header */
         display: flex;
         flex-direction: column;
         border-right: 1px solid #ddd;
-        z-index: 20;
+        z-index: 90;
         transition: transform 0.2s;
+        overflow-y: auto;
     }
 
     .sidebar .profile {
@@ -80,56 +101,38 @@
         font-size: 15px;
     }
 
-    /* Hamburguesa menú (idéntico) */
+    /* Hamburguesa menú */
     .hamburger {
         display: none;
-        position: absolute;
+        position: fixed;
+        /* Fijo para que siempre se vea en móvil */
         left: 15px;
-        top: 22px;
-        width: 33px;
-        height: 33px;
+        top: 140px;
+        /* Debajo del header en móvil si es necesario, o encima */
+        width: 40px;
+        height: 40px;
         cursor: pointer;
-        z-index: 51;
-        background: #ffffff;
+        z-index: 101;
+        background: #2094f3;
         border-radius: 8px;
         align-items: center;
         justify-content: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
     }
 
     .hamburger i {
-        color: #000000;
-        font-size: 22px;
+        color: #fff;
+        font-size: 20px;
     }
 
-    /* HEADER SUPERIOR (idéntico al primero) */
-    .top-header {
-        position: fixed;
-        top: 0;
-        right: 0;
-        left: 250px;
-        height: 120px;
-        background: white;
-        border-bottom: 1px solid #ddd;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0 20px;
-        z-index: 10;
-    }
-
-    .top-header .logo img {
-        height: 80px;
-    }
-
-    /* MAIN: solo se ajusta el contenido central */
+    /* MAIN */
     .main-content {
         margin-left: 250px;
-        margin-top: 150px;
-        width: calc(100vw - 250px);
+        width: calc(100% - 250px);
         display: flex;
         justify-content: center;
         align-items: flex-start;
-        min-height: 80vh;
+        min-height: calc(100vh - 125px);
         padding: 25px;
         box-sizing: border-box;
     }
@@ -376,69 +379,53 @@
     }
 
     /* RESPONSIVE (igual lógica que el primero) */
-    @media (max-width:900px) {
-        .top-header {
-            left: 0;
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+        .sidebar {
+            width: 250px;
+            /* Mantener ancho fijo para transiciones suaves */
+            transform: translateX(-100%);
+            /* Oculto por defecto en pantallas medianas/pequeñas */
         }
 
         .main-content {
             margin-left: 0;
-            width: 100vw;
-            margin-top: 95px;
+            width: 100%;
+        }
+
+        .hamburger {
+            display: flex;
+            /* Mostrar hamburguesa */
         }
     }
 
-    @media (max-width:650px) {
+    @media (max-width: 650px) {
         .container-dashboard {
-            flex-direction: column;
+            /* flex-direction: column; Not strictly needed with fixed positioning */
         }
 
         .sidebar {
-            position: absolute;
-            left: 0;
-            top: 0;
-            width: 230px;
-            transform: translateX(-100%);
-            transition: transform 0.2s;
-            height: 100vh;
-            z-index: 50;
+            top: 125px;
+            height: calc(100vh - 125px);
+            z-index: 200;
         }
 
         .sidebar.open {
             transform: translateX(0);
         }
 
-        .hamburger {
-            display: flex;
-        }
-
-        .top-header {
-            height: 62px;
-            padding: 0 8px;
-            left: 0;
-        }
-
-        .top-header .logo img {
-            height: 42px;
-        }
-
         .main-content {
-            margin-top: 72px;
-            width: 100vw;
-            padding: 0 10px;
+            width: 100%;
+            padding: 15px;
         }
 
         .users-panel {
-            margin-top: 7px;
-            width: 100%;
-            max-width: 100%;
-            padding: 14px 10px 12px 10px;
-            border-radius: 10px;
-            box-shadow: none;
+            padding: 15px;
+            border-radius: 15px;
         }
 
         .users-panel h1 {
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             text-align: center;
         }
 
@@ -457,6 +444,7 @@
             font-size: 15px;
         }
 
+        /* Responsive Table */
         table,
         thead,
         tbody,
@@ -506,21 +494,11 @@
         }
 
         .edit-panel {
-            top: 62px;
-            left: 0;
-            width: 100vw !important;
-            height: calc(100vh - 62px) !important;
-            max-width: 100vw !important;
+            top: 125px;
+            width: 100% !important;
+            height: calc(100vh - 125px) !important;
+            max-width: 100% !important;
             border-left: none;
-            box-shadow: none;
-            padding: 18px 5vw 10vh 5vw;
-            z-index: 180;
-            border-radius: 0 0 18px 18px;
-        }
-    }
-
-    @media (max-width:450px) {
-        .main-content {
-            margin-top: 58px;
+            z-index: 250;
         }
     }

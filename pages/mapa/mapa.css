@@ -1,19 +1,95 @@
-#mi_mapa {
+#main_map_container {
+    display: flex;
     width: 100%;
     height: 90vh;
-    /* altura grande para pantallas anchas */
+    padding-top: 20px;
 }
 
-/* En dispositivos móviles (menos de 640px), reducir altura para que no ocupe demasiado */
-@media (max-width: 639px) {
+#sidebar {
+    width: 300px;
+    background: #f8f9fa;
+    padding: 20px;
+    overflow-y: auto;
+    border-right: 1px solid #ddd;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+.sidebar-title {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.proveedor-item {
+    background: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s;
+    cursor: pointer;
+}
+
+.proveedor-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.proveedor-item h4 {
+    margin: 0 0 10px 0;
+    font-size: 1.1rem;
+    color: #2094f3;
+}
+
+.btn-sidebar-route {
+    background: #2094f3;
+    color: white;
+    border: none;
+    padding: 5px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    width: 100%;
+}
+
+.btn-sidebar-route:hover {
+    background: #187bcd;
+}
+
+#mi_mapa {
+    flex-grow: 1;
+    height: 100%;
+}
+
+/* En dispositivos móviles (menos de 768px) */
+@media (max-width: 768px) {
+    #main_map_container {
+        flex-direction: column-reverse;
+        /* Mapa arriba, sidebar abajo */
+        height: auto;
+    }
+
+    #sidebar {
+        width: 100%;
+        height: 40vh;
+        border-right: none;
+        border-top: 1px solid #ddd;
+    }
+
     #mi_mapa {
-        height: 70vh;
+        height: 60vh;
     }
 }
 
-.icon-proveedor {
-    font-size: 22px;
-    color: #008cff;
+/* Icono personalizado en el mapa */
+.icon-punto {
+    font-size: 35px;
+    color: #2094f3;
+    /* Azul primario */
+    filter: drop-shadow(2px 4px 6px black);
+    /* Sombra para mejor visibilidad */
 }
 
 @media (max-width: 767px) {

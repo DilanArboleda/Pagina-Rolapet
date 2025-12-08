@@ -19,24 +19,15 @@
   <!-- CSS Local -->
   <link rel="stylesheet" href="./css/gestion_usuarios_Admin.css" />
 
-  <script type="importmap">
-  {
-      "imports": {
-          "@utils/": "/js/utils/",
-          "@api": "/js/utils/api-client.js",
-          "@endpoints": "/js/utils/endpoints.js",
-          "@token-service": "/js/utils/token-service.js",
-          "@user-service": "/js/services/user-service.js",
-          "@auth-service": "/js/services/auth-service.js"
-      }
-  }
-  </script>
+  <script src="/components/header-admin/header-admin.js" defer></script>
 
 
 
 </head>
 
 <body id="default_theme" class="it_service">
+  <!-- HEADER -->
+  <header-admin></header-admin>
   <div class="container-dashboard">
 
     <!-- HAMBURGUESA -->
@@ -51,13 +42,6 @@
       import { renderSidebar } from '/js/components/AdminSidebar.js';
       renderSidebar('sidebar-container');
     </script>
-
-    <!-- HEADER -->
-    <header class="top-header">
-      <div class="logo">
-        <a href="../../index.html"><img src="../../images/logos/LogoRolaPet.png" alt="logo" /></a>
-      </div>
-    </header>
 
     <!-- MAIN -->
     <div class="main-content">
