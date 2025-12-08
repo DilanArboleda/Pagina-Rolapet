@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RolaPet - Perfil del Usuario</title>
+    <link rel="icon" href="images/fevicon/alfiler.png" type="image/gif" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/responsive.css" />
+    <link rel="stylesheet" href="css/colors1.css" />
+    <link rel="stylesheet" href="css/custom.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+    <style>
+
+        body, html { margin:0; padding:0; font-family: 'Plus Jakarta Sans', Arial, sans-serif; background:#f4f5f7; min-height:100vh; }
+        .container-dashboard { display:flex; min-height:100vh; }
+
+        /* SIDEBAR */
+        .sidebar {
+            background:#fff; color:#555; height:100vh; width:250px; position:fixed; left:0; top:0;
+            display:flex; flex-direction:column; border-right:1px solid #ddd; z-index:20; transition:transform .2s;
+        }
+        .sidebar .profile { padding:20px 10px; text-align:center; border-bottom:1px solid #eee; }
+        .profile-avatar { width:64px; height:64px; border-radius:50%; margin:0 auto 10px; background:linear-gradient(135deg,#2094f3,#1976d2); display:flex; align-items:center; justify-content:center; color:#fff; font-size:1.6rem; }
+        .sidebar nav { flex:1; display:flex; flex-direction:column; gap:6px; padding:10px; }
+        .sidebar nav a { padding:12px 14px; display:flex; align-items:center; gap:12px; color:#333; text-decoration:none; border-radius:8px; transition:.15s; font-size:15px; }
+        .sidebar nav a:hover, .sidebar nav a.active { background:#2094f3; color:#fff; }
+        .logout-btn { margin:10px; padding:12px; background:#fff; color:#d23; text-align:center; cursor:pointer; border-radius:8px; border:1px solid #f1f1f1; text-decoration:none; font-weight:600; }
+
+        /* HAMBURGER */
+        .hamburger { display:none; position:absolute; left:15px; top:14px; width:36px; height:36px; cursor:pointer; z-index:51; background:#fff; border-radius:8px; align-items:center; justify-content:center; box-shadow:0 6px 18px rgba(0,0,0,0.06); }
+        .hamburger i { color:#000; font-size:18px; }
+
+        /* TOP HEADER */
+        .top-header { position:fixed; top:0; right:0; left:250px; height:72px; background:white; border-bottom:1px solid #eee; display:flex; align-items:center; padding:0 20px; z-index:10; }
+        .top-header .logo img { height:44px; }
+
+        /* MAIN CONTENT */
+        .main-content { margin-left:250px; margin-top:90px; width:calc(100vw - 250px); padding:30px; display:flex; justify-content:center; align-items:flex-start; min-height:70vh; }
+        .perfil-container { width:100%; max-width:980px; background:#fff; border-radius:16px; box-shadow:0 6px 30px rgba(33,148,243,0.06); overflow:hidden; }
+
+        /* Simple hero */
+        .hero-simple { display:flex; gap:20px; align-items:center; padding:26px 28px; background:linear-gradient(135deg,#2094f3,#1976d2); color:#fff; }
+        .hero-avatar { width:80px; height:80px; border-radius:50%; background:rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; font-size:2rem; border:2px solid rgba(255,255,255,0.18); }
+        .hero-text h1 { margin:0; font-size:1.4rem; font-weight:800; }
+        .hero-text p { margin:6px 0 0 0; opacity:0.95; font-weight:500; }
+
+        /* Content grid */
+        .content-grid { padding:24px; display:grid; grid-template-columns: 1fr 320px; gap:18px; align-items:start; }
+        .card { background:#f8f9fa; padding:18px; border-radius:12px; border:1px solid #eef2f7; }
+        .card h3 { margin:0 0 10px 0; color:#0f1724; font-size:1.05rem; }
+        .info-row { display:flex; gap:10px; align-items:center; margin:8px 0; }
+        .info-row small { color:#6b7280; }
+
+        /* Buttons */
+        .btn-primary { background:#2094f3; color:#fff; border:none; padding:10px 14px; border-radius:10px; text-decoration:none; display:inline-flex; gap:8px; align-items:center; font-weight:700; }
+        .btn-outline { background:transparent; border:1px solid #d1d5db; padding:8px 12px; border-radius:10px; text-decoration:none; color:#111827; }
+
+        /* RESPONSIVE */
+        @media (max-width:900px) {
+            .top-header { left:0; }
+            .main-content { margin-left:0; width:100vw; margin-top:70px; padding:18px; }
+            .content-grid { grid-template-columns:1fr; }
+        }
+        @media (max-width:650px) {
+            .sidebar { position:absolute; left:0; top:0; width:230px; transform:translateX(-100%); transition:transform .2s; height:100vh; z-index:50; }
+            .sidebar.open { transform:translateX(0); }
+            .hamburger { display:flex; }
+            .top-header { height:56px; padding:0 8px; left:0; }
+        }
+    </style>
+</head>
+<body id="default_theme" class="it_service">
+    <div class="container-dashboard">
+        <!-- Hamburguesa móvil -->
+        <div class="hamburger" onclick="toggleSidebar()"><i class="fa fa-bars"></i></div>
+
+        <!-- SIDEBAR Usuario -->
+        <aside class="sidebar" id="sidebar">
+            <div class="profile">
+                <div class="profile-avatar" id="avatarLetter">U</div>
+                <h3 id="userName">Nombre Usuario</h3>
+                <small id="userEmail">usuario@rolapet.com</small>
+            </div>
+
+            <nav>
+                
+                <a href="#mi-perfil" class="active" onclick="showSection('mi-perfil')"><i class="fa-solid fa-user"></i> Mi Perfil</a>
+                <a href="#registro-vehiculos" onclick="showSection('registro-vehiculos')"><i class="fa-solid fa-car-side"></i> Registro de Vehículos</a>
+                <a href="#mis-vehiculos" onclick="showSection('mis-vehiculos')"><i class="fa-solid fa-car"></i> Mis Vehículos</a>
+                <a href="#configuracion" onclick="showSection('configuracion')"><i class="fa-solid fa-gear"></i> Configuración</a>
+            </nav>
+
+            <a class="logout-btn" href="home_usuario.html" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Volver al inicio</a>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="perfil-container">
+
+                <!-- HERO SIMPLE -->
+                <div class="hero-simple">
+                    <div class="hero-avatar" id="heroAvatar"><i class="fa-solid fa-user"></i></div>
+                    <div class="hero-text">
+                        <h1 id="heroName">Nombre Apellido</h1>
+                        <p id="heroSubtitle">Usuario • Verificado</p>
+                    </div>
+                    <div style="margin-left:auto; display:flex; gap:10px;">
+                        <a class="btn-outline" href="#registro-vehiculos" onclick="showSection('registro-vehiculos')"><i class="fa-solid fa-plus"></i> Registrar Vehículo</a>
+                        <a class="btn-primary" href="#mis-vehiculos" onclick="showSection('mis-vehiculos')"><i class="fa-solid fa-car"></i> Mis Vehículos</a>
+                    </div>
+                </div>
+
+                <!-- CONTENIDO: columnas  -->
+                <div class="content-grid">
+
+                    <!-- COLUMNA PRINCIPAL: secciones  -->
+                    <div id="mainColumn">
+                        <!-- SECCIÓN: MI PERFIL -->
+                        <section id="mi-perfil" class="section active-section">
+                            <div class="card">
+                                <h3><i class="fa-solid fa-id-card"></i> Mi Perfil</h3>
+                                <div class="info-row"><strong>Nombre:</strong><small id="infoNombre" style="margin-left:8px;">--</small></div>
+                                <div class="info-row"><strong>Correo:</strong><small id="infoCorreo" style="margin-left:8px;">--</small></div>
+                                <div class="info-row"><strong>Teléfono:</strong><small id="infoTelefono" style="margin-left:8px;">--</small></div>
+                                <div style="margin-top:14px;">
+                                    <a class="btn-primary" href="#configuracion" onclick="showSection('configuracion')"><i class="fa-solid fa-pen"></i> Editar Perfil</a>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- SECCIÓN: REGISTRO VEHÍCULOS  -->
+                        <section id="registro-vehiculos" class="section" style="display:none;">
+                            <div class="card">
+                                <h3><i class="fa-solid fa-pen-to-square"></i> Registro de Vehículos</h3>
+                                <p>Este botón te llevará al formulario de registro de vehículos</p>
+                                <div style="margin-top:10px;">
+                                    <a id="goRegisterBtn" class="btn-primary" href="registro_vehiculos.html"><i class="fa-solid fa-external-link"></i> Ir al Formulario</a>
+                                </div>
+                                <hr style="margin:16px 0;">
+                            </div>
+                        </section>
+
+                        <!-- SECCIÓN: MIS VEHÍCULOS -->
+                        <section id="mis-vehiculos" class="section" style="display:none;">
+                            <div class="card">
+                                <h3><i class="fa-solid fa-car-side"></i> Mis Vehículos</h3>
+                                <div id="vehiclesList">
+                                    
+                                    <p style="color:#6b7280;">Cargando vehículos...</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- SECCIÓN: CONFIGURACIÓN -->
+                        <section id="configuracion" class="section" style="display:none;">
+                            <div class="card">
+                                <h3><i class="fa-solid fa-gear"></i> Configuración</h3>
+
+                                <form id="profileForm" onsubmit="saveProfile(event)">
+                                    <div style="display:flex; flex-direction:column; gap:8px;">
+                                        <label>Nombre completo</label>
+                                        <input id="inputNombre" class="form-control" type="text" required>
+
+                                        <label>Correo</label>
+                                        <input id="inputCorreo" class="form-control" type="email" required>
+
+                                        <label>Teléfono</label>
+                                        <input id="inputTelefono" class="form-control" type="text">
+
+                                        <div style="display:flex; gap:8px; margin-top:8px;">
+                                            <button class="btn-primary" type="submit"><i class="fa-solid fa-save"></i> Guardar cambios</button>
+                                            <button type="button" class="btn-outline" onclick="showPasswordForm()"><i class="fa-solid fa-lock"></i> Cambiar contraseña</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <div id="passwordBlock" style="display:none; margin-top:12px;">
+                                    <form id="passwordForm" onsubmit="changePassword(event)">
+                                        <label>Contraseña actual</label>
+                                        <input id="currentPassword" class="form-control" type="password" required>
+                                        <label>Nueva contraseña</label>
+                                        <input id="newPassword" class="form-control" type="password" required>
+                                        <div style="margin-top:8px;">
+                                            <button class="btn-primary" type="submit"><i class="fa-solid fa-key"></i> Actualizar contraseña</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                            </div>
+                        </section>
+                    </div>
+
+                    <!-- COLUMNA LATERAL: resumen y acciones -->
+                    <aside>
+                        <div class="card">
+                            <h3>Resumen</h3>
+                            <p style="margin:8px 0;"><strong id="summaryName">Nombre Apellido</strong></p>
+                            <p style="margin:6px 0; color:#6b7280;" id="summaryEmail">usuario@rolapet.com</p>
+                            <div style="margin-top:10px;">
+                                <a class="btn-outline" href="#mi-perfil" onclick="showSection('mi-perfil')"><i class="fa-solid fa-user"></i> Ver perfil</a>
+                            </div>
+                        </div>
+
+                        <div class="card" style="margin-top:12px;">
+                            <h3>Acciones rápidas</h3>
+                            <div style="display:flex; flex-direction:column; gap:8px;">
+                                <a class="btn-primary" href="#registro-vehiculos" onclick="showSection('registro-vehiculos')"><i class="fa-solid fa-plus"></i> Registrar vehículo</a>
+                                <a class="btn-outline" href="#mis-vehiculos" onclick="showSection('mis-vehiculos')"><i class="fa-solid fa-car"></i> Ver mis vehículos</a>
+                            </div>
+                        </div>
+                    </aside>
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- TOP HEADER -->
+        <header class="top-header">
+            <div class="logo">
+                <a href="index.html"><img src="images/logos/LogoRolaPet.png" alt="RolaPet Logo" /></a>
+            </div>
+        </header>
+    </div>
+
+    <!-- SCRIPTS -->
+    <script>
+        /* ---------------------------
+           UI: toggle sidebar + secciones
+           --------------------------- */
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('open');
+        }
+
+        function showSection(id) {
+            // Cierra sidebar en móvil
+            const sidebar = document.getElementById('sidebar');
+            if (sidebar.classList.contains('open')) sidebar.classList.remove('open');
+
+            // Oculta todas las secciones y muestra la solicitada
+            const sections = document.querySelectorAll('#mainColumn .section');
+            sections.forEach(s => s.style.display = 'none');
+            const target = document.getElementById(id);
+            if (target) target.style.display = 'block';
+
+            // Actualiza enlaces activos del sidebar
+            document.querySelectorAll('.sidebar nav a').forEach(a => a.classList.remove('active'));
+            const activeLink = Array.from(document.querySelectorAll('.sidebar nav a')).find(a => a.getAttribute('href') === ('#' + id));
+            if (activeLink) activeLink.classList.add('active');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        /* ---------------------------
+           Simulación datos + puntos donde integrar backend
+           --------------------------- */
+
+        // ID de usuario (puedes obtenerlo del token/session)
+        const USER_ID = localStorage.getItem('userId') || '123'; // <- reemplazar cuando tengas auth
+
+        // Endpoints sugeridos (ejemplos)
+        // GET    /api/users/{id}                  -> datos usuario
+        // PUT    /api/users/{id}                  -> actualizar datos perfil
+        // PUT    /api/users/{id}/password         -> cambiar contraseña
+        // GET    /api/users/{id}/vehicles         -> listar vehículos del usuario
+        // POST   /api/users/{id}/vehicles         -> crear nuevo vehículo
+        // DELETE /api/users/{id}/vehicles/{vid}   -> eliminar vehículo
+
+        // Cargar datos del usuario (ejemplo con fetch)
+        function loadUserProfile() {
+            // === Opción: carga desde localStorage si quieres pruebas rápidas ===
+            const nombre = localStorage.getItem('userName') || 'Usuario de Prueba';
+            const correo = localStorage.getItem('userEmail') || 'usuario@rolapet.com';
+            const telefono = localStorage.getItem('userPhone') || '+57 300 000 0000';
+
+            // Render rápido en UI
+            document.getElementById('userName').textContent = nombre;
+            document.getElementById('userEmail').textContent = correo;
+            document.getElementById('avatarLetter').textContent = nombre.charAt(0).toUpperCase();
+            document.getElementById('heroName').textContent = nombre;
+            document.getElementById('heroSubtitle').textContent = 'Miembro desde 2024';
+            document.getElementById('infoNombre').textContent = nombre;
+            document.getElementById('infoCorreo').textContent = correo;
+            document.getElementById('infoTelefono').textContent = telefono;
+            document.getElementById('summaryName').textContent = nombre;
+            document.getElementById('summaryEmail').textContent = correo;
+            document.getElementById('inputNombre').value = nombre;
+            document.getElementById('inputCorreo').value = correo;
+            document.getElementById('inputTelefono').value = telefono;
+
+            // === EJEMPLO real con API (descomenta y reemplaza la URL) ===
+            /*
+            fetch(`/api/users/${USER_ID}`)
+              .then(res => res.json())
+              .then(user => {
+                  // mapear campos del user a la UI
+                  document.getElementById('userName').textContent = user.name;
+                  document.getElementById('userEmail').textContent = user.email;
+                  // ...otros campos
+              })
+              .catch(err => console.error('Error cargando usuario', err));
+            */
+        }
+
+        // Cargar lista de vehículos del usuario
+        function loadVehicles() {
+            const container = document.getElementById('vehiclesList');
+            container.innerHTML = '<p style="color:#6b7280;">Cargando vehículos...</p>';
+
+            // Ejemplo: datos de prueba
+            const exampleVehicles = [
+                { id: 'v1', title: 'Moto eléctrica ZX100', image: 'images/vehicles/moto1.jpg', details: '2019 • 150km' },
+                { id: 'v2', title: 'Bici cargo B-200', image: 'images/vehicles/bici1.jpg', details: '2021 • 50km' }
+            ];
+
+            // Si prefieres traer del backend, usa fetch:
+            /*
+            fetch(`/api/users/${USER_ID}/vehicles`)
+              .then(res => res.json())
+              .then(vehicles => renderVehicles(vehicles))
+              .catch(err => container.innerHTML = '<p>Error cargando vehículos.</p>');
+            */
+            // Render con datos de ejemplo:
+            setTimeout(() => { renderVehicles(exampleVehicles); }, 300);
+        }
+
+        function renderVehicles(vehicles) {
+            const container = document.getElementById('vehiclesList');
+            if (!vehicles || vehicles.length === 0) {
+                container.innerHTML = '<p style="color:#6b7280;">No tienes vehículos registrados.</p>';
+                return;
+            }
+            container.innerHTML = '';
+            vehicles.forEach(v => {
+                const card = document.createElement('div');
+                card.style = 'display:flex; gap:12px; align-items:center; margin-bottom:12px; padding:10px; background:white; border-radius:10px; border:1px solid #eef2f7;';
+                const img = document.createElement('img');
+                img.src = v.image || 'images/default_vehicle.png';
+                img.alt = v.title;
+                img.style = 'width:84px; height:64px; object-fit:cover; border-radius:8px;';
+
+                const body = document.createElement('div');
+                body.style = 'flex:1';
+                body.innerHTML = `<strong>${v.title}</strong><div style="color:#6b7280; font-size:13px; margin-top:6px;">${v.details || ''}</div>`;
+
+                const actions = document.createElement('div');
+                actions.innerHTML = `
+                    <button class="btn-outline" style="margin-right:6px;" onclick="viewVehicle('${v.id}')"><i class="fa-solid fa-eye"></i></button>
+                    <button class="btn-outline" onclick="deleteVehicle('${v.id}')"><i class="fa-solid fa-trash"></i></button>
+                `;
+
+                card.appendChild(img);
+                card.appendChild(body);
+                card.appendChild(actions);
+                container.appendChild(card);
+            });
+        }
+
+        // Mostrar detalle 
+        function viewVehicle(id) {
+            alert('Ver vehículo: ' + id + ' (implementa modal o redirección al detalle)');
+        }
+
+        // Borrar vehículo (ejemplo)
+        function deleteVehicle(id) {
+            if (!confirm('¿Eliminar este vehículo?')) return;
+            // Llamada real al backend:
+            /*
+            fetch(`/api/users/${USER_ID}/vehicles/${id}`, { method: 'DELETE' })
+              .then(res => {
+                  if (!res.ok) throw new Error('Error al eliminar');
+                  loadVehicles();
+              })
+              .catch(err => alert('No se pudo eliminar'));
+            */
+            // Simulación:
+            alert('Simulado: vehículo ' + id + ' eliminado.');
+        }
+
+        // Guardar cambios perfil
+        function saveProfile(ev) {
+            ev.preventDefault();
+            const nombre = document.getElementById('inputNombre').value;
+            const correo = document.getElementById('inputCorreo').value;
+            const telefono = document.getElementById('inputTelefono').value;
+
+            // PUT /api/users/{id}
+            /*
+            fetch(`/api/users/${USER_ID}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: nombre, email: correo, phone: telefono })
+            })
+            .then(res => res.json())
+            .then(updated => {
+                // actualizar UI
+                loadUserProfile();
+                alert('Perfil actualizado');
+            })
+            .catch(err => alert('Error al actualizar perfil'));
+            */
+
+            // Simulación rápida guardando en localStorage y refrescando UI:
+            localStorage.setItem('userName', nombre);
+            localStorage.setItem('userEmail', correo);
+            localStorage.setItem('userPhone', telefono);
+            loadUserProfile();
+            alert('Cambios guardados (simulado en localStorage).');
+        }
+
+        // Cambiar contraseña
+        function showPasswordForm() {
+            document.getElementById('passwordBlock').style.display = 'block';
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
+        }
+
+        function changePassword(ev) {
+            ev.preventDefault();
+            const current = document.getElementById('currentPassword').value;
+            const next = document.getElementById('newPassword').value;
+
+            // PUT /api/users/{id}/password
+            /*
+            fetch(`/api/users/${USER_ID}/password`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ currentPassword: current, newPassword: next })
+            })
+            .then(res => {
+                if (!res.ok) throw new Error('Contraseña incorrecta');
+                alert('Contraseña actualizada');
+            })
+            .catch(err => alert(err.message || 'Error al actualizar contraseña'));
+            */
+
+            // Simulación:
+            alert('Contraseña actualizada (simulado).');
+            document.getElementById('passwordForm').reset();
+            document.getElementById('passwordBlock').style.display = 'none';
+        }
+
+        // Logout 
+        function logout() {
+            // Real: limpiar token/session en backend o en localStorage
+            // localStorage.removeItem('authToken'); etc.
+            // redirigir a login
+            localStorage.removeItem('userId');
+            window.location.href = 'index.html';
+        }
+
+        // Inicializar UI
+        document.addEventListener('DOMContentLoaded', () => {
+            loadUserProfile();
+            loadVehicles();
+
+            // Manejo simple de hash al cargar
+            const hash = window.location.hash.replace('#','');
+            if (hash) showSection(hash);
+        });
+    </script>
+
+    <!-- JS del tema -->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/menumaker.js"></script>
+    <script src="js/wow.js"></script>
+    <script src="js/custom.js"></script>
+</body>
+</html>
