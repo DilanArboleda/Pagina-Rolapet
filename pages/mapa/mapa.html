@@ -1,3 +1,4 @@
+<!-- TODO -- Verificar si el header cambia segun usuario -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,6 +40,7 @@
     rel="stylesheet" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <link rel="stylesheet" href="./mapa.css">
+  <script src="/components/header-usuario/header-usuario.js" defer></script>
   <style>
     .material-symbols-outlined {
       font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
@@ -73,35 +75,7 @@
   <div class="bg_load"> <img class="loader_animation" src="images/loaders/scoote.png" alt="#" /> </div>
   <!-- end loader -->
   <!-- header -->
-  <header id="default_header" class="header_style_1">
-    <!-- header bottom -->
-    <div class="header_bottom">
-      <div class="container">
-        <div class="row">
-          <div class="col-lg-3 col-md-12 col-sm-12 col-xs-12">
-            <!-- logo start -->
-            <div class="logo"> <a href="/index.html"><img src="/images/logos/LogoRolaPet.png" alt="logo" /></a> </div>
-            <!-- logo end -->
-          </div>
-          <div class="col-lg-9 col-md-12 col-sm-12 col-xs-12">
-            <!-- menu start -->
-            <div class="menu_side">
-              <div id="navbar_menu">
-                <ul class="first-ul">
-                  <li><a href="/index.html">Inicio</a></li>
-                  <li><a href="/pages/tienda/tienda.html">Catálogo</a></li>
-                  <li><a href="/pages/noticias_blog/noticias_blog.html">Blog</a></li>
-                  <li><a class="active" href="/pages/mapa/mapa.html">Mapa</a></li>
-                  <li><a href="/pages/perfil_usuario/perfil_usuario.html">Perfil</a></li>
-                </ul>
-              </div>
-            </div>
-            <!-- menu end -->
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
+  <header-usuario></header-usuario>
   <!-- end header -->
   <!-- Contenedor del mapa -->
   <div id="mapa_container">

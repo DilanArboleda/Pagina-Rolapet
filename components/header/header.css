@@ -1,0 +1,30 @@
+.header_style_1 {
+    background: #fff;
+    width: 100%;
+    z-index: 999;
+    border-bottom: 1px solid #ddd;
+}
+
+.header_bottom {
+    padding: 15px 0;
+}
+
+.logo img {
+    max-width: 500px;
+}
+
+.first-ul {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+}
+
+.first-ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+}
+
+.first-ul li a.active {
+    color: #0095ff;
+}

@@ -1,0 +1,15 @@
+class HeaderLoginComponent extends HTMLElement {
+    constructor() {
+        super();
+    }
+
+
+    async connectedCallback() {
+        const html = await fetch('/components/header_login/header-login.html').then(response => response.text());
+        const template = document.createElement('template');
+        template.innerHTML = html;
+        this.appendChild(template.content.cloneNode(true));
+    }
+}
+
+customElements.define('header-login', HeaderLoginComponent);
