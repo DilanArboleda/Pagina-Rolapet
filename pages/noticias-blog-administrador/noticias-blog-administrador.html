@@ -1,0 +1,130 @@
+<!-- // TODO - Se necesita mirar si el header cambia -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- basic -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- mobile metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <!-- site metas -->
+    <title>RolaPet - blog</title>
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <!-- site icons -->
+    <link rel="icon" href="images/fevicon/alfiler.png" type="image/gif" />
+
+    <!-- bootstrap css -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <!-- Site css -->
+    <link rel="stylesheet" href="/css/style.css" />
+
+    <!-- IMPORTANTE: Actualiza Font Awesome a versión 6 para fa-cart-shopping -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <!-- responsive css -->
+    <link rel="stylesheet" href="/css/responsive.css" />
+    <!-- colors css -->
+    <link rel="stylesheet" href="/css/colors1.css" />
+    <!-- custom css -->
+    <link rel="stylesheet" href="/css/custom.css" />
+    <!-- wow Animation css -->
+    <link rel="stylesheet" href="/css/animate.css" />
+
+    <!-- Google Fonts para Blog -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+    <link rel="stylesheet" href="./noticias_blog.css" />
+    <script src="/components/header-admin/header-admin.js" defer></script>
+</head>
+
+<body id="default_theme" class="it_shop_list">
+    <!-- loader -->
+    <div class="bg_load"> <img class="loader_animation" src="/images/loaders/scoote.png" alt="#" /> </div>
+    <!-- end loader -->
+
+    <header-admin></header-admin>
+
+    <main class="feed-container">
+
+        <header>
+            <h1 class="feed-title">Movilidad Eléctrica</h1>
+            <p>Encuentra repuestos, talleres y vehículos en Bogotá.</p>
+        </header>
+
+        <div class="blog-layout">
+            <!-- Sidebar de foros -->
+            <aside class="forums-sidebar">
+                <h3 class="sidebar-title">Foros</h3>
+                <div id="forums-list" class="forums-list">
+                    <div class="loading-forums" style="text-align: center; padding: 1rem; color: var(--medium-gray);">
+                        Cargando foros...
+                    </div>
+                </div>
+            </aside>
+
+            <!-- Contenido principal -->
+            <div class="main-content">
+                <!-- Sección de filtros y búsqueda -->
+                <section class="filters-section">
+                    <div class="search-bar">
+                        <span class="material-symbols-outlined search-icon">search</span>
+                        <input type="text" id="search-input" class="search-input" placeholder="Buscar publicaciones...">
+                    </div>
+
+                    <div class="filter-tabs">
+                        <button class="filter-tab active" data-foro="TODOS">
+                            <span class="material-symbols-outlined">apps</span>
+                            Todos
+                        </button>
+                        <button class="filter-tab" data-foro="TIENDA">
+                            <span class="material-symbols-outlined">storefront</span>
+                            Tiendas
+                        </button>
+                        <button class="filter-tab" data-foro="TALLER">
+                            <span class="material-symbols-outlined">build</span>
+                            Talleres
+                        </button>
+                    </div>
+                </section>
+
+                <!-- Estado de carga -->
+                <div id="loading-state" class="loading-state">
+                    <div class="spinner"></div>
+                    <p>Cargando publicaciones...</p>
+                </div>
+
+                <!-- Estado vacío -->
+                <div id="empty-state" class="empty-state" style="display: none;">
+                    <span class="material-symbols-outlined empty-icon">inbox</span>
+                    <p>No se encontraron publicaciones</p>
+                    <span class="empty-subtitle">Intenta con otros filtros o términos de búsqueda</span>
+                </div>
+
+                <!-- Contenedor dinámico de publicaciones -->
+                <div id="posts-container"></div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Scripts -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/menumaker.js"></script>
+    <script src="/js/wow.js"></script>
+    <script src="/js/custom.js"></script>
+    <script type="module" src="./noticias_blog.js"></script>
+
+</body>
+
+</html>
