@@ -32,12 +32,25 @@ export class MapService {
 
     // Simulacion de geocoding
     async geocodeAddress(address) {
-        console.warn('geocodeAddress es simulado. Implementar con servicio real.');
-        return {
-            lat: 4.64179,
-            lng: -74.11686,
-            address: address,
-        };
+        try {
+            const encodedAddress = encodeURIComponent(address);
+
+            const url = `https://api.geoapify.com/v1/geocode/search?text=${encodedAddress}&apiKey=${this.apiKey}`;
+
+            const response = await fetch(url);
+            const data = await response.json();
+
+            const feature = data.features?.[0];
+
+            return {
+                lat: feature?.properties?.lat,
+                lng: feature?.properties?.lon,
+                address
+            };
+        } catch (error) {
+            console.error("Error en geocodeAddress:", error);
+            throw error;
+        }
     }
 
     /**

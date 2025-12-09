@@ -1,4 +1,5 @@
 import { MapService } from "../../js/services/map-service.js";
+import { poiService } from "../../js/services/poi-service.js";
 
 const mapService = new MapService();
 let maps = L.map("mi_mapa").setView([4.64179, -74.11686], 12);
@@ -21,13 +22,7 @@ maps.on("locationerror", function () {
     alert("No se pudo obtener tu ubicación. Activa el GPS.");
 });
 
-const proveedorIcon = mapService.createCustomIcon("fa-solid fa-warehouse", [40, 40]);
-
-const proveedores = [
-    { nombre: "Proveedor Llantas", lat: 4.64, lng: -74.12, descripcion: "Venta de llantas para todo tipo de vehículos." },
-    { nombre: "Proveedor Carros", lat: 4.645, lng: -74.11, descripcion: "Concesionario de carros nuevos y usados." },
-    { nombre: "Proveedor Motos", lat: 4.65, lng: -74.13, descripcion: "Repuestos y accesorios para motocicletas." },
-];
+const poiIcon = mapService.createCustomIcon("fa-solid fa-map-pin", [40, 40]);
 
 const sidebarList = document.getElementById('proveedores_list');
 
@@ -72,45 +67,123 @@ async function drawRouteTo(lat, lng) {
     }
 }
 
-proveedores.forEach((p, index) => {
-    // 1. Agregar marcador al mapa
-    const marker = L.marker([p.lat, p.lng], { icon: proveedorIcon })
-        .addTo(maps)
-        .bindPopup(`
-            <b>${p.nombre}</b><br>
-            ${p.descripcion}<br>
-            <button id="btn-route-popup-${index}" class="btn-route" style="margin-top:5px;cursor:pointer;">Ir aquí</button>
-        `);
+// Función para cargar y mostrar los POIs desde el servicio
+async function loadPOIs() {
+    try {
+        // Obtener los POIs del servicio
+        const pois = await poiService.getAllPOIs();
 
-    marker.on('popupopen', () => {
-        const btn = document.getElementById(`btn-route-popup-${index}`);
-        if (btn) {
-            btn.onclick = () => drawRouteTo(p.lat, p.lng);
+        if (!pois || pois.length === 0) {
+            console.warn("No se encontraron POIs");
+            sidebarList.innerHTML = '<p style="padding:15px; text-align:center; color:#666;">No hay puntos de interés disponibles</p>';
+            return;
         }
-    });
 
-    // 2. Agregar item al sidebar
-    const item = document.createElement('div');
-    item.className = 'proveedor-item';
-    item.innerHTML = `
-        <h4>${p.nombre}</h4>
-        <p style="font-size:0.9rem; color:#666;">${p.descripcion}</p>
-        <button class="btn-sidebar-route">Trazar Ruta</button>
-    `;
+        // Limpiar el sidebar
+        sidebarList.innerHTML = '';
 
-    // Al hacer click en el item, centrar mapa en el marcador y abrir popup
-    item.addEventListener('click', (e) => {
-        if (e.target.tagName !== 'BUTTON') { // Si no es el boton, solo centrar
-            maps.setView([p.lat, p.lng], 15);
-            marker.openPopup();
+        // Procesar cada POI
+        for (let index = 0; index < pois.length; index++) {
+            const poi = pois[index];
+
+            // Obtener coordenadas desde la dirección
+            let lat, lng;
+
+            if (poi.direccionCompleta) {
+                try {
+                    // Intentar geocodificar la dirección
+                    const geocodeResult = await mapService.geocodeAddress(poi.direccionCompleta);
+
+                    if (geocodeResult && geocodeResult.lat && geocodeResult.lng) {
+                        lat = geocodeResult.lat;
+                        lng = geocodeResult.lng;
+                    } else {
+                        console.warn(`No se pudo geocodificar: ${poi.direccionCompleta}`);
+                        continue; // Saltar este POI si no se puede geocodificar
+                    }
+                } catch (error) {
+                    console.error(`Error geocodificando ${poi.direccionCompleta}:`, error);
+                    continue; // Saltar este POI en caso de error
+                }
+            } else {
+                console.warn(`POI sin dirección: ${poi.nombre}`);
+                continue; // Saltar POIs sin dirección
+            }
+
+            // 1. Agregar marcador al mapa
+            const marker = L.marker([lat, lng], { icon: poiIcon })
+                .addTo(maps)
+                .bindPopup(`
+                    <div style="min-width:200px;">
+                        <b style="font-size:1.1rem;">${poi.nombre}</b><br>
+                        <p style="margin:8px 0; font-size:0.9rem;">${poi.descripcion || 'Sin descripción'}</p>
+                        <p style="margin:5px 0; font-size:0.85rem; color:#666;">
+                            <i class="fa-solid fa-location-dot"></i> ${poi.direccionCompleta}
+                        </p>
+                        ${poi.imgPun ? `<img src="${poi.imgPun}" alt="${poi.nombre}" style="width:100%; max-height:150px; object-fit:cover; margin:8px 0; border-radius:4px;">` : ''}
+                        <button id="btn-route-popup-${index}" class="btn-route" style="margin-top:8px; padding:6px 12px; background:#2094f3; color:white; border:none; border-radius:4px; cursor:pointer; width:100%;">
+                            <i class="fa-solid fa-route"></i> Ir aquí
+                        </button>
+                    </div>
+                `);
+
+            marker.on('popupopen', () => {
+                const btn = document.getElementById(`btn-route-popup-${index}`);
+                if (btn) {
+                    btn.onclick = () => drawRouteTo(lat, lng);
+                }
+            });
+
+            // 2. Agregar item al sidebar
+            const item = document.createElement('div');
+            item.className = 'proveedor-item';
+            item.innerHTML = `
+                <div style="display:flex; align-items:start; gap:12px;">
+                    ${poi.imgPun ? `
+                        <img src="${poi.imgPun}" alt="${poi.nombre}" 
+                             style="width:60px; height:60px; object-fit:cover; border-radius:8px; flex-shrink:0;">
+                    ` : `
+                        <div style="width:60px; height:60px; background:#e0e0e0; border-radius:8px; display:flex; align-items:center; justify-content:center; flex-shrink:0;">
+                            <i class="fa-solid fa-map-pin" style="color:#999; font-size:24px;"></i>
+                        </div>
+                    `}
+                    <div style="flex:1;">
+                        <h4 style="margin:0 0 5px 0; font-size:1rem;">${poi.nombre}</h4>
+                        <p style="font-size:0.85rem; color:#666; margin:0 0 5px 0;">${poi.descripcion || 'Sin descripción'}</p>
+                        <p style="font-size:0.8rem; color:#999; margin:0;">
+                            <i class="fa-solid fa-location-dot"></i> ${poi.direccionCompleta}
+                        </p>
+                    </div>
+                </div>
+                <button class="btn-sidebar-route" style="margin-top:10px; width:100%;">
+                    <i class="fa-solid fa-route"></i> Trazar Ruta
+                </button>
+            `;
+
+            // Al hacer click en el item, centrar mapa en el marcador y abrir popup
+            item.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'BUTTON' && !e.target.closest('button')) {
+                    maps.setView([lat, lng], 15);
+                    marker.openPopup();
+                }
+            });
+
+            // Botón de ruta en el sidebar
+            const btnRoute = item.querySelector('.btn-sidebar-route');
+            btnRoute.addEventListener('click', () => {
+                drawRouteTo(lat, lng);
+            });
+
+            sidebarList.appendChild(item);
         }
-    });
 
-    // Boton de ruta en el sidebar
-    const btnRoute = item.querySelector('.btn-sidebar-route');
-    btnRoute.addEventListener('click', () => {
-        drawRouteTo(p.lat, p.lng);
-    });
+        console.log(`Se cargaron ${pois.length} POIs en el mapa`);
 
-    sidebarList.appendChild(item);
-});
+    } catch (error) {
+        console.error("Error al cargar POIs:", error);
+        sidebarList.innerHTML = '<p style="padding:15px; text-align:center; color:#d9534f;">Error al cargar los puntos de interés</p>';
+    }
+}
+
+// Cargar los POIs cuando se cargue la página
+loadPOIs();

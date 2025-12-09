@@ -13,7 +13,7 @@ class POIService {
      */
     async getAllPOIs() {
         try {
-            const response = await api.get(API.POI.GET_ALL);
+            const response = await api.get(API.GEO.GET_ALL_PUNTOS_INTERES);
             return response.data || [];
         } catch (error) {
             console.error('Error al obtener POIs:', error);
@@ -29,7 +29,7 @@ class POIService {
      */
     async getPOIById(id) {
         try {
-            const response = await api.get(API.POI.GET_BY_ID(id));
+            const response = await api.get(API.GEO.GET_PUNTO_INTERES_BY_ID(id));
             return response.data;
         } catch (error) {
             return null;
@@ -43,7 +43,7 @@ class POIService {
      */
     async createPOI(data) {
         try {
-            const response = await api.post(API.POI.CREATE, data);
+            const response = await api.post(API.GEO.CREATE_PUNTO_INTERES, data);
             return response.data;
         } catch (error) {
             console.error('Error al crear POI:', error);
@@ -59,7 +59,7 @@ class POIService {
      */
     async updatePOI(id, data) {
         try {
-            const response = await api.put(API.POI.UPDATE(id), data);
+            const response = await api.put(API.GEO.UPDATE_PUNTO_INTERES(id), data);
             return response.data;
         } catch (error) {
             throw error;
@@ -73,7 +73,7 @@ class POIService {
      */
     async deletePOI(id) {
         try {
-            await api.delete(API.POI.DELETE(id));
+            await api.delete(API.GEO.DELETE_PUNTO_INTERES(id));
             return true;
         } catch (error) {
             return false;
@@ -111,24 +111,27 @@ class POIService {
         return [
             {
                 id: 1,
-                nombre: 'Museo de Arte Moderno',
-                descripcion: 'Museo con exposiciones de arte contemporáneo',
-                categoria: 'Museo',
-                estado: 'Activo',
-                direccion: 'Calle 24 #6-00, Bogotá',
-                lat: 4.64,
-                lng: -74.12,
-            },
-            {
-                id: 2,
-                nombre: 'Parque Simón Bolívar',
-                descripcion: 'Parque urbano más grande de Bogotá',
-                categoria: 'Parque',
-                estado: 'Activo',
-                direccion: 'Calle 63 #48-00, Bogotá',
-                lat: 4.6575,
-                lng: -74.0925,
-            },
+                nombre: "Parque Central",
+                descripcion: "Parque central de la ciudad",
+                imgPun: "https://ejemplo.com/parque.jpg",
+                idDireccion: 1,
+                direccion: {
+                    id: 1,
+                    viaPrincipal: "Carrera 10",
+                    numeroVia: "45",
+                    letraUno: "A",
+                    bi: false,
+                    cardinalidadUno: "Sur",
+                    numeroUno: "12",
+                    letraDos: null,
+                    cardinalidadDos: null,
+                    numeroDos: null,
+                    complemento: null,
+                    direccionCompleta: "Carrera 10 45A Sur # 12"
+                },
+                direccionCompleta: "Carrera 10 45A Sur # 12"
+
+            }
         ];
     }
 }

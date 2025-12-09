@@ -1,4 +1,4 @@
-const URL_BASE = "http://localhost:8888";
+const URL_BASE = "http://143.198.158.16";
 
 
 const API = {
@@ -30,13 +30,13 @@ const API = {
         GET_PUBLICACIONES_BY_FORO_ID: `${URL_BASE}/foro/api/foros/`, // listo el foro por id
     },
     // SIMULATED - Reemplazar cuando el backend esté listo
-    POI: {
-        GET_ALL: `${URL_BASE}/poi/api/v1/points`,
-        GET_BY_ID: (id) => `${URL_BASE}/poi/api/v1/points/${id}`,
-        CREATE: `${URL_BASE}/poi/api/v1/points`,
-        UPDATE: (id) => `${URL_BASE}/poi/api/v1/points/${id}`,
-        DELETE: (id) => `${URL_BASE}/poi/api/v1/points/${id}`,
-        UPLOAD_IMAGES: (id) => `${URL_BASE}/poi/api/v1/points/${id}/images`,
+    GEO: {
+        GET_ALL_PUNTOS_INTERES: `${URL_BASE}/geo/api/geolocalizacion/puntos-interes`,
+        GET_PUNTO_INTERES_BY_ID: (id) => `${URL_BASE}/geo/api/geolocalizacion/puntos-interes/${id}`,
+        CREATE_PUNTO_INTERES: `${URL_BASE}/geo/api/geolocalizacion/puntos-interes`,
+        UPDATE_PUNTO_INTERES: (id) => `${URL_BASE}/gseo/api/geolocalizacion/puntos-interes${id}`,
+        DELETE_PUNTO_INTERES: (id) => `${URL_BASE}//geo/api/geolocalizacion/puntos-interes${id}`,
+        SEARCH_PUNTOS_INTERES_BY_NAME: (name) => `${URL_BASE}/geo/api/geolocalizacion/puntos-interes/buscar/${name}`,
     },
     VEHICULO: {
         GET_VEHICULOS_BY_USUARIO_ID: (id) => `${URL_BASE}/vehiculo/api/v1/vehiculos/${id}`,
@@ -44,6 +44,10 @@ const API = {
         PUT_ACTUALIZAR_VEHICULO: `${URL_BASE}/vehiculo/api/v1/vehiculos/`, // ESTA NO SIRVE
         DELETE_ELIMINAR_VEHICULO: `${URL_BASE}/vehiculo/api/v1/vehiculos/`,//ESTA NO SIRVE
     },
+    // catalogo
+    CATALOGO: {
+        GET
+    }
 };
 
 export default API;
