@@ -21,6 +21,7 @@ export default defineConfig({
     },
     server: {
         open: true, // Auto-open browser on start
-        port: 3000
-    }
+        port: 3000,
+        allowedHosts: ['pagina-rolapet.onrender.com'],
+    },
 });
