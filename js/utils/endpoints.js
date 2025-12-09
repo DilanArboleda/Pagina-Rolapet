@@ -45,9 +45,9 @@ const API = {
         DELETE_ELIMINAR_VEHICULO: `${URL_BASE}/vehiculo/api/v1/vehiculos/`,//ESTA NO SIRVE
     },
     // catalogo
-    CATALOGO: {
-        GET
-    }
+    // CATALOGO: {
+    //     GET
+    // }
 };
 
 export default API;
