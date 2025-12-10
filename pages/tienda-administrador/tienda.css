@@ -124,3 +124,46 @@
         margin-bottom: 15px;
     }
 }
+
+
+/* Estilos adicionales SOLO para las tarjetas de servicio nuevas */
+
+.service_card_custom .full {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 25px;
+    width: 100%;
+    border: 1px solid #868686;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.10);
+    transition: all 0.25s ease;
+}
+
+.service_card_custom .full:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+}
+
+.service_card_custom .service_cont {
+    text-align: center;
+}
+
+.service_card_custom .service_head {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.service_card_custom .service_cont p {
+    font-size: 1rem;
+    color: #555;
+    margin: 5px 0;
+}
+
+.service_card_custom .bt_cont .btn {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 10px 20px;
+    font-weight: bold;
+    border-radius: 10px;
+}

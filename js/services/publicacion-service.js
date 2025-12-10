@@ -48,14 +48,14 @@ class PublicacionService {
     async getPublicacionesByForo(foroNombre) {
         try {
             const foroId = this.foroIdMap[foroNombre];
-
+            console.log("foroid",foroId)
             if (!foroId) {
                 throw new Error(`Foro inválido: ${foroNombre}`);
             }
 
-            const response = await api.get(
-                `${API.CONTENIDO.GET_PUBLICACIONES_BY_FORO}${foroId}`
-            );
+            const response = await api.get(API.CONTENIDO.GET_PUBLICACIONES_BY_FORO(foroId));
+            console.log("Publicaciones por foro: ",response);
+
 
             if (response.status === 'success' && response.data) {
                 return this.mapPublicaciones(response.data);

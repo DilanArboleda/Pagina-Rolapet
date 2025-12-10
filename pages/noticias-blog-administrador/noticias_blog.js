@@ -1,8 +1,6 @@
 import { publicacionService } from '../../js/services/publicacion-service.js';
 import { comentarioService } from '../../js/services/comentario-service.js';
 import { foroService } from '../../js/services/foro-service.js';
-import { api } from '../../js/utils/api-client.js';
-import API from '../../js/utils/endpoints.js';
 
 const state = {
     publicaciones: [],
@@ -58,9 +56,10 @@ async function fetchPublicaciones() {
         let publicaciones;
 
         if (state.currentForoId) {
-            const response = await api.get(`${API.CONTENIDO.GET_PUBLICACIONES_BY_FORO}${state.currentForoId}`);
-            if (response.status === 'success' && response.data) {
-                publicaciones = publicacionService.mapPublicaciones(response.data);
+            const response = await foroService.getForoById(state.currentForoId); // esto ya es el data
+            console.log("FORO", response);
+            if (response) {
+                publicaciones = publicacionService.mapPublicaciones(response);
             } else {
                 publicaciones = [];
             }

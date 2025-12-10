@@ -177,7 +177,7 @@ h4 a,
 h5 a,
 h6 a {
 	color: #212121;
-	text-decoration: none!important;
+	text-decoration: none !important;
 	opacity: 1
 }
 
@@ -595,6 +595,7 @@ a:focus {
 		-o-transform: rotate(0deg);
 		transform: rotate(0deg);
 	}
+
 	to {
 		-webkit-transform: rotate(360deg);
 		-moz-transform: rotate(360deg);
@@ -608,6 +609,7 @@ a:focus {
 	from {
 		-moz-transform: rotate(0deg);
 	}
+
 	to {
 		-moz-transform: rotate(360deg);
 	}
@@ -839,6 +841,7 @@ hr.dottad_border {
 		-o-transform: rotatey(0deg);
 		transform: rotatey(0deg);
 	}
+
 	to {
 		-webkit-transform: rotatey(360deg);
 		-moz-transform: rotatey(360deg);
@@ -852,6 +855,7 @@ hr.dottad_border {
 	from {
 		-moz-transform: rotatey(0deg);
 	}
+
 	to {
 		-moz-transform: rotatey(360deg);
 	}
@@ -3128,6 +3132,8 @@ span.skill {
 	padding: 0;
 }
 
+
+
 .product_detail_btm h4 {
 	margin: 20px 0 10px 0;
 	text-align: center;
@@ -4802,34 +4808,71 @@ footer ul.social_icons {
 
 
 .gallery img {
-  transition: transform .3s ease, box-shadow .3s ease;
+	transition: transform .3s ease, box-shadow .3s ease;
 }
 
 .gallery img:hover {
-  transform: scale(1.05);
-  box-shadow: 0px 10px 20px rgba(0,0,0,.25);
+	transform: scale(1.05);
+	box-shadow: 0px 10px 20px rgba(0, 0, 0, .25);
 }
 
 
 .titulo-catalogo {
-  text-align: center;
-  font-size: 48px;
-  font-weight: 700;
-  color: #333;
-  letter-spacing: 3px;
-  margin-top: 50px;
-  margin-bottom: 30px;
-  text-transform: uppercase;
-  position: relative;
+	text-align: center;
+	font-size: 48px;
+	font-weight: 700;
+	color: #333;
+	letter-spacing: 3px;
+	margin-top: 50px;
+	margin-bottom: 30px;
+	text-transform: uppercase;
+	position: relative;
 }
 
 .titulo-catalogo::after {
-  content: "";
-  width: 120px;
-  height: 4px;
-  background: #019EE3;
-  display: block;
-  margin: 10px auto 0;
-  border-radius: 2px;
+	content: "";
+	width: 120px;
+	height: 4px;
+	background: #019EE3;
+	display: block;
+	margin: 10px auto 0;
+	border-radius: 2px;
 }
 
+/* Contenedor de cada producto */
+.product_list {
+	background: #ffffff;
+	border: 1px solid #e5e5e5;
+	border-radius: 12px;
+	padding: 20px;
+	text-align: center;
+	transition: all 0.3s ease;
+	height: 100%;
+	box-shadow: 0 3px 12px rgba(0, 0, 0, 0.07);
+}
+
+.product_list:hover {
+	transform: translateY(-4px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+}
+
+/* Título */
+.product_list h4 {
+	font-size: 1.3rem;
+	font-weight: 700;
+	color: #2c3e50;
+	margin-bottom: 10px;
+}
+
+/* Descripción */
+.product_list p {
+	font-size: 0.95rem;
+	color: #555;
+	margin: 0;
+	line-height: 1.4;
+}
+
+/* Espaciado entre productos */
+.margin_bottom_30_all {
+	margin-bottom: 30px;
+}

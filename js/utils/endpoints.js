@@ -1,7 +1,8 @@
-const URL_BASE = "http://143.198.158.16";
+export const URL_BASE = "http://localhost";
 
 
-const API = {
+
+export const API = {
     AUTH: {
         LOGIN: `${URL_BASE}/auth/api/v1/auth/login`,
         REFRESH: `${URL_BASE}/auth/api/v1/auth/refresh`,
@@ -11,6 +12,7 @@ const API = {
         ME: `${URL_BASE}/usuario/api/v1/jwt/users/me`,
         FIND_BY_ID: `${URL_BASE}/usuario/api/v1/jwt/users/findById`,
         FIND_ALL: `${URL_BASE}/usuario/api/v1/jwt/users`,
+        FIND_ALL_MODERACION : `${URL_BASE}/usuario/api/v1/jwt/users/mod`
     },
     CONTENIDO: {
         GET_PUBLICACIONES: `${URL_BASE}/contenido/api/v1/publicaciones`, // obtengo todas las publicaciones
@@ -45,9 +47,11 @@ const API = {
         DELETE_ELIMINAR_VEHICULO: `${URL_BASE}/vehiculo/api/v1/vehiculos/`,//ESTA NO SIRVE
     },
     // catalogo
-    // CATALOGO: {
-    //     GET
-    // }
+    CATALOGO: {
+        GET_ALL_CATALOGO: `${URL_BASE}/catalogo/api/catalogo/catalogos`,
+        GET_ALL_SERVICIOS: `${URL_BASE}/catalogo/api/catalogo/servicios`,
+        GET_ALL_PRODUCTOS: `${URL_BASE}/catalogo/api/catalogo/productos`,
+    }
 };
 
 export default API;
