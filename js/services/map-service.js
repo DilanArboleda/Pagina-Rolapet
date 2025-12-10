@@ -30,7 +30,6 @@ export class MapService {
         });
     }
 
-    // Simulacion de geocoding
     async geocodeAddress(address) {
         try {
             const encodedAddress = encodeURIComponent(address);

@@ -10,7 +10,7 @@ export const API = {
     },
     USER: {
         ME: `${URL_BASE}/usuario/api/v1/jwt/users/me`,
-        FIND_BY_ID: `${URL_BASE}/usuario/api/v1/jwt/users/findById`,
+        FIND_BY_ID: (id) => `${URL_BASE}/usuario/api/v1/jwt/users/${id}`,
         FIND_ALL: `${URL_BASE}/usuario/api/v1/jwt/users`,
         FIND_ALL_MODERACION : `${URL_BASE}/usuario/api/v1/jwt/users/mod`
     },
@@ -35,7 +35,7 @@ export const API = {
     GEO: {
         GET_ALL_PUNTOS_INTERES: `${URL_BASE}/geo/api/geolocalizacion/puntos-interes`,
         GET_PUNTO_INTERES_BY_ID: (id) => `${URL_BASE}/geo/api/geolocalizacion/puntos-interes/${id}`,
-        CREATE_PUNTO_INTERES: `${URL_BASE}/geo/api/geolocalizacion/puntos-interes`,
+        CREATE_PUNTO_INTERES: `${URL_BASE}/geo/api/geolocalizacion/punto-interes`,
         UPDATE_PUNTO_INTERES: (id) => `${URL_BASE}/gseo/api/geolocalizacion/puntos-interes${id}`,
         DELETE_PUNTO_INTERES: (id) => `${URL_BASE}//geo/api/geolocalizacion/puntos-interes${id}`,
         SEARCH_PUNTOS_INTERES_BY_NAME: (name) => `${URL_BASE}/geo/api/geolocalizacion/puntos-interes/buscar/${name}`,

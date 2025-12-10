@@ -1,3 +1,7 @@
+import { api } from "../../../../js/utils/api-client.js";
+import API from "../../../../js/utils/endpoints.js";
+import { userService } from "../../../../js/services/user-service.js";
+
 class MiPerfilComponent extends HTMLElement {
     constructor() {
         super();
@@ -54,17 +58,45 @@ class MiPerfilComponent extends HTMLElement {
         });
     }
 
-    loadUserInfo() {
-        const nombre = localStorage.getItem('userName') || 'Usuario de Prueba';
-        const correo = localStorage.getItem('userEmail') || 'usuario@rolapet.com';
-        const telefono = localStorage.getItem('userPhone') || '+57 300 000 0000';
+    async loadUserInfo() {
+        try {
+            // 1. Obtener usuario actual del cache (auth)
+            const cachedUser = userService.getFromCache();
+            const userId = cachedUser?.user_id;
 
-        this.querySelector('#heroName').textContent = nombre;
-        this.querySelector('#infoNombre').textContent = nombre;
-        this.querySelector('#infoCorreo').textContent = correo;
-        this.querySelector('#infoTelefono').textContent = telefono;
-        this.querySelector('#summaryName').textContent = nombre;
-        this.querySelector('#summaryEmail').textContent = correo;
+            if (!userId) {
+                throw new Error('No se encontró el ID de usuario en cache');
+            }
+
+            // 2. Llamar al backend para obtener el perfil completo
+            const response = await api.get(API.USER.FIND_BY_ID(userId));
+            const user = response?.data || {};
+
+            const nombre = `${user.nombre || ''} ${user.apellido_1 || ''} ${user.apellido_2 || ''}`.trim() || 'Usuario';
+            const correo = user.email || cachedUser.email || 'Sin correo';
+            const telefono = user.telefono || '+57 300 000 0000';
+
+            this.querySelector('#heroName').textContent = nombre;
+            this.querySelector('#infoNombre').textContent = nombre;
+            this.querySelector('#infoCorreo').textContent = correo;
+            this.querySelector('#infoTelefono').textContent = telefono;
+            this.querySelector('#summaryName').textContent = nombre;
+            this.querySelector('#summaryEmail').textContent = correo;
+        } catch (error) {
+            console.error('Error cargando información de perfil:', error);
+
+            // Fallback simple si algo falla
+            const nombre = 'Usuario';
+            const correo = 'usuario@rolapet.com';
+            const telefono = '+57 300 000 0000';
+
+            this.querySelector('#heroName').textContent = nombre;
+            this.querySelector('#infoNombre').textContent = nombre;
+            this.querySelector('#infoCorreo').textContent = correo;
+            this.querySelector('#infoTelefono').textContent = telefono;
+            this.querySelector('#summaryName').textContent = nombre;
+            this.querySelector('#summaryEmail').textContent = correo;
+        }
     }
 }
 
