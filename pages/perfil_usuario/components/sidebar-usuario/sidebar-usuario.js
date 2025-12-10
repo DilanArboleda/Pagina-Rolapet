@@ -1,3 +1,5 @@
+import { userService } from "../../../../js/services/user-service.js";
+
 class SidebarUsuarioComponent extends HTMLElement {
     constructor() {
         super();
@@ -54,13 +56,25 @@ class SidebarUsuarioComponent extends HTMLElement {
     }
 
     loadUserInfo() {
-        // Mock data loading
-        const nombre = localStorage.getItem('userName') || 'Usuario de Prueba';
-        const correo = localStorage.getItem('userEmail') || 'usuario@rolapet.com';
+        try {
+            const cachedUser = userService.getFromCache();
 
-        this.querySelector('#userName').textContent = nombre;
-        this.querySelector('#userEmail').textContent = correo;
-        this.querySelector('#avatarLetter').textContent = nombre.charAt(0).toUpperCase();
+            const nombreCompleto = `${cachedUser?.nombre || ''} ${cachedUser?.apellido1 || ''}`.trim();
+            const correo = cachedUser?.email || 'usuario@rolapet.com';
+
+            const nombreParaMostrar = nombreCompleto || correo.split('@')[0] || 'Usuario';
+
+            this.querySelector('#userName').textContent = nombreParaMostrar;
+            this.querySelector('#userEmail').textContent = correo;
+            this.querySelector('#avatarLetter').textContent = nombreParaMostrar.charAt(0).toUpperCase();
+        } catch (error) {
+            const nombre = 'Usuario';
+            const correo = 'usuario@rolapet.com';
+
+            this.querySelector('#userName').textContent = nombre;
+            this.querySelector('#userEmail').textContent = correo;
+            this.querySelector('#avatarLetter').textContent = nombre.charAt(0).toUpperCase();
+        }
     }
 
     toggleSidebar() {
