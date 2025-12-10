@@ -36,8 +36,8 @@
 
 </head>
 
-<header-usuario></header-usuario>
 <body id="default_theme" class="it_service">
+
   <!-- loader -->
   <div class="bg_load"> <img class="loader_animation" src="/images/loaders/scoote.png" alt="#" /> </div>
   <!-- end loader -->
@@ -47,6 +47,8 @@
 
 
     <body id="default_theme" class="it_service">
+        <header-usuario></header-usuario>
+
       <!-- loader -->
       <div class="bg_load"> <img class="loader_animation" src="/images/loaders/scoote.png" alt="#" /> </div>
       <!-- end loader -->
@@ -163,11 +165,11 @@
                       </div>
                       <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                          <label class="block font-medium text-text-title mb-2">Número de Serie o Identificación</label>
+                          <label class="block font-medium text-text-title mb-2">Matrícula del vehículo</label>
                           <div class="relative">
                             <span
                               class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-text-body">tag</span>
-                            <input type="text" name="serial_number" placeholder="Ej: SN-12345ABC"
+                            <input type="text" id="matriculaInput" name="matricula" placeholder="Ej: ABC123"
                               class="pl-12 pr-4 py-3 w-full rounded-lg border border-border-color bg-background-light text-text-title placeholder-text-body focus:outline-none focus:ring-2 focus:ring-primary focus:border-primary"
                               required />
                           </div>
@@ -211,7 +213,7 @@
                       </div>
                     </div>
                     <div class="pt-8">
-                      <button
+                      <button id="btnRegistrarVehiculo"
                         class="flex h-14 w-full items-center justify-center gap-3 rounded-lg bg-[#2196F3] px-6 text-base font-bold text-white shadow-sm transition-all hover:bg-[#6BBEF9] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#2196F3]">
                         <span class="material-symbols-outlined">app_registration</span>
                         <span>Registrar Vehículo</span>
@@ -243,7 +245,7 @@
           <script src="/revolution/js/extensions/revolution.extension.parallax.min.js"></script>
           <script src="/revolution/js/extensions/revolution.extension.slideanims.min.js"></script>
           <script src="/revolution/js/extensions/revolution.extension.video.min.js"></script>
-          <script src="./registro_vehiculos.js"></script>
+          <script type="module" src="./registro_vehiculos.js"></script>
 
         </body>
 
