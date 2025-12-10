@@ -1,4 +1,4 @@
-export const URL_BASE = "http://143.110.147.95";
+export const URL_BASE = "https://rolapetapp.glud.org";
 
 //export const URL_BASE = "http://localhost";
 
